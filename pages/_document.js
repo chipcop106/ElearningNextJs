@@ -5,17 +5,10 @@ import { ServerStyleSheets } from '@material-ui/styles'
 class MyDocument extends Document {
 	render() {
 		return (
-			<html lang="en-GB">
+			<html lang="en">
 				<Head>
-					<meta
-						name="viewport"
-						content="width=device-width, initial-scale=1.0"
-					/>
-					<meta name="theme-color" content="#673ab7" />
-					<meta
-						name="Description"
-						content="an example of NextJS app with 100% accessible lighthouse score"
-					/>
+					<meta name="viewport" content="width=device-width, initial-scale=1" />
+					<meta name="theme-color" content="#1F4069" />
 					<link rel="manifest" href="static/manifest.json" />
 					<link rel="icon" href="static/img/favicon.ico" />
 					<link
@@ -32,7 +25,7 @@ class MyDocument extends Document {
 	}
 }
 
-MyDocument.getInitialProps = async ctx => {
+MyDocument.getInitialProps = async (ctx) => {
 	// Resolution order
 	//
 	// On the server:
@@ -61,7 +54,7 @@ MyDocument.getInitialProps = async ctx => {
 
 	ctx.renderPage = () =>
 		originalRenderPage({
-			enhanceApp: App => props => sheets.collect(<App {...props} />)
+			enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
 		})
 
 	const initialProps = await Document.getInitialProps(ctx)
@@ -73,8 +66,8 @@ MyDocument.getInitialProps = async ctx => {
 			<React.Fragment key="styles">
 				{initialProps.styles}
 				{sheets.getStyleElement()}
-			</React.Fragment>
-		]
+			</React.Fragment>,
+		],
 	}
 }
 

@@ -5,7 +5,7 @@ import App from 'next/app'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-
+import '~/styles/styles.scss'
 export default class MyApp extends App {
 	static async getInitialProps({ Component, ctx }) {
 		return {
@@ -31,10 +31,19 @@ export default class MyApp extends App {
 		const theme = createMuiTheme({
 			palette: {
 				background: {
-					default: '#EEE',
+					default: '#eeeeee',
 				},
 				primary: {
-					main: '#673ab7',
+					light: '#4b6687',
+					main: '#1F4069',
+					dark: '#152c49',
+					contrastText: '#fff',
+				},
+				secondary: {
+					light: '#ffe67d',
+					main: '#FFE05D',
+					dark: '#b29c41',
+					contrastText: '#000',
 				},
 			},
 		})
@@ -42,11 +51,11 @@ export default class MyApp extends App {
 		return (
 			<>
 				<Head>
-					<title>Todo App</title>
+					<title>Mona Elearning</title>
 				</Head>
 				<ThemeProvider theme={theme}>
 					<CssBaseline>
-							<Component {...pageProps} />
+						<Component {...pageProps} />
 					</CssBaseline>
 				</ThemeProvider>
 			</>

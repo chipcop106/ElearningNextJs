@@ -1,20 +1,9 @@
 import React from 'react'
-import Fork from '../components/Fork'
-import Todo from '../components/Todo'
-
-const Index = ({ stars }) => (
+import Authentication from './auth'
+const Index = () => (
 	<React.Fragment>
-		<Fork stars={stars} />
-		<Todo />
+		<Authentication />
 	</React.Fragment>
 )
-
-Index.getInitialProps = async () => {
-	const res = await fetch(
-		'https://api.github.com/repos/ooade/NextSimpleStarter'
-	)
-	const json = await res.json()
-	return { stars: json.stargazers_count }
-}
 
 export default Index
