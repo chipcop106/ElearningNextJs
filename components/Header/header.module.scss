@@ -1,3 +1,4 @@
+@import '../../styles/variables';
 .logo{
 	max-width:120px;
 }
@@ -6,5 +7,25 @@
 }
 .linkMenu{
 	padding:1rem;
+	color:#fff;
+	font-weight: 400;
+	font-size: 1rem;
+}
+
+.active{
+	font-weight: bold;
+	color:$secondary-color;
+}
+
+.divider{
+	background-color: $primary-lighten !important;
+	margin: 0 2rem !important;
+}
+
+.link{
+	cursor: pointer;
+}
+
+.iconColor{
 	color:#fff;
 }
