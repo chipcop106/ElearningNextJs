@@ -13,9 +13,11 @@
 	"dependencies": {
 		"@material-ui/core": "^4.6.1",
 		"@material-ui/icons": "^4.9.1",
+		"@material-ui/lab": "^4.0.0-alpha.56",
 		"bootstrap": "^5.0.0-alpha1",
 		"next": "^9.4.2",
 		"next-offline": "^5.0.2",
+		"nprogress": "^0.2.0",
 		"react": "^16.13.1",
 		"react-axe": "^3.4.1",
 		"react-dom": "^16.13.1"
