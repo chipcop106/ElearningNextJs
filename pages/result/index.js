@@ -1,12 +1,13 @@
 import React from 'react'
-import Layout from '~/components/Layout'
+import { getLayout } from '~/components/Layout'
 import Link from 'next/link'
+import { Container } from '@material-ui/core'
 const Result = () => {
 	return (
-		<Layout>
+		<Container maxWidth={`lg`}>
 			<h1 className="text-primary text-center">Đây là trang result</h1>
-		</Layout>
+		</Container>
 	)
 }
-
+Result.getLayout = getLayout
 export default Result
