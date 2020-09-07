@@ -29,3 +29,9 @@
 .iconColor{
 	color:#fff;
 }
+
+@include max-media($tb-w){
+	.divider{
+		margin: 0 1rem !important;
+	}
+}

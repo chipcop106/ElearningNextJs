@@ -2,12 +2,12 @@
 //
 //VARIABLE :: BEGIN
 //
-$large-w: 1280;
-$main-w: 1170;
-$tb-w: 992;
-$mb-w: 600;
+$large-w: 1920px;
+$main-w: 1280px;
+$tb-w: 960px;
+$mb-w: 600px;
 
-$primary-color:#1F4069;
+$primary-color: #0c1a2b;
 $primary-darken:#152c49;
 $primary-lighten:#4b6687;
 $secondary-color:#FFE05D;
@@ -37,8 +37,14 @@ $secondary-lighten:#ffe67d;
 	transition: all $s ease-in-out;
 }
 
-@mixin media($point) {
+@mixin max-media($point) {
 	@media screen and (max-width: $point) {
+		@content;
+	}
+}
+
+@mixin min-media($point) {
+	@media screen and (min-width: $point) {
 		@content;
 	}
 }

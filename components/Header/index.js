@@ -10,9 +10,25 @@ import {
 	Fade,
 } from '@material-ui/core'
 import styles from './header.module.scss'
-import { Notifications, ArrowDropDown } from '@material-ui/icons'
+import {
+	Notifications,
+	ArrowDropDown,
+	Menu as MenuIcon,
+} from '@material-ui/icons'
 //import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import Divider from '@material-ui/core/Divider'
+import IconButton from '@material-ui/core/IconButton'
+import { makeStyles } from '@material-ui/styles'
+import Hidden from '@material-ui/core/Hidden'
+import { colors } from '~/config'
+import CloseIcon from '@material-ui/icons/Close'
+
+const useStyles = makeStyles((theme) => ({
+	menuButton: {
+		marginRight: theme.spacing(2),
+		color: '#fff',
+	},
+}))
 
 const DropDownMenu = (props) => {
 	return (
@@ -35,6 +51,7 @@ const DropDownMenu = (props) => {
 const Header = () => {
 	const [notiEl, setNotiEl] = useState(null)
 	const [userMenuEl, setUserMenuEl] = useState(null)
+	const [menuMobileShow, setMenuMobileShow] = useState(false)
 	const showNotification = (event) => {
 		setNotiEl(event.currentTarget)
 	}
@@ -47,11 +64,28 @@ const Header = () => {
 	const closeUserMenu = (event) => {
 		setUserMenuEl(null)
 	}
+	const toggleMenuMobile = () => {
+		setMenuMobileShow(!menuMobileShow)
+	}
+
+	const classes = useStyles()
 	return (
-		<Box bgcolor="primary.main" px={2} py={1}>
+		<Box bgcolor="primary.main" py={1}>
 			<Container maxWidth="lg">
 				<Box display="flex" justifyContent="space-between" alignItems="center">
 					<Box display="flex">
+						<Hidden mdUp>
+							<IconButton
+								edge="start"
+								className={classes.menuButton}
+								color="inherit"
+								aria-label="menu"
+								onClick={toggleMenuMobile}
+							>
+								<MenuIcon />
+							</IconButton>
+						</Hidden>
+
 						<Link href="/">
 							<Box
 								component="a"
@@ -66,13 +100,55 @@ const Header = () => {
 								/>
 							</Box>
 						</Link>
-						<Divider
-							orientation="vertical"
-							flexItem
-							className={styles.divider}
-							style={{ marginRight: '1rem !important' }}
-						/>
-						<Box display="flex" alignItems="center">
+						<Hidden mdDown>
+							<Divider
+								orientation="vertical"
+								flexItem
+								className={styles.divider}
+								style={{ marginRight: '1rem !important' }}
+							/>
+						</Hidden>
+						<Box
+							display="flex"
+							alignItems="center"
+							id={`main-menu`}
+							className={`${menuMobileShow ? 'mobile-open' : ''}`}
+						>
+							<Hidden mdUp>
+								<Box
+									display={`flex`}
+									justifyContent={`space-between`}
+									alignItems={`center`}
+									style={{
+										padding: '0.75rem',
+										borderBottom: '1px solid ' + colors.primaryLighten,
+									}}
+								>
+									<Link href="/">
+										<Box
+											component="a"
+											display="inline-flex"
+											alignItems="center"
+											className={styles.logoWrap}
+										>
+											<img
+												src="/static/img/mona-logo.png"
+												className={`logo ${styles.logo}`}
+												alt="logo"
+											/>
+										</Box>
+									</Link>
+									<IconButton
+										edge="end"
+										style={{ color: '#fff' }}
+										color="inherit"
+										aria-label="menu"
+										onClick={toggleMenuMobile}
+									>
+										<CloseIcon />
+									</IconButton>
+								</Box>
+							</Hidden>
 							<Link href="/home">
 								<Box
 									component="span"
@@ -101,6 +177,10 @@ const Header = () => {
 								</Box>
 							</Link>
 						</Box>
+						<div
+							className={`overlay-menu`}
+							onClick={() => setMenuMobileShow(false)}
+						></div>
 					</Box>
 					<Box className="header-right" display="flex" alignItems="center">
 						<Box>
@@ -117,6 +197,7 @@ const Header = () => {
 								keepMounted
 								open={Boolean(notiEl)}
 								onClose={closeNotification}
+								className={`dropdown-angle`}
 							>
 								<Box p={2}>Nội dung bên trong notification</Box>
 							</DropDownMenu>
@@ -130,9 +211,11 @@ const Header = () => {
 						<Box display="flex" onClick={showUserMenu} className={styles.link}>
 							<Avatar alt="Remy Sharp" src="/static/img/avatar.jpg" />
 							<Box display="flex" alignItems="center" ml={1}>
-								<Typography style={{ color: '#fff' }}>
-									Huỳnh Thị Phương Anh
-								</Typography>
+								<Hidden xsDown>
+									<Typography style={{ color: '#fff' }}>
+										Huỳnh Thị Phương Anh
+									</Typography>
+								</Hidden>
 								<ArrowDropDown style={{ color: '#fff' }} />
 							</Box>
 						</Box>
@@ -143,6 +226,7 @@ const Header = () => {
 							open={Boolean(userMenuEl)}
 							onClose={closeUserMenu}
 							TransitionComponent={Fade}
+							className={`dropdown-angle`}
 						>
 							<Box p={2}>Nội dung bên trong user profile</Box>
 						</DropDownMenu>

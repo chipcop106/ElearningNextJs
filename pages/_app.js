@@ -5,7 +5,17 @@ import App from 'next/app'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import Router from 'next/router'
 import '~/styles/styles.scss'
+import '~/styles/responsive.scss'
+import NProgress from 'nprogress' //nprogress module
+import 'nprogress/nprogress.css'
+
+//Binding events.
+Router.events.on('routeChangeStart', () => NProgress.start())
+Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeError', () => NProgress.done())
+
 export default class MyApp extends App {
 	static async getInitialProps({ Component, ctx }) {
 		return {
@@ -27,7 +37,7 @@ export default class MyApp extends App {
 
 	render() {
 		const { Component, pageProps } = this.props
-
+		const getLayout = Component.getLayout || ((page) => page)
 		const theme = createMuiTheme({
 			palette: {
 				background: {
@@ -54,9 +64,7 @@ export default class MyApp extends App {
 					<title>Mona Elearning</title>
 				</Head>
 				<ThemeProvider theme={theme}>
-					<CssBaseline>
-						<Component {...pageProps} />
-					</CssBaseline>
+					<CssBaseline>{getLayout(<Component {...pageProps} />)}</CssBaseline>
 				</ThemeProvider>
 			</>
 		)

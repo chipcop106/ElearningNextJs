@@ -15,4 +15,6 @@ const Layout = ({ children }) => {
 	)
 }
 
+export const getLayout = (page) => <Layout>{page}</Layout>
+
 export default Layout
