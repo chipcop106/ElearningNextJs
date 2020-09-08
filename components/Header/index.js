@@ -22,6 +22,7 @@ import { makeStyles } from '@material-ui/styles'
 import Hidden from '@material-ui/core/Hidden'
 import { colors } from '~/config'
 import CloseIcon from '@material-ui/icons/Close'
+import Badge from '@material-ui/core/Badge'
 
 const useStyles = makeStyles((theme) => ({
 	menuButton: {
@@ -71,7 +72,7 @@ const Header = () => {
 	const classes = useStyles()
 	return (
 		<Box bgcolor="primary.main" py={1}>
-			<Container maxWidth="lg">
+			<Container maxWidth="xl">
 				<Box display="flex" justifyContent="space-between" alignItems="center">
 					<Box display="flex">
 						<Hidden mdUp>
@@ -180,17 +181,24 @@ const Header = () => {
 						<div
 							className={`overlay-menu`}
 							onClick={() => setMenuMobileShow(false)}
-						></div>
+						/>
 					</Box>
 					<Box className="header-right" display="flex" alignItems="center">
 						<Box>
-							<Notifications
-								aria-controls="notification"
-								aria-haspopup="true"
+							<Badge
+								badgeContent={100}
+								max={99}
+								color="secondary"
 								onClick={showNotification}
-								className={styles.iconColor}
-								fontSize="large"
-							/>
+							>
+								<Notifications
+									aria-controls="notification"
+									aria-haspopup="true"
+									className={styles.iconColor}
+									fontSize="large"
+								/>
+							</Badge>
+
 							<DropDownMenu
 								id="notification"
 								anchorEl={notiEl}

@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { getLayout } from '~/components/Layout'
 import Link from 'next/link'
-import { Container, Grid, Typography } from '@material-ui/core'
+import {
+	Container,
+	Grid,
+	Link as LinkMU,
+	List,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+	Typography,
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
@@ -9,6 +18,16 @@ import AppBar from '@material-ui/core/AppBar'
 import Box from '@material-ui/core/Box'
 import HorizontalCardCourse from '~/page-components/MyCourse/HorizontalCardCourse'
 import { Skeleton, Pagination } from '@material-ui/lab'
+import Paper from '@material-ui/core/Paper'
+import { colors } from '~/config'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import {
+	Assignment,
+	AssignmentTurnedIn,
+	LibraryBooksRounded,
+	Subscriptions,
+} from '@material-ui/icons'
+
 const courseDemo = [
 	{
 		courseId: 1,
@@ -49,7 +68,131 @@ const courseDemo = [
 		totalVideo: 37,
 		finished: true,
 	},
+	{
+		courseId: 5,
+		src: null,
+		courseName: 'Inferring dimensions Finished Course',
+		time: '20/10/2020 - 25/12/2020',
+		finishedVideo: 25,
+		totalVideo: 50,
+		finished: false,
+	},
+	{
+		courseId: 6,
+		src: null,
+		courseName: 'Inferring dimensions Finished Course',
+		time: '20/10/2020 - 25/12/2020',
+		finishedVideo: 33,
+		totalVideo: 78,
+		finished: false,
+	},
 ]
+
+const RowItem = ({ item }) => {
+	const classes = makeStyles({
+		rowStyle: {
+			borderBottom: '1px solid #e1e1e1',
+		},
+		leftIcon: {
+			width: 30,
+			height: 30,
+			color: '#b4b4b4',
+		},
+		rightIcon: {
+			fontSize: 48,
+		},
+	})()
+	return (
+		<ListItem className={classes.rowStyle}>
+			<ListItemIcon>
+				<LibraryBooksRounded className={classes.leftIcon} />
+			</ListItemIcon>
+			<Box>
+				<Link href={`/my-course/[courseid]`} as={`/my-course/3`}>
+					<LinkMU>
+						<Typography variant={`subtitle2`}>{item.courseName}</Typography>
+					</LinkMU>
+				</Link>
+
+				<Box component={`div`} display={`flex`}>
+					<Typography
+						variant={`caption`}
+						component={`span`}
+						color="textSecondary"
+					>
+						Hạn nộp:
+					</Typography>
+					<Typography
+						variant={`caption`}
+						component={`span`}
+						style={{ marginLeft: '0.5rem', fontWeight: '600' }}
+					>
+						{item.deadline}
+					</Typography>
+				</Box>
+			</Box>
+			{/*<ListItemText*/}
+			{/*	primary={item.courseName}*/}
+			{/*	secondary={`Deadline: ${item.deadline}`}*/}
+			{/*/>*/}
+		</ListItem>
+	)
+}
+
+const RenderRow = ({ lists }) => {
+	return [...lists].map((item, index) => (
+		<RowItem key={`${index}`} item={item} />
+	))
+}
+
+const CircularProgressWithLabel = (props) => {
+	return (
+		<Box position="relative" display="inline-flex">
+			<Box top={0} left={0} bottom={0} right={0} position="absolute">
+				<CircularProgress
+					variant="static"
+					{...props}
+					style={{ color: 'rgba(255,255,255,.35)' }}
+					value={100}
+				/>
+			</Box>
+			<CircularProgress variant="static" {...props} />
+			<Box
+				top={0}
+				left={0}
+				bottom={0}
+				right={0}
+				position="absolute"
+				display="flex"
+				alignItems="center"
+				justifyContent="center"
+			>
+				{!!props.number && !!props.totalnumber && (
+					<Box align={`center`}>
+						<Typography
+							variant="h5"
+							component="div"
+							fontSize="large"
+							style={{ fontWeight: 'bold' }}
+						>
+							{`${Math.round(props?.number ?? 0)} / ${Math.round(
+								props?.totalnumber ?? 0
+							)}`}
+						</Typography>
+						{!!props.label && (
+							<Typography
+								variant={'subtitle1'}
+								style={{ color: '#ccc', fontWeight: 'bold' }}
+							>
+								{props.label}
+							</Typography>
+						)}
+					</Box>
+				)}
+			</Box>
+		</Box>
+	)
+}
 
 const TabPanel = (props) => {
 	const { children, value, index, ...other } = props
@@ -80,6 +223,26 @@ const useStyles = makeStyles((theme) => ({
 		'& > .MuiBox-root': {
 			padding: '1.5rem 0',
 		},
+	},
+	goalWrap: {
+		background: `linear-gradient(top left, ${colors.primaryLighten} , ${colors.primary})`,
+		color: '#fff',
+		paddingBottom: '2rem',
+		zIndex: '-1',
+		position: 'relative',
+	},
+	label: {
+		color: '#fff',
+		fontWeight: 'bold',
+	},
+	value: {
+		color: '#ccc',
+		fontWeight: 'bold',
+	},
+	iconCourse: {
+		width: 35,
+		height: 35,
+		color: colors.primaryLighten,
 	},
 }))
 
@@ -124,8 +287,8 @@ const MyCourse = () => {
 		<>
 			<Container maxWidth={`lg`}>
 				<h1 className="title-page">Khóa học của tôi</h1>
-				<Grid container>
-					<Grid item md={8}>
+				<Grid container spacing={4}>
+					<Grid item xs={12} sm={12} md={8}>
 						<AppBar
 							position="static"
 							color="default"
@@ -180,6 +343,100 @@ const MyCourse = () => {
 								</TabPanel>
 							</>
 						)}
+					</Grid>
+					<Grid item xs={12} sm={12} md={4}>
+						<Box>
+							<Paper className={classes.goalWrap}>
+								<Box p={{ md: 4, xs: 2, sm: 2 }}>
+									<Typography variant={`h6`} align={`center`}>
+										Thành tích của bạn
+									</Typography>
+									<Box align={`center`} mt={2}>
+										<CircularProgressWithLabel
+											number={15}
+											totalnumber={50}
+											value={Math.round((15 * 100) / 50)}
+											size={200}
+											color={`secondary`}
+											thickness={4}
+											label={`Bài tập hoàn thành`}
+										/>
+									</Box>
+									<Box mt={2}>
+										<Grid container spacing={4}>
+											<Grid item md={6}>
+												<Box display={`flex`} alignItems={`center`}>
+													<CircularProgressWithLabel
+														size={35}
+														value={35}
+														style={{ marginRight: '1rem', color: '#47d64d' }}
+													/>
+													<Box>
+														<Typography
+															variant={`subtitle1`}
+															className={classes.label}
+														>
+															Nộp đúng hạn
+														</Typography>
+														<Typography
+															variant={`subtitle2`}
+															className={classes.value}
+														>
+															32 bài tập
+														</Typography>
+													</Box>
+												</Box>
+											</Grid>
+											<Grid item md={6}>
+												<Box display={`flex`} alignItems={`center`}>
+													<CircularProgressWithLabel
+														size={35}
+														value={35}
+														style={{ marginRight: '1rem', color: '#ff7289' }}
+													/>
+													<Box>
+														<Typography
+															variant={`subtitle1`}
+															className={classes.label}
+														>
+															Nộp trễ hạn
+														</Typography>
+														<Typography
+															variant={`subtitle2`}
+															className={classes.value}
+														>
+															32 bài tập
+														</Typography>
+													</Box>
+												</Box>
+											</Grid>
+										</Grid>
+									</Box>
+								</Box>
+							</Paper>
+							<Paper
+								style={{
+									marginTop: '-1rem',
+									borderRadius: '16px 16px 4px 4px',
+									boxShadow: '0px -10px 16px 0px rgba(255,255,255,.25)',
+								}}
+							>
+								<Box p={{ md: 4, xs: 2, sm: 2 }}>
+									<Typography variant={`h6`}>Bài tập sắp tới hạn</Typography>
+									<Box>
+										<List>
+											<RenderRow
+												lists={[...courseDemo].map((item) => ({
+													id: item.courseId,
+													courseName: item.courseName,
+													deadline: item.time,
+												}))}
+											/>
+										</List>
+									</Box>
+								</Box>
+							</Paper>
+						</Box>
 					</Grid>
 				</Grid>
 			</Container>
