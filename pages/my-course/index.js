@@ -8,25 +8,16 @@ import {
 	List,
 	ListItem,
 	ListItemIcon,
-	ListItemText,
 	Typography,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import Tab from '@material-ui/core/Tab'
-import Tabs from '@material-ui/core/Tabs'
-import AppBar from '@material-ui/core/AppBar'
 import Box from '@material-ui/core/Box'
 import HorizontalCardCourse from '~/page-components/MyCourse/HorizontalCardCourse'
 import { Skeleton, Pagination } from '@material-ui/lab'
 import Paper from '@material-ui/core/Paper'
 import { colors } from '~/config'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import {
-	Assignment,
-	AssignmentTurnedIn,
-	LibraryBooksRounded,
-	Subscriptions,
-} from '@material-ui/icons'
+import { LibraryBooksRounded } from '@material-ui/icons'
 
 const courseDemo = [
 	{
@@ -37,6 +28,8 @@ const courseDemo = [
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 15,
 		totalVideo: 45,
+		totalExercise: 45,
+		finishedExercise: 15,
 		finished: false,
 	},
 	{
@@ -47,6 +40,8 @@ const courseDemo = [
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 35,
 		totalVideo: 38,
+		totalExercise: 45,
+		finishedExercise: 15,
 		finished: false,
 	},
 	{
@@ -57,16 +52,9 @@ const courseDemo = [
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 25,
 		totalVideo: 56,
+		totalExercise: 45,
+		finishedExercise: 15,
 		finished: false,
-	},
-	{
-		courseId: 4,
-		src: null,
-		courseName: 'Inferring dimensions Finished Course',
-		time: '20/10/2020 - 25/12/2020',
-		finishedVideo: 37,
-		totalVideo: 37,
-		finished: true,
 	},
 	{
 		courseId: 5,
@@ -75,6 +63,8 @@ const courseDemo = [
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 25,
 		totalVideo: 50,
+		totalExercise: 45,
+		finishedExercise: 15,
 		finished: false,
 	},
 	{
@@ -84,7 +74,21 @@ const courseDemo = [
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 33,
 		totalVideo: 78,
+		totalExercise: 45,
+		finishedExercise: 15,
 		finished: false,
+	},
+
+	{
+		courseId: 4,
+		src: null,
+		courseName: 'Inferring dimensions Finished Course',
+		time: '20/10/2020 - 25/12/2020',
+		finishedVideo: 37,
+		totalVideo: 37,
+		totalExercise: 45,
+		finishedExercise: 45,
+		finished: true,
 	},
 ]
 
@@ -225,7 +229,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	goalWrap: {
-		background: `linear-gradient(top left, ${colors.primaryLighten} , ${colors.primary})`,
+		background: `radial-gradient(${colors.primaryLighten}, ${colors.primary})`,
 		color: '#fff',
 		paddingBottom: '2rem',
 		zIndex: '-1',
@@ -258,6 +262,8 @@ const ListCourse = ({ data }) => {
 						totalVideo={item.totalVideo}
 						finished={item.finished}
 						courseId={item.courseId}
+						finishedExercise={item.finishedExercise}
+						totalExercise={item.totalExercise}
 						src={item.src}
 					/>
 				</Box>
@@ -285,66 +291,32 @@ const MyCourse = () => {
 
 	return (
 		<>
-			<Container maxWidth={`lg`}>
+			<Container maxWidth={`xl`}>
 				<h1 className="title-page">Khóa học của tôi</h1>
 				<Grid container spacing={4}>
-					<Grid item xs={12} sm={12} md={8}>
-						<AppBar
-							position="static"
-							color="default"
-							className={classes.tabWrap}
-						>
-							<Tabs
-								value={value}
-								onChange={handleChange}
-								variant="scrollable"
-								scrollButtons="off"
-								indicatorColor="primary"
-								textColor="primary"
-								aria-label="scrollable force tabs example"
-							>
-								<Tab label="Tất cả khóa học" {...a11yProps(0)} />
-								<Tab label="Đang học" {...a11yProps(1)} />
-								<Tab label="Sắp hết hạn" {...a11yProps(2)} />
-								<Tab label="Đã hoàn thành" {...a11yProps(3)} />
-							</Tabs>
-						</AppBar>
+					<Grid item xs={12} sm={12} md={12} lg={8}>
 						{isLoading ? (
-							<TabPanel className={classes.tabPanel}>
-								<HorizontalCardCourse loading={isLoading} />
-							</TabPanel>
+							<>
+								<Box mb={2} component={'div'}>
+									<HorizontalCardCourse loading={isLoading} />
+								</Box>
+								<Box mb={2} component={'div'}>
+									<HorizontalCardCourse loading={isLoading} />
+								</Box>
+								<Box mb={2} component={'div'}>
+									<HorizontalCardCourse loading={isLoading} />
+								</Box>
+							</>
 						) : (
 							<>
-								<TabPanel value={value} index={0} className={classes.tabPanel}>
-									<>
-										<ListCourse data={courseLists} />
-										<Box display={`flex`} justifyContent={`center`} mt={4}>
-											<Pagination count={10} color="primary" />
-										</Box>
-									</>
-								</TabPanel>
-								<TabPanel value={value} index={1} className={classes.tabPanel}>
-									<ListCourse data={courseLists} />
-									<Box display={`flex`} justifyContent={`center`} mt={4}>
-										<Pagination count={10} color="primary" />
-									</Box>
-								</TabPanel>
-								<TabPanel value={value} index={2} className={classes.tabPanel}>
-									<ListCourse data={courseLists} />
-									<Box display={`flex`} justifyContent={`center`} mt={4}>
-										<Pagination count={10} color="primary" />
-									</Box>
-								</TabPanel>
-								<TabPanel value={value} index={3} className={classes.tabPanel}>
-									<ListCourse data={courseLists} />
-									<Box display={`flex`} justifyContent={`center`} mt={4}>
-										<Pagination count={10} color="primary" />
-									</Box>
-								</TabPanel>
+								<ListCourse data={courseLists} />
+								<Box display={`flex`} justifyContent={`center`} mt={4}>
+									<Pagination count={10} color="primary" />
+								</Box>
 							</>
 						)}
 					</Grid>
-					<Grid item xs={12} sm={12} md={4}>
+					<Grid item xs={12} sm={12} md={12} lg={4}>
 						<Box>
 							<Paper className={classes.goalWrap}>
 								<Box p={{ md: 4, xs: 2, sm: 2 }}>
@@ -423,7 +395,15 @@ const MyCourse = () => {
 							>
 								<Box p={{ md: 4, xs: 2, sm: 2 }}>
 									<Typography variant={`h6`}>Bài tập sắp tới hạn</Typography>
-									<Box>
+									<Box
+										style={{
+											paddingTop: 0,
+											flexGrow: 1,
+											maxHeight: '18.5rem',
+											overflow: 'auto',
+											marginTop: '0.5rem',
+										}}
+									>
 										<List>
 											<RenderRow
 												lists={[...courseDemo].map((item) => ({

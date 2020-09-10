@@ -2,28 +2,18 @@ import React, { useReducer, useEffect, createContext } from 'react'
 import { useRouter } from 'next/router'
 import { getLayout } from '~/components/Layout'
 import { makeStyles } from '@material-ui/core/styles'
-import { IconButton, Typography, Chip, Box, AppBar } from '@material-ui/core'
-import {
-	Menu,
-	LocalLibrary,
-	OndemandVideo,
-	Assignment,
-} from '@material-ui/icons'
+import { IconButton, Typography, Chip, Box } from '@material-ui/core'
+import { Menu, LocalLibrary } from '@material-ui/icons'
 import { colors } from '~/config'
-import SectionGroup from '~/page-components/CourseDetail/SectionCourse'
+import ResultSection from '~/page-components/Result/ResultDetail/ResultSection'
 import { randomId } from '~/utils'
 import { useWindowSize } from '~/hooks/useWindowSize'
-import {
-	WhiteTab,
-	WhiteTabs,
-	a11yProps,
-	TabPanel,
-} from '~/page-components/CourseDetail/WhiteTabs'
-import CourseVideos from '~/page-components/CourseDetail/CourseVideos'
+
 import Container from '@material-ui/core/Container'
-import Choice from '~/components/common/TestQuestion/Choice'
 import Hidden from '@material-ui/core/Hidden'
-import Excercises from '~/page-components/CourseDetail/Excercises'
+import ExerciseResult from '~/page-components/Result/ResultDetail/ExerciseResult'
+import Paper from '@material-ui/core/Paper'
+
 const contentDemo = `<h2>What is a CSS Sprite</h2>
 <p>We need to know about an image sprite before we start talking about CSS sprites. An image sprite is a compilation of different image assets that we want to use on our web application.</p>
 <p>These images could fit in any of the below given cases…</p>
@@ -40,8 +30,7 @@ const contentDemo = `<h2>What is a CSS Sprite</h2>
 <p>Whenever you open a website in your web browser, all its files eg. HTML, JavaScript, images etc. start to load up.</p>
 <p>More the files, more will be the number of requests made to load the website in the browser. </p>
 <p>More the requests, more will be the load time of the website. Now, this high load time is the enemy of UX and SEO.</p>`
-
-const videoPlaylistsDemo = [
+const exerciseLists = [
 	{
 		sectionId: randomId(),
 		sectionName: 'Section 1: Install package',
@@ -50,45 +39,51 @@ const videoPlaylistsDemo = [
 				id: randomId(),
 				title:
 					'How to play e-learning web application Referring to window size in React Material-UI makeStyles',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 7.5,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 2,
+				lastUpdated: '20/07/2020',
+				score: 6,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=RYcaG64JkqM',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 2,
+				lastUpdated: '20/07/2020',
+				score: 7,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=g8NVwN0_mks',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: null,
+				finished: false,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application ',
-				videoUrl: 'https://www.youtube.com/watch?v=aG51brxM1kk',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: null,
+				finished: false,
 			},
 			{
 				id: randomId(),
 				title:
 					'How to play e-learning web application Referring to window size in React Material-UI makeStyles',
-				videoUrl: 'https://www.youtube.com/watch?v=Cp8D1bqIt3A',
-				type: 2, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: null,
+				finished: false,
 			},
 		],
 	},
@@ -99,44 +94,50 @@ const videoPlaylistsDemo = [
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 2, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 		],
 	},
@@ -147,44 +148,50 @@ const videoPlaylistsDemo = [
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: null,
+				finished: false,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: null,
+				finished: false,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 2, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 		],
 	},
@@ -195,44 +202,50 @@ const videoPlaylistsDemo = [
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 2, // 1 Video || 2 Post
-				timeLength: 30,
+				typeQuestion: 1,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
 			},
 		],
 	},
@@ -309,13 +322,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	contentWrap: {
 		flexGrow: 1,
-		display: 'flex',
-		flexDirection: 'column',
-	},
-	tabPanel: {
-		height: 'calc(100vh - 222px)',
+		height: 'calc(100vh - 174px)',
 		overflow: 'auto',
+		padding: '2rem 0',
 	},
+
 	contentEditor: {
 		'& iframe': {
 			width: '100%',
@@ -365,11 +376,13 @@ const Playlists = ({ videoPlaylists }) => {
 	return (
 		<>
 			{[...videoPlaylists].map((section) => (
-				<SectionGroup
+				<ResultSection
 					key={`${section.sectionId}`}
 					data={{
 						groupName: section?.sectionName ?? '',
-						meta: `145 Video | 15 hour 30 min`,
+						meta: `Đã hoàn thành: ${
+							section.playlists.filter((item) => item.finished === true).length
+						} / ${section.playlists.length}`,
 						playlists: section.playlists,
 					}}
 				/>
@@ -380,7 +393,7 @@ const Playlists = ({ videoPlaylists }) => {
 
 export const CourseContext = createContext({})
 
-const CourseDetail = () => {
+const ResultDetail = () => {
 	const [state, dispatch] = useReducer(reducer, initialState)
 	const router = useRouter()
 	const { courseid } = router.query
@@ -407,7 +420,7 @@ const CourseDetail = () => {
 	}
 
 	useEffect(() => {
-		dispatch({ type: 'SET_VIDEO_SOURCE', payload: videoPlaylistsDemo })
+		dispatch({ type: 'SET_VIDEO_SOURCE', payload: exerciseLists })
 		setTimeout(() => setLoading(false), 2000)
 	}, [])
 
@@ -511,52 +524,13 @@ const CourseDetail = () => {
 						<Playlists videoPlaylists={state?.videoPlaylists ?? []} />
 					</Box>
 					<Box className={classes.contentWrap}>
-						<AppBar
-							position="static"
-							style={{
-								backgroundColor: '#fff',
-								boxShadow: '0px 4px 12px 0px rgba(0,0,0,.15)',
-							}}
-							component={`div`}
-						>
-							<Container maxWidth={`lg`}>
-								<WhiteTabs
-									value={state.activeTab}
-									onChange={setActiveTab}
-									aria-label="Tab content"
-									centered
-									variant="fullWidth"
-								>
-									<WhiteTab
-										label="Bài học"
-										icon={<OndemandVideo />}
-										{...a11yProps(0)}
-									/>
-									<WhiteTab
-										label="Bài tập"
-										icon={<Assignment />}
-										{...a11yProps(1)}
-									/>
-								</WhiteTabs>
-							</Container>
-						</AppBar>
-						<TabPanel
-							value={state.activeTab}
-							index={0}
-							className={classes.tabPanel}
-						>
-							<Box
-								className={classes.contentEditor}
-								dangerouslySetInnerHTML={{ __html: contentDemo }}
-							></Box>
-						</TabPanel>
-						<TabPanel
-							value={state.activeTab}
-							index={1}
-							className={classes.tabPanel}
-						>
-							<Excercises />
-						</TabPanel>
+						<Container maxWidth={`lg`}>
+							<Paper>
+								<Box p={2}>
+									<ExerciseResult />
+								</Box>
+							</Paper>
+						</Container>
 					</Box>
 				</Box>
 			</Container>
@@ -564,6 +538,6 @@ const CourseDetail = () => {
 	)
 }
 
-CourseDetail.getLayout = getLayout
+ResultDetail.getLayout = getLayout
 
-export default CourseDetail
+export default ResultDetail

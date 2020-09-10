@@ -5,6 +5,7 @@ import {
 	ArrowDropDown,
 	PlayCircleFilled,
 	Description,
+	LibraryAddCheck,
 } from '@material-ui/icons'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
@@ -13,6 +14,7 @@ import { randomId } from '~/utils'
 import Checkbox from '@material-ui/core/Checkbox'
 import Accordion from '@material-ui/core/Accordion'
 import { CourseContext } from '~/pages/result/[resultid]'
+import { colors } from '~/config'
 
 const useStyles = makeStyles((theme) => ({
 	secWrap: {
@@ -26,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	meta: {
 		fontSize: '0.875rem',
-		color: '#b4b4b4',
+
+		color: '#707070',
 	},
 	titleVideo: {
 		fontSize: '1rem',
@@ -45,20 +48,30 @@ const useStyles = makeStyles((theme) => ({
 			backgroundColor: 'rgba(255, 224, 93, 0.4)',
 		},
 	},
+	checkboxDisabled: {
+		color: `${colors.green} !important`,
+	},
+	score: {
+		backgroundColor: '#e6e6e6',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: 45,
+		height: 45,
+		borderRadius: 45 / 2,
+		flexShrink: 0,
+		'&.finished': {
+			backgroundColor: `#FFE05D`,
+			backgroundImage: `linear-gradient(62deg, #FBAB7E 0%, #FFE05D 25%)`,
+		},
+	},
 }))
 
 const ListItem = ({ data, onClickLink, onCheckbox }) => {
 	const classes = useStyles()
-	const {
-		id = 0,
-		title = '',
-		videoUrl = '',
-		type = 1,
-		timeLength = 0,
-		completed = false,
-		score,
-	} = data
-	const [checked, setChecked] = useState(completed)
+	const { id = 0, title = '', type = 1, finished = false, score } = data
+	const [checked, setChecked] = useState(finished)
 
 	const _handleCheckbox = (event) => {
 		setChecked(event.target.checked)
@@ -69,51 +82,47 @@ const ListItem = ({ data, onClickLink, onCheckbox }) => {
 	}
 	return (
 		<CourseContext.Consumer>
-			{(context) => (
-				<Box
-					display={`flex`}
-					alignItems={`flex-start`}
-					className={`${classes.itemContainer} ${
-						context?.activeVideo?.id === id ? 'actived' : ''
-					}`}
-				>
-					<Checkbox
-						checked={checked}
-						onChange={_handleCheckbox}
-						color="primary"
-						inputProps={{ 'aria-label': 'primary checkbox' }}
-					/>
-					<Box ml={1.5}>
-						<Link onClick={() => context.onClickLinkVideo(data)}>
-							<Typography className={classes.titleVideo}>{title}</Typography>
-						</Link>
-						<Box
-							display={`flex`}
-							alignItems={`center`}
-							className={classes.meta}
-							style={{ fontSize: '0.875rem' }}
-						>
-							{type === 1 ? (
-								<>
-									<PlayCircleFilled className={classes.metaIcon} />
-									<Box ml={0.5}>Video</Box>
-									<Divider
-										mx={0.5}
-										orientation={`vertical`}
-										style={{ margin: '0 0.5rem', height: 15 }}
-									/>
-									<Box>3 giờ 15 phút</Box>
-								</>
-							) : (
-								<>
-									<Description className={classes.metaIcon} />
-									<Box ml={0.5}>Bài viết</Box>
-								</>
-							)}
+			{(context) => {
+				return (
+					<Box
+						display={`flex`}
+						alignItems={`flex-start`}
+						className={`${classes.itemContainer} ${
+							context?.activeVideo?.id === id ? 'actived' : ''
+						}`}
+					>
+						<Box className={`${classes.score} ${finished ? 'finished' : ''}`}>
+							<Typography variant={`h6`}>{score}</Typography>
+						</Box>
+						<Box ml={1.5}>
+							<Link onClick={() => context?.onClickLinkVideo(data)}>
+								<Typography className={classes.titleVideo}>{title}</Typography>
+							</Link>
+							<Box
+								display={`flex`}
+								alignItems={`center`}
+								justifyContent={`space-between`}
+								className={classes.meta}
+								style={{ fontSize: '0.875rem' }}
+							>
+								<Box>
+									{type === 1 ? (
+										<Box display={`flex`} alignItems={`center`}>
+											<LibraryAddCheck className={classes.metaIcon} />
+											<Box ml={0.5}>Trắc nghiệm</Box>
+										</Box>
+									) : (
+										<Box display={`flex`} alignItems={`center`}>
+											<Description className={classes.metaIcon} />
+											<Box ml={0.5}>Tự luận</Box>
+										</Box>
+									)}
+								</Box>
+							</Box>
 						</Box>
 					</Box>
-				</Box>
-			)}
+				)
+			}}
 		</CourseContext.Consumer>
 	)
 }
@@ -127,6 +136,7 @@ const RenderListItem = ({ data }) => {
 					data={{
 						...item,
 						title: `${index + 1}. ${item.title}`,
+						type: item.typeQuestion,
 					}}
 				/>
 			))}
@@ -134,7 +144,7 @@ const RenderListItem = ({ data }) => {
 	)
 }
 
-const SectionGroup = ({ data: { groupName, meta, playlists, score } }) => {
+const ResultSection = ({ data: { groupName, meta, playlists, score } }) => {
 	const classes = useStyles()
 	return (
 		<Accordion
@@ -155,7 +165,11 @@ const SectionGroup = ({ data: { groupName, meta, playlists, score } }) => {
 						<Typography component={`h3`} className={classes.title}>
 							{groupName}
 						</Typography>
-						<Typography component={`p`} className={classes.meta}>
+						<Typography
+							component={`p`}
+							className={classes.meta}
+							style={{ color: colors.green }}
+						>
 							{meta}
 						</Typography>
 					</Box>
@@ -169,4 +183,4 @@ const SectionGroup = ({ data: { groupName, meta, playlists, score } }) => {
 	)
 }
 
-export default SectionGroup
+export default ResultSection

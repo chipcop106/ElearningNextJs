@@ -15,12 +15,14 @@
 		"@material-ui/icons": "^4.9.1",
 		"@material-ui/lab": "^4.0.0-alpha.56",
 		"bootstrap": "^5.0.0-alpha1",
+		"chart.js": "^2.9.3",
 		"dayjs": "^1.8.35",
 		"next": "^9.4.2",
 		"next-offline": "^5.0.2",
 		"nprogress": "^0.2.0",
 		"react": "^16.13.1",
 		"react-axe": "^3.4.1",
+		"react-chartjs-2": "^2.10.0",
 		"react-dom": "^16.13.1",
 		"react-player": "^2.6.1"
 	},
@@ -48,6 +50,7 @@
 		"eslint-plugin-react": "^7.20.0",
 		"eslint-plugin-react-hooks": "^4.0.2",
 		"prettier": "^2.1.1",
+		"random-avatar-generator": "^2.0.0",
 		"sass": "^1.26.10",
 		"serve": "^11.3.2"
 	},

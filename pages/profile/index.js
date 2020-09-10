@@ -1,11 +1,13 @@
 import React from 'react'
-import Layout from '~/components/Layout'
+import { getLayout } from '~/components/Layout'
+import { Container } from '@material-ui/core'
+
 const Profile = () => {
 	return (
-		<Layout>
-			<h1 className="text-primary text-center">Đây là trang my profile</h1>
-		</Layout>
+		<Container maxWidth={`xl`}>
+			<h1 className="text-primary text-center">Đây là trang Profile</h1>
+		</Container>
 	)
 }
-
+Profile.getLayout = getLayout
 export default Profile

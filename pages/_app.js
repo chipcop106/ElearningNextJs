@@ -10,6 +10,7 @@ import '~/styles/styles.scss'
 import '~/styles/responsive.scss'
 import NProgress from 'nprogress' //nprogress module
 import 'nprogress/nprogress.css'
+import '~/page-components/Result/MyRanking.css'
 
 //Binding events.
 Router.events.on('routeChangeStart', () => NProgress.start())

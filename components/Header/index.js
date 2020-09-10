@@ -6,7 +6,6 @@ import {
 	Avatar,
 	Typography,
 	Menu,
-	MenuItem,
 	Fade,
 } from '@material-ui/core'
 import styles from './header.module.scss'
@@ -14,6 +13,8 @@ import {
 	Notifications,
 	ArrowDropDown,
 	Menu as MenuIcon,
+	AccountCircle,
+	ExitToApp,
 } from '@material-ui/icons'
 //import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import Divider from '@material-ui/core/Divider'
@@ -23,18 +24,41 @@ import Hidden from '@material-ui/core/Hidden'
 import { colors } from '~/config'
 import CloseIcon from '@material-ui/icons/Close'
 import Badge from '@material-ui/core/Badge'
+import { useRouter } from 'next/router'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import List from '@material-ui/core/List'
 
 const useStyles = makeStyles((theme) => ({
 	menuButton: {
 		marginRight: theme.spacing(2),
 		color: '#fff',
 	},
+	activeMenu: {
+		'& > a ': {
+			position: 'relative',
+		},
+		'&:after': {
+			content: '',
+			position: 'absolute',
+			width: '100%',
+			height: 1,
+			backgroundColor: colors.secondary,
+			bottom: '-10px',
+			left: 0,
+		},
+	},
+	dropdown: {
+		boxShadow: '0px 4px 10px 0px rgba(0,0,0,.15)',
+		zIndex: 9999,
+	},
 }))
 
 const DropDownMenu = (props) => {
 	return (
 		<Menu
-			elevation={0}
+			elevation={3}
 			getContentAnchorEl={null}
 			anchorOrigin={{
 				vertical: 'bottom',
@@ -53,6 +77,8 @@ const Header = () => {
 	const [notiEl, setNotiEl] = useState(null)
 	const [userMenuEl, setUserMenuEl] = useState(null)
 	const [menuMobileShow, setMenuMobileShow] = useState(false)
+	const router = useRouter()
+	console.log(router)
 	const showNotification = (event) => {
 		setNotiEl(event.currentTarget)
 	}
@@ -71,7 +97,14 @@ const Header = () => {
 
 	const classes = useStyles()
 	return (
-		<Box bgcolor="primary.main" py={1}>
+		<Box
+			bgcolor="primary.main"
+			py={2}
+			display={`flex`}
+			alignItems={`center`}
+			height={80}
+			flexShrink={0}
+		>
 			<Container maxWidth="xl">
 				<Box display="flex" justifyContent="space-between" alignItems="center">
 					<Box display="flex">
@@ -106,7 +139,6 @@ const Header = () => {
 								orientation="vertical"
 								flexItem
 								className={styles.divider}
-								style={{ marginRight: '1rem !important' }}
 							/>
 						</Hidden>
 						<Box
@@ -125,7 +157,7 @@ const Header = () => {
 										borderBottom: '1px solid ' + colors.primaryLighten,
 									}}
 								>
-									<Link href="/">
+									<Link href="/home">
 										<Box
 											component="a"
 											display="inline-flex"
@@ -152,29 +184,37 @@ const Header = () => {
 							</Hidden>
 							<Link href="/home">
 								<Box
-									component="span"
+									component="a"
 									display="inline-block"
-									className={`${styles.linkMenu} ${styles.active} active-menu`}
+									className={`${styles.linkMenu} ${
+										router.pathname.includes('/home') || router.pathname === '/'
+											? 'active-menu'
+											: ''
+									}`}
 								>
-									<a className={styles.link}>Dashboard</a>
+									<span className={styles.link}>Dashboard</span>
 								</Box>
 							</Link>
 							<Link href="/my-course">
 								<Box
-									component="span"
+									component="a"
 									display="inline-block"
-									className={styles.linkMenu}
+									className={`${styles.linkMenu} ${
+										router.pathname.includes('/my-course') ? 'active-menu' : ''
+									}`}
 								>
-									<a className={styles.link}>Khóa học của tôi</a>
+									<span className={styles.link}>Khóa học của tôi</span>
 								</Box>
 							</Link>
 							<Link href="/result">
 								<Box
-									component="span"
+									component="a"
 									display="inline-block"
-									className={styles.linkMenu}
+									className={`${styles.linkMenu} ${
+										router.pathname.includes('/result') ? 'active-menu' : ''
+									}`}
 								>
-									<a className={styles.link}>Kết quả học tập</a>
+									<span className={styles.link}>Kết quả học tập</span>
 								</Box>
 							</Link>
 						</Box>
@@ -190,6 +230,7 @@ const Header = () => {
 								max={99}
 								color="secondary"
 								onClick={showNotification}
+								overlap="circle"
 							>
 								<Notifications
 									aria-controls="notification"
@@ -207,7 +248,7 @@ const Header = () => {
 								onClose={closeNotification}
 								className={`dropdown-angle`}
 							>
-								<Box p={2}>Nội dung bên trong notification</Box>
+								<Box p={2}>Nội dung notification</Box>
 							</DropDownMenu>
 						</Box>
 						<Divider
@@ -234,9 +275,27 @@ const Header = () => {
 							open={Boolean(userMenuEl)}
 							onClose={closeUserMenu}
 							TransitionComponent={Fade}
-							className={`dropdown-angle`}
+							className={`${classes.dropdown} dropdown-angle`}
 						>
-							<Box p={2}>Nội dung bên trong user profile</Box>
+							<Box px={2}>
+								<List component="nav" aria-label="account profile">
+									<Link href={`/profile`} as={`/profile`}>
+										<ListItem button>
+											<ListItemIcon>
+												<AccountCircle />
+											</ListItemIcon>
+
+											<ListItemText primary="Thông tin tài khoản" />
+										</ListItem>
+									</Link>
+									<ListItem button>
+										<ListItemIcon>
+											<ExitToApp />
+										</ListItemIcon>
+										<ListItemText primary="Đăng xuất" />
+									</ListItem>
+								</List>
+							</Box>
 						</DropDownMenu>
 					</Box>
 				</Box>

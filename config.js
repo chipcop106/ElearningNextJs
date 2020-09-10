@@ -1,5 +1,8 @@
+import { palette } from '@material-ui/system'
+
+console.log(palette('bg'))
 export const colors = {
-	primary: '#1F4069',
+	primary: '#1f4069',
 	primaryDarken: '#152c49',
 	primaryLighten: '#4b6687',
 	secondary: '#FFE05D',
@@ -7,6 +10,7 @@ export const colors = {
 	secondaryLighten: '#ffe67d',
 	green: '#4caf50',
 	greenDarken: '#388e3c',
+	grayText: '#b4b4b4',
 }
 
 export const appSettings = {

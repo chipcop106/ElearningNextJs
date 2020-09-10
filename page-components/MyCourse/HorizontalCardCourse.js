@@ -5,7 +5,7 @@ import Avatar from '@material-ui/core/Avatar'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import { PlayCircleFilled, CheckCircle } from '@material-ui/icons'
+import { PlayCircleFilled, CheckCircle, Assignment } from '@material-ui/icons'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/styles'
 import green from '@material-ui/core/colors/green'
@@ -13,6 +13,28 @@ import { colors } from '~/config'
 import Link from 'next/link'
 import Hidden from '@material-ui/core/Hidden'
 import { Skeleton } from '@material-ui/lab'
+
+const SuccessProgressBar = withStyles((theme) => ({
+	barColorPrimary: {
+		backgroundColor: green[400],
+	},
+}))((props) => (
+	<Box display="flex" alignItems="center">
+		<Box width="100%" mr={1}>
+			<LinearProgress
+				style={{ height: 5 }}
+				variant="determinate"
+				color={`primary`}
+				{...props}
+			/>
+		</Box>
+		<Box minWidth={35}>
+			<Typography variant="body2" color="textSecondary">{`${Math.round(
+				props.value
+			)}%`}</Typography>
+		</Box>
+	</Box>
+))
 
 const LinearProgressWithLabel = (props) => {
 	return (
@@ -43,8 +65,8 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	progress: {
-		width: 150,
-		marginRight: '2rem',
+		width: 120,
+		marginRight: '1rem',
 	},
 	title: {
 		[theme.breakpoints.down('sm')]: {
@@ -52,18 +74,37 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	btnSuccess: {
+		marginLeft: '1rem',
+		minWidth: 121,
 		[theme.breakpoints.down('xs')]: {
 			marginLeft: '3.5rem',
 			marginTop: '1rem',
 		},
 	},
+	errorText: {
+		color: theme.palette.error.main,
+	},
+	metaColor: {
+		color: '#b4b4b4',
+	},
 }))
+
 const SuccessButton = withStyles((theme) => ({
 	root: {
 		color: '#fff',
 		backgroundColor: green[500],
 		'&:hover': {
 			backgroundColor: green[700],
+		},
+	},
+}))(Button)
+
+const WarningButton = withStyles((theme) => ({
+	root: {
+		color: '#000',
+		backgroundColor: theme.palette.secondary.main,
+		'&:hover': {
+			backgroundColor: theme.palette.secondary.dark,
 		},
 	},
 }))(Button)
@@ -75,8 +116,11 @@ const HorizontalCardCourse = ({
 	time = '',
 	finishedVideo = 0,
 	totalVideo = 0,
+	totalExercise = 0,
+	finishedExercise = 0,
 	finished = false,
 	loading = false,
+	warningDate = false,
 }) => {
 	const classes = useStyles()
 	return (
@@ -110,14 +154,17 @@ const HorizontalCardCourse = ({
 						{!!finished ? (
 							<Box color={`success.main`} display="flex" alignItems={`center`}>
 								<CheckCircle />
-								<Typography style={{ marginLeft: '0.25rem' }}>
+								<Typography variant={`body2`} style={{ marginLeft: '0.25rem' }}>
 									{loading ? <Skeleton width="30%" /> : 'Hoàn thành'}
 								</Typography>
 							</Box>
 						) : (
 							<Typography
-								variant={'caption'}
-								style={{ marginBottom: 0, color: '#b4b4b4' }}
+								variant={'body2'}
+								style={{
+									marginBottom: 0,
+								}}
+								className={warningDate ? classes.errorText : classes.metaColor}
 							>
 								{loading ? <Skeleton width="30%" /> : time}
 							</Typography>
@@ -151,9 +198,53 @@ const HorizontalCardCourse = ({
 							</Box>
 							{loading ? (
 								<Skeleton width={100} />
+							) : totalVideo === finishedVideo && finishedVideo !== 0 ? (
+								<SuccessProgressBar value={100} />
 							) : (
 								<LinearProgressWithLabel
-									value={(finishedVideo * 100) / totalVideo}
+									value={
+										totalVideo !== 0 ? (finishedVideo * 100) / totalVideo : 0
+									}
+									color={`secondary`}
+								/>
+							)}
+						</Box>
+					</Hidden>
+					<Hidden xsDown>
+						<Box className={classes.progress} ml={{ xs: 6.5, sm: 6.5, md: 4 }}>
+							<Box display={`flex`} alignItems={`center`}>
+								{loading ? (
+									<Skeleton width={100} />
+								) : (
+									<>
+										<Assignment color={`primary`} />
+										<Box ml={0.5}>
+											<Typography component={`span`}>
+												{finishedExercise}
+											</Typography>
+											<Typography
+												component={`span`}
+												style={{ color: '#b4b4b4' }}
+											>
+												{' '}
+												/ {totalExercise}
+											</Typography>
+										</Box>
+									</>
+								)}
+							</Box>
+							{loading ? (
+								<Skeleton width={100} />
+							) : totalExercise === finishedExercise &&
+							  finishedExercise !== 0 ? (
+								<SuccessProgressBar value={100} />
+							) : (
+								<LinearProgressWithLabel
+									value={
+										totalExercise !== 0
+											? (finishedExercise * 100) / totalExercise
+											: 0
+									}
 									color={`secondary`}
 								/>
 							)}
@@ -161,6 +252,16 @@ const HorizontalCardCourse = ({
 					</Hidden>
 					{loading ? (
 						<Skeleton height={60} width={100} />
+					) : finished ? (
+						<Link href={'/result/[resultid]'} as={`/result/${courseId}`}>
+							<WarningButton
+								variant="contained"
+								size="large"
+								className={classes.btnSuccess}
+							>
+								Kết quả
+							</WarningButton>
+						</Link>
 					) : (
 						<Link href={'/my-course/[courseid]'} as={`/my-course/${courseId}`}>
 							<SuccessButton
@@ -169,7 +270,7 @@ const HorizontalCardCourse = ({
 								bgcolor={`success.main`}
 								className={classes.btnSuccess}
 							>
-								Xem khóa học
+								Học ngay
 							</SuccessButton>
 						</Link>
 					)}

@@ -169,7 +169,7 @@ const RenderRow = ({ lists }) => {
 const Home = () => {
 	const classes = useStyles()
 	return (
-		<Container maxWidth={`lg`}>
+		<Container maxWidth={`xl`}>
 			<h1 className="title-page">Dashboard</h1>
 			<Paper>
 				<Box p={4}>

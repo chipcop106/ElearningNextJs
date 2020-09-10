@@ -5,8 +5,11 @@ a{
 }
 
 .active-menu{
-	>a{
+
+	>span{
 		position:relative;
+		font-weight: bold;
+		color:$secondary-color;
 		&:after{
 			content:'';
 			position: absolute;
@@ -30,7 +33,7 @@ a{
 
 .title-page{
 	font-size:1.75rem;
-	color: $primary-darken;
+	color: $primary-color;
 	font-weight: bold;
 }
 
