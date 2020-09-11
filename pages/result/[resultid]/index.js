@@ -299,6 +299,7 @@ const useStyles = makeStyles((theme) => ({
 
 	sidebarWrap: {
 		width: 400,
+		flexShrink: 0,
 		overflowX: 'hidden',
 		overflowY: 'auto',
 		backgroundColor: '#fff',

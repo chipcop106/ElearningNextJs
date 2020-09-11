@@ -19,11 +19,9 @@ import {
 	a11yProps,
 	TabPanel,
 } from '~/page-components/CourseDetail/WhiteTabs'
-import CourseVideos from '~/page-components/CourseDetail/CourseVideos'
 import Container from '@material-ui/core/Container'
-import Choice from '~/components/common/TestQuestion/Choice'
 import Hidden from '@material-ui/core/Hidden'
-import Excercises from '~/page-components/CourseDetail/Excercises'
+import Exercises from '~/page-components/CourseDetail/Exercises'
 const contentDemo = `<h2>What is a CSS Sprite</h2>
 <p>We need to know about an image sprite before we start talking about CSS sprites. An image sprite is a compilation of different image assets that we want to use on our web application.</p>
 <p>These images could fit in any of the below given cases…</p>
@@ -286,6 +284,7 @@ const useStyles = makeStyles((theme) => ({
 
 	sidebarWrap: {
 		width: 400,
+		flexShrink: 0,
 		overflowX: 'hidden',
 		overflowY: 'auto',
 		backgroundColor: '#fff',
@@ -555,7 +554,7 @@ const CourseDetail = () => {
 							index={1}
 							className={classes.tabPanel}
 						>
-							<Excercises />
+							<Exercises />
 						</TabPanel>
 					</Box>
 				</Box>

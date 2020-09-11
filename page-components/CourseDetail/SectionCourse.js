@@ -12,7 +12,7 @@ import Box from '@material-ui/core/Box'
 import { randomId } from '~/utils'
 import Checkbox from '@material-ui/core/Checkbox'
 import Accordion from '@material-ui/core/Accordion'
-import { CourseContext } from '~/pages/result/[resultid]'
+import { CourseContext } from '~/pages/my-course/[courseid]'
 
 const useStyles = makeStyles((theme) => ({
 	secWrap: {
