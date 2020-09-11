@@ -10,7 +10,6 @@ import {
 	Typography,
 } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
-import { LibraryBooksRounded } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
@@ -18,7 +17,6 @@ import Tab from '@material-ui/core/Tab'
 import HorizontalCardCourse from '~/page-components/MyCourse/HorizontalCardCourse'
 import { Pagination } from '@material-ui/lab'
 import { colors } from '~/config'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import MyRanking from '~/page-components/Result/MyRanking'
 
 const courseDemo = [
@@ -156,11 +154,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	label: {
 		color: '#fff',
-		fontWeight: 'bold',
+		fontWeight: '600',
 	},
 	value: {
 		color: '#ccc',
-		fontWeight: 'bold',
+		fontWeight: '400',
 	},
 	iconCourse: {
 		width: 35,
@@ -168,112 +166,6 @@ const useStyles = makeStyles((theme) => ({
 		color: colors.primaryLighten,
 	},
 }))
-
-const RowItem = ({ item }) => {
-	const classes = makeStyles({
-		rowStyle: {
-			borderBottom: '1px solid #e1e1e1',
-		},
-		leftIcon: {
-			width: 30,
-			height: 30,
-			color: '#b4b4b4',
-		},
-		rightIcon: {
-			fontSize: 48,
-		},
-	})()
-	return (
-		<ListItem className={classes.rowStyle}>
-			<ListItemIcon>
-				<LibraryBooksRounded className={classes.leftIcon} />
-			</ListItemIcon>
-			<Box>
-				<Link href={`/my-course/[courseid]`} as={`/my-course/3`}>
-					<LinkMU>
-						<Typography variant={`subtitle2`}>{item.courseName}</Typography>
-					</LinkMU>
-				</Link>
-
-				<Box component={`div`} display={`flex`}>
-					<Typography
-						variant={`caption`}
-						component={`span`}
-						color="textSecondary"
-					>
-						Hạn nộp:
-					</Typography>
-					<Typography
-						variant={`caption`}
-						component={`span`}
-						style={{ marginLeft: '0.5rem', fontWeight: '600' }}
-					>
-						{item.deadline}
-					</Typography>
-				</Box>
-			</Box>
-			{/*<ListItemText*/}
-			{/*	primary={item.courseName}*/}
-			{/*	secondary={`Deadline: ${item.deadline}`}*/}
-			{/*/>*/}
-		</ListItem>
-	)
-}
-
-const RenderRow = ({ lists }) => {
-	return [...lists].map((item, index) => (
-		<RowItem key={`${index}`} item={item} />
-	))
-}
-
-const CircularProgressWithLabel = (props) => {
-	return (
-		<Box position="relative" display="inline-flex">
-			<Box top={0} left={0} bottom={0} right={0} position="absolute">
-				<CircularProgress
-					variant="static"
-					{...props}
-					style={{ color: 'rgba(255,255,255,.35)' }}
-					value={100}
-				/>
-			</Box>
-			<CircularProgress variant="static" {...props} />
-			<Box
-				top={0}
-				left={0}
-				bottom={0}
-				right={0}
-				position="absolute"
-				display="flex"
-				alignItems="center"
-				justifyContent="center"
-			>
-				{!!props.number && !!props.totalnumber && (
-					<Box align={`center`}>
-						<Typography
-							variant="h5"
-							component="div"
-							fontSize="large"
-							style={{ fontWeight: 'bold' }}
-						>
-							{`${Math.round(props?.number ?? 0)} / ${Math.round(
-								props?.totalnumber ?? 0
-							)}`}
-						</Typography>
-						{!!props.label && (
-							<Typography
-								variant={'subtitle1'}
-								style={{ color: '#ccc', fontWeight: 'bold' }}
-							>
-								{props.label}
-							</Typography>
-						)}
-					</Box>
-				)}
-			</Box>
-		</Box>
-	)
-}
 
 const TabPanel = (props) => {
 	const { children, value, index, ...other } = props

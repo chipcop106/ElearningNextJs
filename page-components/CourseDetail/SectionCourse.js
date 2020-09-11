@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	title: {
 		fontSize: '1rem',
-		fontWeight: 'bold',
+		fontWeight: 600,
 	},
 	meta: {
 		fontSize: '0.875rem',

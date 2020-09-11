@@ -57,6 +57,21 @@ export default class MyApp extends App {
 					contrastText: '#000',
 				},
 			},
+			typography: {
+				fontFamily: [
+					'"PoppinsVN"',
+					'Roboto',
+					'-apple-system',
+					'BlinkMacSystemFont',
+					'"Segoe UI"',
+					'"Helvetica Neue"',
+					'Arial',
+					'sans-serif',
+					'"Apple Color Emoji"',
+					'"Segoe UI Emoji"',
+					'"Segoe UI Symbol"',
+				].join(','),
+			},
 		})
 
 		return (

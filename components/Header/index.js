@@ -53,6 +53,11 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: '0px 4px 10px 0px rgba(0,0,0,.15)',
 		zIndex: 9999,
 	},
+	headerContainer: {
+		backgroundColor: 'rgb(31,64,105)',
+		background:
+			'linear-gradient(153deg, rgba(31,64,105,1) 0%, rgba(12,41,78,1) 100%)',
+	},
 }))
 
 const DropDownMenu = (props) => {
@@ -98,7 +103,7 @@ const Header = () => {
 	const classes = useStyles()
 	return (
 		<Box
-			bgcolor="primary.main"
+			className={classes.headerContainer}
 			py={2}
 			display={`flex`}
 			alignItems={`center`}
@@ -215,6 +220,17 @@ const Header = () => {
 									}`}
 								>
 									<span className={styles.link}>Kết quả học tập</span>
+								</Box>
+							</Link>
+							<Link href="/blog">
+								<Box
+									component="a"
+									display="inline-block"
+									className={`${styles.linkMenu} ${
+										router.pathname.includes('/blog') ? 'active-menu' : ''
+									}`}
+								>
+									<span className={styles.link}>Tin tức</span>
 								</Box>
 							</Link>
 						</Box>

@@ -200,7 +200,7 @@ const MyRanking = () => {
 					</div>
 				</div>
 				<Box className="ranking__wrap" mt={2}>
-					<Typography variant={`h6`} style={{ color: '#b4b4b4' }}>
+					<Typography variant={`paragraph`} style={{ color: '#b4b4b4' }}>
 						Bảng xếp hạng điểm
 					</Typography>
 					<Box mt={2}>
