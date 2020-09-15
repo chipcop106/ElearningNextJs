@@ -7,12 +7,12 @@ $main-w: 1280px;
 $tb-w: 960px;
 $mb-w: 600px;
 
-$primary-color: #0c1a2b;
-$primary-darken:#152c49;
-$primary-lighten:#4b6687;
-$secondary-color:#FFE05D;
-$secondary-darken:#b29c41;
-$secondary-lighten:#ffe67d;
+$primary-color: #006cff;
+$primary-darken:#004bb2;
+$primary-lighten:#3389ff;
+$secondary-color:#f50057;
+$secondary-darken:#ab003c;
+$secondary-lighten:#f73378;
 
 
 @mixin box-shadow($shadow...) {

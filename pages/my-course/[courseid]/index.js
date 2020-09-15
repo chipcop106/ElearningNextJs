@@ -1,4 +1,9 @@
-import React, { useReducer, useEffect, createContext } from 'react'
+import React, {
+	useReducer,
+	useEffect,
+	createContext,
+	useLayoutEffect,
+} from 'react'
 import { useRouter } from 'next/router'
 import { getLayout } from '~/components/Layout'
 import { makeStyles } from '@material-ui/core/styles'
@@ -49,35 +54,35 @@ const videoPlaylistsDemo = [
 				title:
 					'How to play e-learning web application Referring to window size in React Material-UI makeStyles',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
+				type: 2, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/watch?v=RYcaG64JkqM',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/watch?v=g8NVwN0_mks',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application ',
 				videoUrl: 'https://www.youtube.com/watch?v=aG51brxM1kk',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
@@ -85,7 +90,7 @@ const videoPlaylistsDemo = [
 				title:
 					'How to play e-learning web application Referring to window size in React Material-UI makeStyles',
 				videoUrl: 'https://www.youtube.com/watch?v=Cp8D1bqIt3A',
-				type: 2, // 1 Video || 2 Post
+				type: 2, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 		],
@@ -98,42 +103,42 @@ const videoPlaylistsDemo = [
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 2, // 1 Video || 2 Post
+				type: 2, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 		],
@@ -146,42 +151,42 @@ const videoPlaylistsDemo = [
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 2, // 1 Video || 2 Post
+				type: 2, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 		],
@@ -194,42 +199,42 @@ const videoPlaylistsDemo = [
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Video || 2 Post
+				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
 				title: 'How to play e-learning web application',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 2, // 1 Video || 2 Post
+				type: 2, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 		],
@@ -321,6 +326,16 @@ const useStyles = makeStyles((theme) => ({
 			minHeight: 450,
 		},
 	},
+	[theme.breakpoints.down('md')]: {
+		sidebarWrap: {
+			position: 'absolute',
+			zIndex: 2,
+		},
+		contentWrap: {
+			position: 'relative',
+			zIndex: 1,
+		},
+	},
 }))
 
 const reducer = (prevState, { type, payload }) => {
@@ -398,11 +413,20 @@ const CourseDetail = () => {
 	}
 
 	const _toggleSidenav = () => {
-		dispatch({ type: 'TOGGLE_SIDEBAR', payload: !state.hideSidebar })
+		dispatch({
+			type: 'TOGGLE_SIDEBAR',
+			payload: !state.hideSidebar,
+		})
 	}
 
 	const _handleClickPlaylist = (video) => {
 		setActiveVideo(video)
+	}
+
+	const responsiveSidebar = () => {
+		if (window.matchMedia('(max-width: 1280px)').matches) {
+			_toggleSidenav(false)
+		}
 	}
 
 	useEffect(() => {
@@ -415,6 +439,10 @@ const CourseDetail = () => {
 			return
 		setActiveVideo(state.videoPlaylists[0].playlists[0])
 	}, [state.videoPlaylists])
+
+	useLayoutEffect(() => {
+		responsiveSidebar()
+	}, [])
 
 	return (
 		<CourseContext.Provider
@@ -442,7 +470,11 @@ const CourseDetail = () => {
 								style={{ verticalAlign: 'middle' }}
 							>
 								<Typography
-									style={{ fontWeight: 600, fontSize: '1.15rem' }}
+									style={{
+										fontWeight: 600,
+										fontSize: '1.15rem',
+										fontFamily: 'Roboto',
+									}}
 									color={`primary`}
 								>
 									25 / 45
@@ -483,7 +515,7 @@ const CourseDetail = () => {
 							<Box mr={2}>
 								<Chip
 									label="Khóa học"
-									color="secondary"
+									color="primary"
 									size="small"
 									icon={<LocalLibrary />}
 								/>
@@ -492,7 +524,6 @@ const CourseDetail = () => {
 						<Typography
 							variant={`h5`}
 							component="h1"
-							color={`primary`}
 							noWrap={true}
 							className={classes.courseName}
 						>
@@ -520,17 +551,24 @@ const CourseDetail = () => {
 						>
 							<Container maxWidth={`lg`}>
 								<WhiteTabs
-									value={state.activeTab}
+									value={
+										!!state.activeVideo && state.activeVideo.type === 1
+											? state.activeTab
+											: 0
+									}
 									onChange={setActiveTab}
 									aria-label="Tab content"
 									centered
 									variant="fullWidth"
 								>
-									<WhiteTab
-										label="Bài học"
-										icon={<OndemandVideo />}
-										{...a11yProps(0)}
-									/>
+									{!!state.activeVideo && state.activeVideo.type === 1 && (
+										<WhiteTab
+											label="Bài học"
+											icon={<OndemandVideo />}
+											{...a11yProps(0)}
+										/>
+									)}
+
 									<WhiteTab
 										label="Bài tập"
 										icon={<Assignment />}
@@ -539,18 +577,25 @@ const CourseDetail = () => {
 								</WhiteTabs>
 							</Container>
 						</AppBar>
+						{!!state.activeVideo && state.activeVideo.type === 1 && (
+							<TabPanel
+								value={state.activeTab}
+								index={0}
+								className={classes.tabPanel}
+							>
+								<Box
+									className={classes.contentEditor}
+									dangerouslySetInnerHTML={{ __html: contentDemo }}
+								></Box>
+							</TabPanel>
+						)}
+
 						<TabPanel
-							value={state.activeTab}
-							index={0}
-							className={classes.tabPanel}
-						>
-							<Box
-								className={classes.contentEditor}
-								dangerouslySetInnerHTML={{ __html: contentDemo }}
-							></Box>
-						</TabPanel>
-						<TabPanel
-							value={state.activeTab}
+							value={
+								!!state.activeVideo && state.activeVideo.type === 1
+									? state.activeTab
+									: 1
+							}
 							index={1}
 							className={classes.tabPanel}
 						>

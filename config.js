@@ -2,12 +2,12 @@ import { palette } from '@material-ui/system'
 
 console.log(palette('bg'))
 export const colors = {
-	primary: '#1f4069',
-	primaryDarken: '#152c49',
-	primaryLighten: '#4b6687',
-	secondary: '#FFE05D',
-	secondaryDarken: '#b29c41',
-	secondaryLighten: '#ffe67d',
+	primary: '#006cff',
+	primaryDarken: '#004bb2',
+	primaryLighten: '#3389ff',
+	secondary: '#f50057',
+	secondaryDarken: '#ab003c',
+	secondaryLighten: '#f73378',
 	green: '#4caf50',
 	greenDarken: '#388e3c',
 	grayText: '#b4b4b4',

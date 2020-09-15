@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { getLayout } from '~/components/Layout'
 import {
 	Container,
@@ -32,6 +32,12 @@ import {
 import CircularProgressWithLabel from '~/components/common/CircularProgressWithLabel'
 import { colors } from '~/config'
 import Link from 'next/link'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
+import { blogDemo } from '~/pages/blog'
+import { BlogCard } from '~/components/common/BlogCard'
+
+SwiperCore.use([Navigation, Pagination, A11y])
 
 const courseDemo = [
 	{
@@ -70,6 +76,10 @@ const useStyles = makeStyles((theme) => ({
 	avatar: {
 		width: 125,
 		height: 125,
+		[theme.breakpoints.down(`sm`)]: {
+			width: 75,
+			height: 75,
+		},
 	},
 	media: {
 		width: '100%',
@@ -82,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
 		color: colors.primaryLighten,
 	},
 	lightPrimaryBtn: {
-		backgroundColor: 'rgba(75, 102, 135, 0.15)',
+		backgroundColor: 'rgba(0, 108, 255, 0.1)',
 		paddingRight: '1rem',
 		paddingLeft: '1rem',
 	},
@@ -107,6 +117,17 @@ const useStyles = makeStyles((theme) => ({
 	cardContainer: {
 		height: '100%',
 	},
+	iconInfo: {
+		color: colors.grayText,
+		marginRight: '0.5rem',
+	},
+	bannerWelcome: {
+		'& > img': {
+			width: '100%',
+			borderRadius: 8,
+			boxShadow: '0px 4px 24px 0px rgba(0,0,0,.2)',
+		},
+	},
 }))
 
 const RowItem = ({ item }) => {
@@ -117,10 +138,21 @@ const RowItem = ({ item }) => {
 		leftIcon: {
 			width: 30,
 			height: 30,
-			color: '#b4b4b4',
+			color: colors.primaryLighten,
 		},
 		rightIcon: {
 			fontSize: 48,
+		},
+		link: {
+			color: '#000',
+			'&:hover': {
+				color: colors.primary,
+			},
+		},
+		deadline: {
+			fontWeight: 600,
+			letterSpacing: 1,
+			fontFamily: 'Roboto',
 		},
 	})()
 	return (
@@ -130,7 +162,7 @@ const RowItem = ({ item }) => {
 			</ListItemIcon>
 			<Box>
 				<Link href={`/my-course/[courseid]`} as={`/my-course/3`}>
-					<LinkMU>
+					<LinkMU className={classes.link}>
 						<Typography variant={`subtitle2`}>{item.courseName}</Typography>
 					</LinkMU>
 				</Link>
@@ -140,13 +172,15 @@ const RowItem = ({ item }) => {
 						variant={`caption`}
 						component={`span`}
 						color="textSecondary"
+						style={{ marginRight: 5 }}
 					>
 						Hạn nộp:
 					</Typography>
 					<Typography
 						variant={`caption`}
 						component={`span`}
-						style={{ marginLeft: '0.5rem', fontWeight: '600' }}
+						color="textSecondary"
+						className={classes.deadline}
 					>
 						{item.deadline}
 					</Typography>
@@ -166,237 +200,292 @@ const RenderRow = ({ lists }) => {
 	))
 }
 
+const RenderSlider = ({ data, isLoading }) => {
+	return (
+		<Swiper
+			spaceBetween={16}
+			slidesPerView={4}
+			breakpoints={{
+				320: {
+					slidesPerView: 1,
+					spaceBetween: 16,
+				},
+				600: {
+					slidesPerView: 2,
+					spaceBetween: 16,
+				},
+				960: {
+					slidesPerView: 3,
+					spaceBetween: 32,
+				},
+				1280: {
+					slidesPerView: 4,
+					spaceBetween: 32,
+				},
+			}}
+			navigation
+			onSwiper={(swiper) => console.log(swiper)}
+			onSlideChange={() => console.log('slide change')}
+		>
+			{data.map((item) => (
+				<SwiperSlide key={`${item.id}`}>
+					<BlogCard data={item} isLoading={isLoading} />
+				</SwiperSlide>
+			))}
+		</Swiper>
+	)
+}
+
 const Home = () => {
 	const classes = useStyles()
+	const [isLoading, setIsLoading] = useState(true)
+
+	useEffect(() => {
+		let t = setTimeout(() => setIsLoading(false), 2000)
+		return () => clearTimeout(t)
+	}, [])
+
 	return (
-		<Container maxWidth={`xl`}>
-			<h1 className="title-page">Dashboard</h1>
-			<Paper>
-				<Box p={4}>
-					<Grid container>
-						<Grid item xs={12} sm={12} md={6}>
-							<Box mb={{ xs: 4, md: 0 }} display={`flex`}>
-								<Avatar
-									alt="User name"
-									src="/static/img/avatar.jpg"
-									className={classes.avatar}
-								/>
-								<Box pl={2}>
-									<Typography
-										variant={`subtitle1`}
-										style={{ fontWeight: '600' }}
-									>
-										Huỳnh Thị Phương Anh
-									</Typography>
-									<Typography
-										variant={`subtitle2`}
-										style={{ color: '#b4b4b4' }}
-										gutterBottom
-									>
-										Nhân viên kinh doanh
-									</Typography>
-									<Box display={`flex`} alignItems={`center`} mb={2} mt={1}>
-										<Box display={`flex`} alignItems={`center`} mr={2}>
-											<PhoneIphoneRounded />
-											<Typography ml={1} color={`primary`}>
-												0886706289
-											</Typography>
+		<Box py={4}>
+			<Container maxWidth={`xl`}>
+				<Box className={classes.bannerWelcome}>
+					<img alt={`banner`} src={`/static/img/banner-welcome.jpg`} />
+				</Box>
+				<h1 className="title-page">Dashboard</h1>
+				<Paper>
+					<Box p={4}>
+						<Grid container>
+							<Grid item xs={12} sm={12} md={6}>
+								<Box mb={{ xs: 4, md: 0 }} display={`flex`}>
+									<Avatar
+										alt="User name"
+										src="/static/img/avatar.jpg"
+										className={classes.avatar}
+									/>
+									<Box pl={2}>
+										<Typography
+											variant={`subtitle1`}
+											style={{ fontWeight: '600' }}
+										>
+											Huỳnh Thị Phương Anh
+										</Typography>
+										<Typography
+											variant={`subtitle2`}
+											style={{ color: '#b4b4b4' }}
+											gutterBottom
+										>
+											Nhân viên kinh doanh
+										</Typography>
+										<Box
+											display={`flex`}
+											alignItems={`center`}
+											mb={2}
+											mt={1}
+											flexWrap={`wrap`}
+										>
+											<Box display={`flex`} alignItems={`center`} mr={2} mb={1}>
+												<PhoneIphoneRounded className={classes.iconInfo} />
+												<Typography>0886706289</Typography>
+											</Box>
+											<Box display={`flex`} alignItems={`center`} mb={1}>
+												<EmailRounded className={classes.iconInfo} />
+												<Typography>dattocdo@gmail.com</Typography>
+											</Box>
 										</Box>
-										<Box display={`flex`} alignItems={`center`}>
-											<EmailRounded />
-											<Typography ml={1} color={`primary`}>
-												dattocdo@gmail.com
-											</Typography>
-										</Box>
+										<Button
+											size={`small`}
+											disableElevation
+											variant={`contained`}
+											color="secondary"
+											startIcon={<VpnKey />}
+										>
+											Cập nhật
+										</Button>
 									</Box>
-									<Button
-										size={`small`}
-										disableElevation
-										variant={`contained`}
-										color="secondary"
-										startIcon={<VpnKey />}
-									>
-										Cập nhật
-									</Button>
 								</Box>
-							</Box>
-						</Grid>
-						<Grid item xs={12} sm={12} md={6}>
-							<Grid spacing={4} container>
-								<Grid xs={6} sm={6} item>
-									<Box align={`center`}>
-										<Typography>Khóa học đã hoàn thành</Typography>
-										<Box mt={2}>
-											<CircularProgressWithLabel
-												color={`primary`}
-												thickness={4}
-												size={100}
-												value={66}
-											/>
+							</Grid>
+							<Grid item xs={12} sm={12} md={6}>
+								<Grid spacing={4} container>
+									<Grid xs={6} sm={6} item>
+										<Box align={`center`}>
+											<Typography>Khóa học đã hoàn thành</Typography>
+											<Box mt={2}>
+												<CircularProgressWithLabel
+													color={`primary`}
+													thickness={4}
+													size={100}
+													value={66}
+												/>
+											</Box>
 										</Box>
-									</Box>
-								</Grid>
-								<Grid xs={6} item>
-									<Box align={`center`}>
-										<Typography>Bài tập chưa hoàn thành</Typography>
-										<Box mt={2}>
-											<CircularProgressWithLabel
-												color={`secondary`}
-												thickness={4}
-												size={100}
-												value={35}
-											/>
+									</Grid>
+									<Grid xs={6} item>
+										<Box align={`center`}>
+											<Typography>Bài tập chưa hoàn thành</Typography>
+											<Box mt={2}>
+												<CircularProgressWithLabel
+													color={`secondary`}
+													thickness={4}
+													size={100}
+													value={35}
+												/>
+											</Box>
 										</Box>
-									</Box>
+									</Grid>
 								</Grid>
 							</Grid>
 						</Grid>
+					</Box>
+				</Paper>
+				<Box my={2}>
+					<Grid container spacing={2}>
+						<Grid item xs={12} sm={12} md={6}>
+							<Card>
+								<Box p={2}>
+									<CardHeader
+										title="Khóa học đang học"
+										className={classes.cardHeader}
+										titleTypographyProps={{
+											variant: 'h6',
+										}}
+										action={
+											<Link href="/my-course/[courseid]" as={`/my-course/3`}>
+												<Button
+													color="primary"
+													startIcon={<PlayCircleOutline />}
+													className={classes.lightPrimaryBtn}
+													size="medium"
+												>
+													Học tiếp
+												</Button>
+											</Link>
+										}
+									/>
+									<CardContent>
+										<Box mb={2}>
+											<Grid container>
+												<Grid item xs={12} sm={6} md={6} lg={7}>
+													<CardMedia
+														className={classes.media}
+														image="/static/img/learning.svg"
+														title="Complete React Hooks 2020"
+													/>
+												</Grid>
+												<Grid item xs={12} sm={6} md={6} lg={5}>
+													<Box ml={{ sm: 2 }}>
+														<List className={classes.infoBoxWrap}>
+															<ListItem disableGutters>
+																<ListItemIcon style={{ minWidth: 45 }}>
+																	<Subscriptions
+																		className={classes.iconCourse}
+																	/>
+																</ListItemIcon>
+																<ListItemText
+																	primaryTypographyProps={{
+																		variant: 'subtitle2',
+																	}}
+																	secondaryTypographyProps={{
+																		variant: 'caption',
+																		color: 'textSecondary',
+																	}}
+																	primary="Video"
+																	secondary="Hoàn thành: 2/12"
+																/>
+															</ListItem>
+															<ListItem disableGutters>
+																<ListItemIcon style={{ minWidth: 45 }}>
+																	<Assignment className={classes.iconCourse} />
+																</ListItemIcon>
+																<ListItemText
+																	primaryTypographyProps={{
+																		variant: 'subtitle2',
+																	}}
+																	secondaryTypographyProps={{
+																		variant: 'caption',
+																		color: 'textSecondary',
+																	}}
+																	primary="Bài tập"
+																	secondary="Hoàn thành: 5/15"
+																/>
+															</ListItem>
+															<ListItem disableGutters>
+																<ListItemIcon style={{ minWidth: 45 }}>
+																	<AssignmentTurnedIn
+																		className={classes.iconCourse}
+																	/>
+																</ListItemIcon>
+																<ListItemText
+																	primaryTypographyProps={{
+																		variant: 'subtitle2',
+																	}}
+																	secondaryTypographyProps={{
+																		variant: 'caption',
+																		color: 'textSecondary',
+																	}}
+																	primary="Bài thi"
+																	secondary="Hoàn thành : 2/4"
+																/>
+															</ListItem>
+														</List>
+													</Box>
+												</Grid>
+											</Grid>
+										</Box>
+
+										<Typography variant={`h6`} component={`a`} align={`center`}>
+											<Link href="/my-course/[courseid]" as={`/my-course/3`}>
+												<Typography
+													style={{ fontWeight: 700, fontFamily: 'Roboto' }}
+												>
+													Complete NextJS with static file generation
+												</Typography>
+											</Link>
+										</Typography>
+									</CardContent>
+								</Box>
+							</Card>
+						</Grid>
+						<Grid item xs={12} sm={12} md={6}>
+							<Card className={classes.cardContainer}>
+								<Box
+									p={2}
+									flexDirection={`column`}
+									display={`flex`}
+									height={`100%`}
+								>
+									<CardHeader
+										title="Bài tập cần hoàn thành"
+										className={classes.cardHeader}
+										titleTypographyProps={{
+											variant: 'h6',
+										}}
+									/>
+									<CardContent
+										style={{
+											paddingTop: 0,
+											flexGrow: 1,
+											maxHeight: '18.5rem',
+											overflow: 'auto',
+											marginTop: '0.5rem',
+										}}
+									>
+										<List>
+											<RenderRow lists={courseDemo} />
+										</List>
+									</CardContent>
+								</Box>
+							</Card>
+						</Grid>
 					</Grid>
 				</Box>
-			</Paper>
-			<Box mt={2}>
-				<Grid container spacing={2}>
-					<Grid item xs={12} sm={12} md={6}>
-						<Card>
-							<Box p={2}>
-								<CardHeader
-									title="Khóa học đang học"
-									className={classes.cardHeader}
-									titleTypographyProps={{
-										variant: 'h6',
-									}}
-									action={
-										<Link href="/my-course/[courseid]" as={`/my-course/3`}>
-											<Button
-												color="primary"
-												startIcon={<PlayCircleOutline />}
-												className={classes.lightPrimaryBtn}
-												size="medium"
-											>
-												Học tiếp
-											</Button>
-										</Link>
-									}
-								/>
-								<CardContent>
-									<Box mb={2}>
-										<Grid container>
-											<Grid item xs={12} sm={6} md={6} lg={7}>
-												<CardMedia
-													className={classes.media}
-													image="/static/img/learning.svg"
-													title="Complete React Hooks 2020"
-												/>
-											</Grid>
-											<Grid item xs={12} sm={6} md={6} lg={5}>
-												<Box ml={{ sm: 2 }}>
-													<List className={classes.infoBoxWrap}>
-														<ListItem disableGutters>
-															<ListItemIcon style={{ minWidth: 45 }}>
-																<Subscriptions className={classes.iconCourse} />
-															</ListItemIcon>
-															<ListItemText
-																primaryTypographyProps={{
-																	variant: 'subtitle2',
-																}}
-																secondaryTypographyProps={{
-																	variant: 'caption',
-																	color: 'textSecondary',
-																}}
-																primary="Video"
-																secondary="Hoàn thành: 2/12"
-															/>
-														</ListItem>
-														<ListItem disableGutters>
-															<ListItemIcon style={{ minWidth: 45 }}>
-																<Assignment className={classes.iconCourse} />
-															</ListItemIcon>
-															<ListItemText
-																primaryTypographyProps={{
-																	variant: 'subtitle2',
-																}}
-																secondaryTypographyProps={{
-																	variant: 'caption',
-																	color: 'textSecondary',
-																}}
-																primary="Bài tập"
-																secondary="Hoàn thành: 5/15"
-															/>
-														</ListItem>
-														<ListItem disableGutters>
-															<ListItemIcon style={{ minWidth: 45 }}>
-																<AssignmentTurnedIn
-																	className={classes.iconCourse}
-																/>
-															</ListItemIcon>
-															<ListItemText
-																primaryTypographyProps={{
-																	variant: 'subtitle2',
-																}}
-																secondaryTypographyProps={{
-																	variant: 'caption',
-																	color: 'textSecondary',
-																}}
-																primary="Bài thi"
-																secondary="Hoàn thành : 2/4"
-															/>
-														</ListItem>
-													</List>
-												</Box>
-											</Grid>
-										</Grid>
-									</Box>
-
-									<Typography
-										color="primary"
-										variant={`h6`}
-										component={`a`}
-										align={`center`}
-									>
-										<Link href="/my-course/[courseid]" as={`/my-course/3`}>
-											<Typography>
-												Complete NextJS with static file generation
-											</Typography>
-										</Link>
-									</Typography>
-								</CardContent>
-							</Box>
-						</Card>
-					</Grid>
-					<Grid item xs={12} sm={12} md={6}>
-						<Card className={classes.cardContainer}>
-							<Box
-								p={2}
-								flexDirection={`column`}
-								display={`flex`}
-								height={`100%`}
-							>
-								<CardHeader
-									title="Bài tập cần hoàn thành"
-									className={classes.cardHeader}
-									titleTypographyProps={{
-										variant: 'h6',
-									}}
-								/>
-								<CardContent
-									style={{
-										paddingTop: 0,
-										flexGrow: 1,
-										maxHeight: '18.5rem',
-										overflow: 'auto',
-										marginTop: '0.5rem',
-									}}
-								>
-									<List>
-										<RenderRow lists={courseDemo} />
-									</List>
-								</CardContent>
-							</Box>
-						</Card>
-					</Grid>
-				</Grid>
-			</Box>
-		</Container>
+				<Box mt={4}>
+					<Typography variant={`h6`}>Bài viết mới</Typography>
+					<Box mt={2}>
+						<RenderSlider data={blogDemo} isLoading={isLoading} />
+					</Box>
+				</Box>
+			</Container>
+		</Box>
 	)
 }
 

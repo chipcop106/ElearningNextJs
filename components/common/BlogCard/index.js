@@ -47,6 +47,7 @@ export const BlogCard = ({
 		image = '',
 		imageThumbnail = '',
 		description = '',
+		noDescription = false,
 	},
 	isLoading = false,
 }) => {
@@ -97,7 +98,6 @@ export const BlogCard = ({
 						{time}
 					</Typography>
 				)}
-
 				{isLoading ? (
 					<>
 						<Skeleton />
@@ -105,33 +105,37 @@ export const BlogCard = ({
 						<Skeleton />
 					</>
 				) : (
-					<Typography
-						variant="body2"
-						color="textSecondary"
-						component="p"
-						className={classes.truncateText}
-					>
-						{description || ''}
-					</Typography>
+					noDescription === false && (
+						<Typography
+							variant="body2"
+							color="textSecondary"
+							component="p"
+							className={classes.truncateText}
+						>
+							{description || ''}
+						</Typography>
+					)
 				)}
 			</CardContent>
-			<CardActions disableSpacing style={{ padding: '0 1rem 1rem' }}>
-				{isLoading ? (
-					<Skeleton height={36} width={100} />
-				) : (
-					<Button
-						variant={`text`}
-						color={`primary`}
-						endIcon={<ArrowRightAlt />}
-						onClick={(e) => {
-							e.preventDefault()
-							router.push(`/blog/post/[[...slug]]`, `/blog/post/${id}`)
-						}}
-					>
-						Đọc tiếp
-					</Button>
-				)}
-			</CardActions>
+			{noDescription === false && (
+				<CardActions disableSpacing style={{ padding: '0 1rem 1rem' }}>
+					{isLoading ? (
+						<Skeleton height={36} width={100} />
+					) : (
+						<Button
+							variant={`text`}
+							color={`primary`}
+							endIcon={<ArrowRightAlt />}
+							onClick={(e) => {
+								e.preventDefault()
+								router.push(`/blog/post/[[...slug]]`, `/blog/post/${id}`)
+							}}
+						>
+							Đọc tiếp
+						</Button>
+					)}
+				</CardActions>
+			)}
 		</Card>
 	)
 }

@@ -5,6 +5,7 @@ import {
 	ArrowDropDown,
 	PlayCircleFilled,
 	Description,
+	Bookmark,
 } from '@material-ui/icons'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
@@ -30,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	titleVideo: {
 		fontSize: '1rem',
+		color: '#000',
+		'&:hover': {
+			color: theme.palette.primary.main,
+		},
 	},
 	listBody: {
 		display: 'block',
@@ -42,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 		padding: '0.75rem',
 		borderBottom: '1px solid #e1e1e1',
 		'&.actived': {
-			backgroundColor: 'rgba(255, 224, 93, 0.4)',
+			backgroundColor: 'rgba(0, 108, 255, 0.08)',
 		},
 	},
 }))
@@ -84,30 +89,34 @@ const ListItem = ({ data, onClickLink, onCheckbox }) => {
 						inputProps={{ 'aria-label': 'primary checkbox' }}
 					/>
 					<Box ml={1.5}>
-						<Link onClick={() => context.onClickLinkVideo(data)}>
-							<Typography className={classes.titleVideo}>{title}</Typography>
+						<Link
+							onClick={() => context.onClickLinkVideo(data)}
+							className={classes.titleVideo}
+						>
+							<Typography>{title}</Typography>
 						</Link>
 						<Box
 							display={`flex`}
 							alignItems={`center`}
 							className={classes.meta}
-							style={{ fontSize: '0.875rem' }}
+							style={{ fontSize: '0.875rem', marginTop: 3 }}
 						>
 							{type === 1 ? (
 								<>
-									<PlayCircleFilled className={classes.metaIcon} />
-									<Box ml={0.5}>Video</Box>
+									<Bookmark className={classes.metaIcon} />
+									<Box ml={0.5}>Bài học</Box>
 									<Divider
 										mx={0.5}
 										orientation={`vertical`}
 										style={{ margin: '0 0.5rem', height: 15 }}
 									/>
-									<Box>3 giờ 15 phút</Box>
+									<Description className={classes.metaIcon} />
+									<Box ml={0.5}>Bài tập</Box>
 								</>
 							) : (
 								<>
 									<Description className={classes.metaIcon} />
-									<Box ml={0.5}>Bài viết</Box>
+									<Box ml={0.5}>Bài tập</Box>
 								</>
 							)}
 						</Box>
@@ -146,7 +155,7 @@ const SectionGroup = ({ data: { groupName, meta, playlists, score } }) => {
 				expandIcon={<ArrowDropDown />}
 				IconButtonProps={{
 					size: 'medium',
-					color: 'primary',
+					style: { color: '#000' },
 				}}
 				className={classes.secWrap}
 			>

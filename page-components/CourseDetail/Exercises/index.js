@@ -295,12 +295,12 @@ const Excercises = () => {
 							alignItems={`center`}
 						>
 							<Box mr={2}>
-								<Typography variant={`body`}>
+								<Typography variant={`body1`}>
 									Số lượng: <strong>15 câu</strong>
 								</Typography>
 							</Box>
 							<Box>
-								<Typography variant={`body`}>
+								<Typography variant={`body1`}>
 									Thời gian làm: <strong>30 phút</strong>
 								</Typography>
 							</Box>

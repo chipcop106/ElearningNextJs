@@ -15,7 +15,7 @@ import { randomId } from '~/utils'
 import Link from 'next/link'
 import { Pagination } from '@material-ui/lab'
 
-const blogDemo = [
+export const blogDemo = [
 	{
 		id: randomId(),
 		title: 'Cards contain content and actions about a single subject',

@@ -36,6 +36,32 @@ const SuccessProgressBar = withStyles((theme) => ({
 	</Box>
 ))
 
+const WarningProgressBar = withStyles((theme) => ({
+	barColorPrimary: {
+		backgroundColor: theme.palette.warning.light,
+	},
+	colorPrimary: {
+		backgroundColor:
+			theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
+	},
+}))((props) => (
+	<Box display="flex" alignItems="center">
+		<Box width="100%" mr={1}>
+			<LinearProgress
+				style={{ height: 5 }}
+				variant="determinate"
+				color={`primary`}
+				{...props}
+			/>
+		</Box>
+		<Box minWidth={35}>
+			<Typography variant="body2" color="textSecondary">{`${Math.round(
+				props.value
+			)}%`}</Typography>
+		</Box>
+	</Box>
+))
+
 const LinearProgressWithLabel = (props) => {
 	return (
 		<Box display="flex" alignItems="center">
@@ -101,10 +127,10 @@ const SuccessButton = withStyles((theme) => ({
 
 const WarningButton = withStyles((theme) => ({
 	root: {
-		color: '#000',
-		backgroundColor: theme.palette.secondary.main,
+		color: theme.palette.warning.contrastText,
+		backgroundColor: theme.palette.warning.main,
 		'&:hover': {
-			backgroundColor: theme.palette.secondary.dark,
+			backgroundColor: theme.palette.warning.dark,
 		},
 	},
 }))(Button)
@@ -121,6 +147,7 @@ const HorizontalCardCourse = ({
 	finished = false,
 	loading = false,
 	warningDate = false,
+	category = '',
 }) => {
 	const classes = useStyles()
 	return (
@@ -148,6 +175,13 @@ const HorizontalCardCourse = ({
 						)}
 					</Box>
 					<Box flexGrow={1}>
+						<Typography
+							variant={'subtitle1'}
+							color={`secondary`}
+							style={{ fontSize: '0.85rem' }}
+						>
+							{category}
+						</Typography>
 						<Typography variant={'subtitle2'} style={{ fontSize: '1rem' }}>
 							{loading ? <Skeleton /> : courseName}
 						</Typography>
@@ -163,8 +197,9 @@ const HorizontalCardCourse = ({
 								variant={'body2'}
 								style={{
 									marginBottom: 0,
+									fontFamily: 'Roboto',
 								}}
-								className={warningDate ? classes.errorText : classes.metaColor}
+								className={classes.metaColor}
 							>
 								{loading ? <Skeleton width="30%" /> : time}
 							</Typography>
@@ -180,7 +215,7 @@ const HorizontalCardCourse = ({
 									<Skeleton width={100} />
 								) : (
 									<>
-										<PlayCircleFilled color={`primary`} />
+										<PlayCircleFilled />
 										<Box ml={0.5}>
 											<Typography component={`span`}>
 												{finishedVideo}
@@ -201,11 +236,10 @@ const HorizontalCardCourse = ({
 							) : totalVideo === finishedVideo && finishedVideo !== 0 ? (
 								<SuccessProgressBar value={100} />
 							) : (
-								<LinearProgressWithLabel
+								<WarningProgressBar
 									value={
 										totalVideo !== 0 ? (finishedVideo * 100) / totalVideo : 0
 									}
-									color={`secondary`}
 								/>
 							)}
 						</Box>
@@ -217,7 +251,7 @@ const HorizontalCardCourse = ({
 									<Skeleton width={100} />
 								) : (
 									<>
-										<Assignment color={`primary`} />
+										<Assignment />
 										<Box ml={0.5}>
 											<Typography component={`span`}>
 												{finishedExercise}
@@ -239,13 +273,12 @@ const HorizontalCardCourse = ({
 							  finishedExercise !== 0 ? (
 								<SuccessProgressBar value={100} />
 							) : (
-								<LinearProgressWithLabel
+								<WarningProgressBar
 									value={
 										totalExercise !== 0
 											? (finishedExercise * 100) / totalExercise
 											: 0
 									}
-									color={`secondary`}
 								/>
 							)}
 						</Box>

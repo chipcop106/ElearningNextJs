@@ -1,4 +1,9 @@
-import React, { useReducer, useEffect, createContext } from 'react'
+import React, {
+	useReducer,
+	useEffect,
+	createContext,
+	useLayoutEffect,
+} from 'react'
 import { useRouter } from 'next/router'
 import { getLayout } from '~/components/Layout'
 import { makeStyles } from '@material-ui/core/styles'
@@ -420,6 +425,12 @@ const ResultDetail = () => {
 		setActiveVideo(video)
 	}
 
+	const responsiveSidebar = () => {
+		if (window.matchMedia('(max-width: 1280px)').matches) {
+			_toggleSidenav(false)
+		}
+	}
+
 	useEffect(() => {
 		dispatch({ type: 'SET_VIDEO_SOURCE', payload: exerciseLists })
 		setTimeout(() => setLoading(false), 2000)
@@ -430,6 +441,10 @@ const ResultDetail = () => {
 			return
 		setActiveVideo(state.videoPlaylists[0].playlists[0])
 	}, [state.videoPlaylists])
+
+	useLayoutEffect(() => {
+		responsiveSidebar()
+	}, [])
 
 	return (
 		<CourseContext.Provider
@@ -498,7 +513,7 @@ const ResultDetail = () => {
 							<Box mr={2}>
 								<Chip
 									label="Khóa học"
-									color="secondary"
+									color="primary"
 									size="small"
 									icon={<LocalLibrary />}
 								/>
@@ -507,7 +522,6 @@ const ResultDetail = () => {
 						<Typography
 							variant={`h5`}
 							component="h1"
-							color={`primary`}
 							noWrap={true}
 							className={classes.courseName}
 						>

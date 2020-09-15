@@ -28,11 +28,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 	meta: {
 		fontSize: '0.875rem',
-
+		marginTop: 3,
 		color: '#707070',
 	},
 	titleVideo: {
 		fontSize: '1rem',
+		color: '#000',
 	},
 	listBody: {
 		display: 'block',
@@ -45,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 		padding: '0.75rem',
 		borderBottom: '1px solid #e1e1e1',
 		'&.actived': {
-			backgroundColor: 'rgba(255, 224, 93, 0.4)',
+			backgroundColor: 'rgba(0, 108, 255, 0.08)',
 		},
 	},
 	checkboxDisabled: {
@@ -95,8 +96,11 @@ const ListItem = ({ data, onClickLink, onCheckbox }) => {
 							<Typography variant={`h6`}>{score}</Typography>
 						</Box>
 						<Box ml={1.5}>
-							<Link onClick={() => context?.onClickLinkVideo(data)}>
-								<Typography className={classes.titleVideo}>{title}</Typography>
+							<Link
+								onClick={() => context?.onClickLinkVideo(data)}
+								className={classes.titleVideo}
+							>
+								<Typography>{title}</Typography>
 							</Link>
 							<Box
 								display={`flex`}
@@ -156,7 +160,7 @@ const ResultSection = ({ data: { groupName, meta, playlists, score } }) => {
 				expandIcon={<ArrowDropDown />}
 				IconButtonProps={{
 					size: 'medium',
-					color: 'primary',
+					style: { color: '#000' },
 				}}
 				className={classes.secWrap}
 			>

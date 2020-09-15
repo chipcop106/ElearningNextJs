@@ -18,6 +18,7 @@ import HorizontalCardCourse from '~/page-components/MyCourse/HorizontalCardCours
 import { Pagination } from '@material-ui/lab'
 import { colors } from '~/config'
 import MyRanking from '~/page-components/Result/MyRanking'
+import { randomId } from '~/utils'
 
 const courseDemo = [
 	{
@@ -31,6 +32,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
+		categoryName: 'Kỹ năng mềm',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 2,
@@ -43,6 +46,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
+		categoryName: 'Kỹ năng mềm',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 3,
@@ -55,6 +60,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
+		categoryName: 'Kỹ năng mềm',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 4,
@@ -66,6 +73,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 45,
 		finished: true,
+		categoryName: 'Kỹ năng mềm',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 5,
@@ -77,6 +86,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
+		categoryName: 'Kỹ năng mềm',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 6,
@@ -88,6 +99,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
+		categoryName: 'Kỹ năng mềm',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 7,
@@ -99,6 +112,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 45,
 		finished: true,
+		categoryName: 'Kỹ năng mềm',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 8,
@@ -110,6 +125,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 45,
 		finished: true,
+		categoryName: 'Kỹ năng mềm',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 9,
@@ -121,6 +138,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 45,
 		finished: true,
+		categoryName: 'Kỹ năng mềm',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 10,
@@ -132,6 +151,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 45,
 		finished: true,
+		categoryName: 'Kỹ năng mềm',
+		categoryId: randomId(),
 	},
 ]
 
@@ -203,6 +224,7 @@ const ListCourse = ({ data, warningDate = false }) => {
 						finishedExercise={item.finishedExercise}
 						totalExercise={item.totalExercise}
 						warningDate={true}
+						category={item.categoryName}
 					/>
 				</Box>
 			))}

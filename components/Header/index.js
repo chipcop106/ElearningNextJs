@@ -33,7 +33,6 @@ import List from '@material-ui/core/List'
 const useStyles = makeStyles((theme) => ({
 	menuButton: {
 		marginRight: theme.spacing(2),
-		color: '#fff',
 	},
 	activeMenu: {
 		'& > a ': {
@@ -54,9 +53,9 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: 9999,
 	},
 	headerContainer: {
-		backgroundColor: 'rgb(31,64,105)',
-		background:
-			'linear-gradient(153deg, rgba(31,64,105,1) 0%, rgba(12,41,78,1) 100%)',
+		backgroundColor: '#fff',
+		boxShadow: '0px 10px 16px 0px rgba(0,0,0,.15)',
+		zIndex: 9,
 	},
 }))
 
@@ -112,7 +111,7 @@ const Header = () => {
 		>
 			<Container maxWidth="xl">
 				<Box display="flex" justifyContent="space-between" alignItems="center">
-					<Box display="flex">
+					<Box display="flex" alignItems="center">
 						<Hidden mdUp>
 							<IconButton
 								edge="start"
@@ -133,7 +132,7 @@ const Header = () => {
 								className={styles.logoWrap}
 							>
 								<img
-									src="/static/img/mona-logo.png"
+									src="/static/img/logo.png"
 									className={`logo ${styles.logo}`}
 									alt="logo"
 								/>
@@ -142,8 +141,8 @@ const Header = () => {
 						<Hidden mdDown>
 							<Divider
 								orientation="vertical"
-								flexItem
 								className={styles.divider}
+								style={{ marginRight: '1rem !important' }}
 							/>
 						</Hidden>
 						<Box
@@ -159,7 +158,7 @@ const Header = () => {
 									alignItems={`center`}
 									style={{
 										padding: '0.75rem',
-										borderBottom: '1px solid ' + colors.primaryLighten,
+										borderBottom: '1px solid #e1e1e1',
 									}}
 								>
 									<Link href="/home">
@@ -170,15 +169,13 @@ const Header = () => {
 											className={styles.logoWrap}
 										>
 											<img
-												src="/static/img/mona-logo.png"
+												src="/static/img/logo.png"
 												className={`logo ${styles.logo}`}
 												alt="logo"
 											/>
 										</Box>
 									</Link>
 									<IconButton
-										edge="end"
-										style={{ color: '#fff' }}
 										color="inherit"
 										aria-label="menu"
 										onClick={toggleMenuMobile}
@@ -277,11 +274,9 @@ const Header = () => {
 							<Avatar alt="Remy Sharp" src="/static/img/avatar.jpg" />
 							<Box display="flex" alignItems="center" ml={1}>
 								<Hidden xsDown>
-									<Typography style={{ color: '#fff' }}>
-										Huỳnh Thị Phương Anh
-									</Typography>
+									<Typography>Huỳnh Thị Phương Anh</Typography>
 								</Hidden>
-								<ArrowDropDown style={{ color: '#fff' }} />
+								<ArrowDropDown />
 							</Box>
 						</Box>
 						<DropDownMenu

@@ -309,10 +309,7 @@ const ExerciseResult = () => {
 			{(context) => (
 				<>
 					<Box mb={2}>
-						<Typography
-							style={{ fontWeight: 600, fontSize: '1.25rem' }}
-							color={`primary`}
-						>
+						<Typography style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 							1. How to play e-learning web application Referring to window size
 							in React Material-UI makeStyles
 						</Typography>
@@ -359,7 +356,7 @@ const ExerciseResult = () => {
 							</Box>
 						</Box>
 						<Box display={`flex`} alignItems={`center`}>
-							<Box className={classes.score} ml={2} color={`primary.main`}>
+							<Box className={classes.score} ml={2} color={`error.main`}>
 								<Typography variant={`h4`} style={{ fontWeight: 'bold' }}>
 									7.5
 								</Typography>

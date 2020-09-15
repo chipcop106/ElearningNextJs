@@ -18,6 +18,7 @@ import Paper from '@material-ui/core/Paper'
 import { colors } from '~/config'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { LibraryBooksRounded } from '@material-ui/icons'
+import { randomId } from '~/utils'
 
 const courseDemo = [
 	{
@@ -31,6 +32,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
+		categoryName: 'Chuyên môn',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 2,
@@ -43,6 +46,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
+		categoryName: 'Quản lý cấp trung',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 3,
@@ -55,6 +60,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
+		categoryName: 'Quản lý cấp cao',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 5,
@@ -66,6 +73,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
+		categoryName: 'Kỹ năng mềm',
+		categoryId: randomId(),
 	},
 	{
 		courseId: 6,
@@ -77,6 +86,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
+		categoryName: 'Hội nhập nhân viên mới',
+		categoryId: randomId(),
 	},
 
 	{
@@ -89,6 +100,8 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 45,
 		finished: true,
+		categoryName: 'Marketing',
+		categoryId: randomId(),
 	},
 ]
 
@@ -100,10 +113,21 @@ const RowItem = ({ item }) => {
 		leftIcon: {
 			width: 30,
 			height: 30,
-			color: '#b4b4b4',
+			color: colors.primaryLighten,
 		},
 		rightIcon: {
 			fontSize: 48,
+		},
+		link: {
+			color: '#000',
+			'&:hover': {
+				color: colors.primary,
+			},
+		},
+		deadline: {
+			fontWeight: 600,
+			letterSpacing: 1,
+			fontFamily: 'Roboto',
 		},
 	})()
 	return (
@@ -113,7 +137,7 @@ const RowItem = ({ item }) => {
 			</ListItemIcon>
 			<Box>
 				<Link href={`/my-course/[courseid]`} as={`/my-course/3`}>
-					<LinkMU>
+					<LinkMU className={classes.link}>
 						<Typography variant={`subtitle2`}>{item.courseName}</Typography>
 					</LinkMU>
 				</Link>
@@ -123,13 +147,15 @@ const RowItem = ({ item }) => {
 						variant={`caption`}
 						component={`span`}
 						color="textSecondary"
+						style={{ marginRight: 5 }}
 					>
 						Hạn nộp:
 					</Typography>
 					<Typography
 						variant={`caption`}
 						component={`span`}
-						style={{ marginLeft: '0.5rem', fontWeight: '600' }}
+						color="textSecondary"
+						className={classes.deadline}
 					>
 						{item.deadline}
 					</Typography>
@@ -177,17 +203,14 @@ const CircularProgressWithLabel = (props) => {
 							variant="h5"
 							component="div"
 							fontSize="large"
-							style={{ fontWeight: 'bold' }}
+							style={{ fontWeight: 600 }}
 						>
 							{`${Math.round(props?.number ?? 0)} / ${Math.round(
 								props?.totalnumber ?? 0
 							)}`}
 						</Typography>
 						{!!props.label && (
-							<Typography
-								variant={'subtitle1'}
-								style={{ color: '#ccc', fontWeight: 'bold' }}
-							>
+							<Typography variant={'subtitle1'} style={{ color: '#fff' }}>
 								{props.label}
 							</Typography>
 						)}
@@ -237,11 +260,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	label: {
 		color: '#fff',
-		fontWeight: 'bold',
+		fontWeight: 400,
 	},
 	value: {
-		color: '#ccc',
-		fontWeight: 'bold',
+		color: '#fff',
+		fontWeight: 600,
 	},
 	iconCourse: {
 		width: 35,
@@ -265,6 +288,7 @@ const ListCourse = ({ data }) => {
 						finishedExercise={item.finishedExercise}
 						totalExercise={item.totalExercise}
 						src={item.src}
+						category={item.categoryName}
 					/>
 				</Box>
 			))}
@@ -328,10 +352,11 @@ const MyCourse = () => {
 											number={15}
 											totalnumber={50}
 											value={Math.round((15 * 100) / 50)}
-											size={200}
+											size={250}
 											color={`secondary`}
 											thickness={4}
 											label={`Bài tập hoàn thành`}
+											style={{ color: '#fff' }}
 										/>
 									</Box>
 									<Box mt={2}>
@@ -341,7 +366,10 @@ const MyCourse = () => {
 													<CircularProgressWithLabel
 														size={35}
 														value={35}
-														style={{ marginRight: '1rem', color: '#47d64d' }}
+														style={{
+															marginRight: '1rem',
+															color: 'rgb(79, 255, 86)',
+														}}
 													/>
 													<Box>
 														<Typography
@@ -364,7 +392,10 @@ const MyCourse = () => {
 													<CircularProgressWithLabel
 														size={35}
 														value={35}
-														style={{ marginRight: '1rem', color: '#ff7289' }}
+														style={{
+															marginRight: '1rem',
+															color: 'rgb(255, 182, 194)',
+														}}
 													/>
 													<Box>
 														<Typography
