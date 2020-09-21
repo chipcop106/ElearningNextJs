@@ -3,21 +3,21 @@ import React, {
 	useEffect,
 	createContext,
 	useLayoutEffect,
-} from 'react'
-import { useRouter } from 'next/router'
-import { getLayout } from '~/components/Layout'
-import { makeStyles } from '@material-ui/core/styles'
-import { IconButton, Typography, Chip, Box } from '@material-ui/core'
-import { Menu, LocalLibrary } from '@material-ui/icons'
-import { colors } from '~/config'
-import ResultSection from '~/page-components/Result/ResultDetail/ResultSection'
-import { randomId } from '~/utils'
-import { useWindowSize } from '~/hooks/useWindowSize'
+} from 'react';
+import { useRouter } from 'next/router';
+import { getLayout } from '~/components/Layout';
+import { makeStyles } from '@material-ui/core/styles';
+import { IconButton, Typography, Chip, Box } from '@material-ui/core';
+import { Menu, LocalLibrary } from '@material-ui/icons';
+import { colors } from '~/config';
+import ResultSection from '~/page-components/Result/ResultDetail/ResultSection';
+import { randomId } from '~/utils';
+import { useWindowSize } from '~/hooks/useWindowSize';
 
-import Container from '@material-ui/core/Container'
-import Hidden from '@material-ui/core/Hidden'
-import ExerciseResult from '~/page-components/Result/ResultDetail/ExerciseResult'
-import Paper from '@material-ui/core/Paper'
+import Container from '@material-ui/core/Container';
+import Hidden from '@material-ui/core/Hidden';
+import ExerciseResult from '~/page-components/Result/ResultDetail/ExerciseResult';
+import Paper from '@material-ui/core/Paper';
 
 const contentDemo = `<h2>What is a CSS Sprite</h2>
 <p>We need to know about an image sprite before we start talking about CSS sprites. An image sprite is a compilation of different image assets that we want to use on our web application.</p>
@@ -34,16 +34,15 @@ const contentDemo = `<h2>What is a CSS Sprite</h2>
 <iframe src="https://www.youtube.com/embed/sAcj8me7wGI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p>Whenever you open a website in your web browser, all its files eg. HTML, JavaScript, images etc. start to load up.</p>
 <p>More the files, more will be the number of requests made to load the website in the browser. </p>
-<p>More the requests, more will be the load time of the website. Now, this high load time is the enemy of UX and SEO.</p>`
+<p>More the requests, more will be the load time of the website. Now, this high load time is the enemy of UX and SEO.</p>`;
 const exerciseLists = [
 	{
 		sectionId: randomId(),
-		sectionName: 'Section 1: Install package',
+		sectionName: 'Section 1: Tổng quan hàng nhập',
 		playlists: [
 			{
 				id: randomId(),
-				title:
-					'How to play e-learning web application Referring to window size in React Material-UI makeStyles',
+				title: 'Cơ cấu phòng và dịch vụ của phòng',
 				typeQuestion: 1,
 				lastUpdated: '20/07/2020',
 				score: 7.5,
@@ -51,7 +50,7 @@ const exerciseLists = [
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Incoterm',
 				typeQuestion: 2,
 				lastUpdated: '20/07/2020',
 				score: 6,
@@ -59,7 +58,7 @@ const exerciseLists = [
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Vận đơn và các thuật ngữ trong logistics',
 				typeQuestion: 2,
 				lastUpdated: '20/07/2020',
 				score: 7,
@@ -67,7 +66,7 @@ const exerciseLists = [
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Hướng dẫn lập file trên phàn mềm excel',
 				typeQuestion: 1,
 				lastUpdated: '20/07/2020',
 				score: null,
@@ -75,16 +74,7 @@ const exerciseLists = [
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application ',
-				typeQuestion: 1,
-				lastUpdated: '20/07/2020',
-				score: null,
-				finished: false,
-			},
-			{
-				id: randomId(),
-				title:
-					'How to play e-learning web application Referring to window size in React Material-UI makeStyles',
+				title: 'Hướng dẫn submit MNF',
 				typeQuestion: 1,
 				lastUpdated: '20/07/2020',
 				score: null,
@@ -94,11 +84,11 @@ const exerciseLists = [
 	},
 	{
 		sectionId: randomId(),
-		sectionName: 'Section 2: First App with NexJS',
+		sectionName: 'Section 2: Quy trình làm hàng nhập',
 		playlists: [
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Hướng dẫn quy trình làm document hàng Air + SEA',
 				typeQuestion: 1,
 				lastUpdated: '20/07/2020',
 				score: 8,
@@ -106,7 +96,7 @@ const exerciseLists = [
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Giới thiệu các loại hình vận chuyển quốc tế',
 				typeQuestion: 1,
 				lastUpdated: '20/07/2020',
 				score: 8,
@@ -114,7 +104,7 @@ const exerciseLists = [
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Sơ đồ handle hàng và form',
 				typeQuestion: 1,
 				lastUpdated: '20/07/2020',
 				score: 8,
@@ -122,7 +112,7 @@ const exerciseLists = [
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Hướng dẫn viết mail báo handle hàng cho đại lý',
 				typeQuestion: 1,
 				lastUpdated: '20/07/2020',
 				score: 8,
@@ -130,7 +120,7 @@ const exerciseLists = [
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Quy trình chi tiết handle hàng Air',
 				typeQuestion: 1,
 				lastUpdated: '20/07/2020',
 				score: 8,
@@ -138,7 +128,7 @@ const exerciseLists = [
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Quy trình chi tiết handle hàng SEA',
 				typeQuestion: 1,
 				lastUpdated: '20/07/2020',
 				score: 8,
@@ -148,11 +138,19 @@ const exerciseLists = [
 	},
 	{
 		sectionId: randomId(),
-		sectionName: 'Section 3: How to build project with create-new-app ?',
+		sectionName: 'Section 3: Hướng dẫn bổ sung',
 		playlists: [
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Các luồng tuyến chính + thời gian vận chuyển',
+				typeQuestion: 2,
+				lastUpdated: '20/07/2020',
+				score: 8,
+				finished: true,
+			},
+			{
+				id: randomId(),
+				title: 'Hướng dẫn các viết mail check giá',
 				typeQuestion: 1,
 				lastUpdated: '20/07/2020',
 				score: 8,
@@ -160,43 +158,11 @@ const exerciseLists = [
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
-				typeQuestion: 1,
-				lastUpdated: '20/07/2020',
-				score: 8,
-				finished: true,
-			},
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Hướng dẫn đặc tính khách hàng trong quá trình handle hàng',
 				typeQuestion: 1,
 				lastUpdated: '20/07/2020',
 				score: null,
 				finished: false,
-			},
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
-				typeQuestion: 1,
-				lastUpdated: '20/07/2020',
-				score: null,
-				finished: false,
-			},
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
-				typeQuestion: 1,
-				lastUpdated: '20/07/2020',
-				score: 8,
-				finished: true,
-			},
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
-				typeQuestion: 1,
-				lastUpdated: '20/07/2020',
-				score: 8,
-				finished: true,
 			},
 		],
 	},
@@ -254,7 +220,7 @@ const exerciseLists = [
 			},
 		],
 	},
-]
+];
 
 const initialState = {
 	isLoading: true,
@@ -262,7 +228,7 @@ const initialState = {
 	activeVideo: null,
 	activeTab: 0,
 	hideSidebar: false,
-}
+};
 
 const useStyles = makeStyles((theme) => ({
 	menuButton: {
@@ -285,6 +251,9 @@ const useStyles = makeStyles((theme) => ({
 		width: 400,
 		flexShrink: 0,
 		transition: 'width .3s ease',
+		[theme.breakpoints.down('xs')]: {
+			width: '100%',
+		},
 		'&.closed': {
 			width: 70,
 			[theme.breakpoints.down('xs')]: {
@@ -310,6 +279,10 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: '#fff',
 		boxShadow: 'rgba(0,0,0, .075)',
 		transition: 'width .3s ease',
+		height: 'calc(var(--app-height) - 174px)',
+		[theme.breakpoints.down('xs')]: {
+			width: '100%',
+		},
 		'&.closed': {
 			width: 0,
 		},
@@ -328,7 +301,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	contentWrap: {
 		flexGrow: 1,
-		height: 'calc(100vh - 174px)',
+		height: 'calc(var(--app-height) - 174px)',
 		overflow: 'auto',
 		padding: '2rem 0',
 	},
@@ -339,7 +312,7 @@ const useStyles = makeStyles((theme) => ({
 			minHeight: 450,
 		},
 	},
-}))
+}));
 
 const reducer = (prevState, { type, payload }) => {
 	switch (type) {
@@ -347,36 +320,36 @@ const reducer = (prevState, { type, payload }) => {
 			return {
 				...prevState,
 				videoPlaylists: payload, // arr
-			}
+			};
 		}
 		case 'SET_LOADING': {
 			return {
 				...prevState,
 				isLoading: payload, // bool
-			}
+			};
 		}
 		case 'SET_ACTIVE_VIDEO': {
 			return {
 				...prevState,
 				activeVideo: payload,
-			}
+			};
 		}
 		case 'SET_ACTIVE_TAB': {
 			return {
 				...prevState,
 				activeTab: payload,
-			}
+			};
 		}
 		case 'TOGGLE_SIDEBAR': {
 			return {
 				...prevState,
 				hideSidebar: payload,
-			}
+			};
 		}
 		default:
-			return prevState
+			return prevState;
 	}
-}
+};
 
 const Playlists = ({ videoPlaylists }) => {
 	return (
@@ -394,57 +367,60 @@ const Playlists = ({ videoPlaylists }) => {
 				/>
 			))}
 		</>
-	)
-}
+	);
+};
 
-export const CourseContext = createContext({})
+export const CourseContext = createContext({});
 
 const ResultDetail = () => {
-	const [state, dispatch] = useReducer(reducer, initialState)
-	const router = useRouter()
-	const { courseid } = router.query
-	const classes = useStyles()
-	const { width, height } = useWindowSize()
+	const [state, dispatch] = useReducer(reducer, initialState);
+	const router = useRouter();
+	const { courseid } = router.query;
+	const classes = useStyles();
+	const { width, height } = useWindowSize();
 	const setLoading = (value) => {
-		dispatch({ type: 'SET_LOADNG', payload: value })
-	}
+		dispatch({ type: 'SET_LOADNG', payload: value });
+	};
 
 	const setActiveVideo = (video) => {
-		dispatch({ type: 'SET_ACTIVE_VIDEO', payload: video })
-	}
+		dispatch({ type: 'SET_ACTIVE_VIDEO', payload: video });
+	};
 
 	const setActiveTab = (event, newValue) => {
-		dispatch({ type: 'SET_ACTIVE_TAB', payload: newValue })
-	}
+		dispatch({ type: 'SET_ACTIVE_TAB', payload: newValue });
+	};
 
 	const _toggleSidenav = () => {
-		dispatch({ type: 'TOGGLE_SIDEBAR', payload: !state.hideSidebar })
-	}
+		dispatch({ type: 'TOGGLE_SIDEBAR', payload: !state.hideSidebar });
+	};
 
 	const _handleClickPlaylist = (video) => {
-		setActiveVideo(video)
-	}
+		setActiveVideo(video);
+	};
 
 	const responsiveSidebar = () => {
 		if (window.matchMedia('(max-width: 1280px)').matches) {
-			_toggleSidenav(false)
+			_toggleSidenav(false);
 		}
-	}
+	};
 
 	useEffect(() => {
-		dispatch({ type: 'SET_VIDEO_SOURCE', payload: exerciseLists })
-		setTimeout(() => setLoading(false), 2000)
-	}, [])
+		dispatch({ type: 'SET_VIDEO_SOURCE', payload: exerciseLists });
+		setTimeout(() => setLoading(false), 2000);
+	}, []);
 
 	useEffect(() => {
 		if (!!!state.videoPlaylists || !!!state.videoPlaylists[0]?.playlists[0])
-			return
-		setActiveVideo(state.videoPlaylists[0].playlists[0])
-	}, [state.videoPlaylists])
+			return;
+		setActiveVideo(state.videoPlaylists[0].playlists[0]);
+	}, [state.videoPlaylists]);
 
-	useLayoutEffect(() => {
-		responsiveSidebar()
-	}, [])
+	useEffect(() => {
+		window.addEventListener('resize', responsiveSidebar);
+		return () => {
+			window.removeEventListener('resize', responsiveSidebar);
+		};
+	}, []);
 
 	return (
 		<CourseContext.Provider
@@ -534,7 +510,6 @@ const ResultDetail = () => {
 						className={`${classes.sidebarWrap} ${
 							!!state.hideSidebar ? 'closed' : ''
 						}`}
-						height={height - 174}
 					>
 						<Playlists videoPlaylists={state?.videoPlaylists ?? []} />
 					</Box>
@@ -550,9 +525,9 @@ const ResultDetail = () => {
 				</Box>
 			</Container>
 		</CourseContext.Provider>
-	)
-}
+	);
+};
 
-ResultDetail.getLayout = getLayout
+ResultDetail.getLayout = getLayout;
 
-export default ResultDetail
+export default ResultDetail;

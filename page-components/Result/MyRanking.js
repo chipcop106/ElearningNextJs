@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
 	Assignment,
 	Filter1Rounded,
@@ -7,15 +7,15 @@ import {
 	LocalLibrary,
 	Stars,
 	SupervisedUserCircle,
-} from '@material-ui/icons'
-import { Typography } from '@material-ui/core'
-import Box from '@material-ui/core/Box'
-import Avatar from '@material-ui/core/Avatar'
-import { randomId } from '~/utils'
-import { AvatarGenerator } from 'random-avatar-generator'
-import { makeStyles } from '@material-ui/core/styles'
-import { colors } from '~/config'
-const randomAvatar = () => new AvatarGenerator().generateRandomAvatar()
+} from '@material-ui/icons';
+import { Typography } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
+import { randomId } from '~/utils';
+import { AvatarGenerator } from 'random-avatar-generator';
+import { makeStyles } from '@material-ui/core/styles';
+import { colors } from '~/config';
+const randomAvatar = () => new AvatarGenerator().generateRandomAvatar();
 
 const rankPeople = [
 	{
@@ -88,7 +88,7 @@ const rankPeople = [
 	// 	score: 1522,
 	// 	avatar: randomAvatar(),
 	// },
-]
+];
 
 const useStyles = makeStyles((theme) => ({
 	rankIcon: {
@@ -103,10 +103,10 @@ const useStyles = makeStyles((theme) => ({
 	three: {
 		color: theme.palette.success.main,
 	},
-}))
+}));
 
 const RankPeople = ({ rank, name, score, avatar }) => {
-	const classes = useStyles()
+	const classes = useStyles();
 	return (
 		<Box
 			className={`people__wrap`}
@@ -152,7 +152,7 @@ const RankPeople = ({ rank, name, score, avatar }) => {
 
 				<Avatar src={avatar ? avatar : null} />
 				<Box ml={2}>
-					<Typography variant={`body`}>{name}</Typography>
+					<Typography variant={`body1`}>{name}</Typography>
 				</Box>
 			</Box>
 			<Box>
@@ -161,8 +161,8 @@ const RankPeople = ({ rank, name, score, avatar }) => {
 				</Typography>
 			</Box>
 		</Box>
-	)
-}
+	);
+};
 
 const MyRanking = () => {
 	return (
@@ -200,7 +200,7 @@ const MyRanking = () => {
 					</div>
 				</div>
 				<Box className="ranking__wrap" mt={2}>
-					<Typography variant={`paragraph`} style={{ color: '#b4b4b4' }}>
+					<Typography style={{ color: '#b4b4b4' }}>
 						Bảng xếp hạng điểm
 					</Typography>
 					<Box mt={2}>
@@ -217,7 +217,7 @@ const MyRanking = () => {
 				</Box>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default MyRanking
+export default MyRanking;

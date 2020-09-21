@@ -1,18 +1,18 @@
-import React, { useState, useMemo } from 'react'
-import Paper from '@material-ui/core/Paper'
-import Box from '@material-ui/core/Box'
-import Avatar from '@material-ui/core/Avatar'
-import { makeStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import { PlayCircleFilled, CheckCircle, Assignment } from '@material-ui/icons'
-import Button from '@material-ui/core/Button'
-import { withStyles } from '@material-ui/styles'
-import green from '@material-ui/core/colors/green'
-import { colors } from '~/config'
-import Link from 'next/link'
-import Hidden from '@material-ui/core/Hidden'
-import { Skeleton } from '@material-ui/lab'
+import React, { useState, useMemo } from 'react';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { PlayCircleFilled, CheckCircle, Assignment } from '@material-ui/icons';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/styles';
+import green from '@material-ui/core/colors/green';
+import { colors } from '~/config';
+import Link from 'next/link';
+import Hidden from '@material-ui/core/Hidden';
+import { Skeleton } from '@material-ui/lab';
 
 const SuccessProgressBar = withStyles((theme) => ({
 	barColorPrimary: {
@@ -30,11 +30,11 @@ const SuccessProgressBar = withStyles((theme) => ({
 		</Box>
 		<Box minWidth={35}>
 			<Typography variant="body2" color="textSecondary">{`${Math.round(
-				props.value
+				props.value,
 			)}%`}</Typography>
 		</Box>
 	</Box>
-))
+));
 
 const WarningProgressBar = withStyles((theme) => ({
 	barColorPrimary: {
@@ -56,11 +56,11 @@ const WarningProgressBar = withStyles((theme) => ({
 		</Box>
 		<Box minWidth={35}>
 			<Typography variant="body2" color="textSecondary">{`${Math.round(
-				props.value
+				props.value,
 			)}%`}</Typography>
 		</Box>
 	</Box>
-))
+));
 
 const LinearProgressWithLabel = (props) => {
 	return (
@@ -74,12 +74,12 @@ const LinearProgressWithLabel = (props) => {
 			</Box>
 			<Box minWidth={35}>
 				<Typography variant="body2" color="textSecondary">{`${Math.round(
-					props.value
+					props.value,
 				)}%`}</Typography>
 			</Box>
 		</Box>
-	)
-}
+	);
+};
 
 const useStyles = makeStyles((theme) => ({
 	boxFlex: {
@@ -113,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
 	metaColor: {
 		color: '#b4b4b4',
 	},
-}))
+}));
 
 const SuccessButton = withStyles((theme) => ({
 	root: {
@@ -123,7 +123,7 @@ const SuccessButton = withStyles((theme) => ({
 			backgroundColor: green[700],
 		},
 	},
-}))(Button)
+}))(Button);
 
 const WarningButton = withStyles((theme) => ({
 	root: {
@@ -133,7 +133,7 @@ const WarningButton = withStyles((theme) => ({
 			backgroundColor: theme.palette.warning.dark,
 		},
 	},
-}))(Button)
+}))(Button);
 
 const HorizontalCardCourse = ({
 	courseId = 0,
@@ -149,7 +149,7 @@ const HorizontalCardCourse = ({
 	warningDate = false,
 	category = '',
 }) => {
-	const classes = useStyles()
+	const classes = useStyles();
 	return (
 		<Paper elevation={0}>
 			<Box className={classes.boxFlex} p={3}>
@@ -297,20 +297,20 @@ const HorizontalCardCourse = ({
 						</Link>
 					) : (
 						<Link href={'/my-course/[courseid]'} as={`/my-course/${courseId}`}>
-							<SuccessButton
+							<Button
 								variant="contained"
 								size="large"
-								bgcolor={`success.main`}
+								color={`primary`}
 								className={classes.btnSuccess}
 							>
 								Học ngay
-							</SuccessButton>
+							</Button>
 						</Link>
 					)}
 				</Box>
 			</Box>
 		</Paper>
-	)
-}
+	);
+};
 
-export default HorizontalCardCourse
+export default HorizontalCardCourse;

@@ -1,6 +1,6 @@
-import React from 'react'
-import Document, { Head, Main, NextScript } from 'next/document'
-import { ServerStyleSheets } from '@material-ui/styles'
+import React from 'react';
+import Document, { Head, Main, NextScript } from 'next/document';
+import { ServerStyleSheets } from '@material-ui/styles';
 
 class MyDocument extends Document {
 	render() {
@@ -10,7 +10,7 @@ class MyDocument extends Document {
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
 					<meta name="theme-color" content="#1F4069" />
 					<link rel="manifest" href="static/manifest.json" />
-					<link rel="icon" href="static/img/favicon.ico" />
+					<link rel="icon" href="/static/logo.png" />
 					<link
 						rel="stylesheet"
 						href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -20,9 +20,10 @@ class MyDocument extends Document {
 				<body>
 					<Main />
 					<NextScript />
+					<script type="text/javascript" src="static/js/custom.js"></script>
 				</body>
 			</html>
-		)
+		);
 	}
 }
 
@@ -50,15 +51,15 @@ MyDocument.getInitialProps = async (ctx) => {
 	// 4. page.render
 
 	// Render app and page and get the context of the page with collected side effects.
-	const sheets = new ServerStyleSheets()
-	const originalRenderPage = ctx.renderPage
+	const sheets = new ServerStyleSheets();
+	const originalRenderPage = ctx.renderPage;
 
 	ctx.renderPage = () =>
 		originalRenderPage({
 			enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
-		})
+		});
 
-	const initialProps = await Document.getInitialProps(ctx)
+	const initialProps = await Document.getInitialProps(ctx);
 
 	return {
 		...initialProps,
@@ -69,7 +70,7 @@ MyDocument.getInitialProps = async (ctx) => {
 				{sheets.getStyleElement()}
 			</React.Fragment>,
 		],
-	}
-}
+	};
+};
 
-export default MyDocument
+export default MyDocument;

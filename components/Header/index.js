@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import Link from 'next/link'
+import React, { useState } from 'react';
+import Link from 'next/link';
 import {
 	Box,
 	Container,
@@ -7,28 +7,28 @@ import {
 	Typography,
 	Menu,
 	Fade,
-} from '@material-ui/core'
-import styles from './header.module.scss'
+} from '@material-ui/core';
+import styles from './header.module.scss';
 import {
 	Notifications,
 	ArrowDropDown,
 	Menu as MenuIcon,
 	AccountCircle,
 	ExitToApp,
-} from '@material-ui/icons'
+} from '@material-ui/icons';
 //import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import { makeStyles } from '@material-ui/styles'
-import Hidden from '@material-ui/core/Hidden'
-import { colors } from '~/config'
-import CloseIcon from '@material-ui/icons/Close'
-import Badge from '@material-ui/core/Badge'
-import { useRouter } from 'next/router'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import List from '@material-ui/core/List'
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/styles';
+import Hidden from '@material-ui/core/Hidden';
+import { colors } from '~/config';
+import CloseIcon from '@material-ui/icons/Close';
+import Badge from '@material-ui/core/Badge';
+import { useRouter } from 'next/router';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import List from '@material-ui/core/List';
 
 const useStyles = makeStyles((theme) => ({
 	menuButton: {
@@ -54,10 +54,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	headerContainer: {
 		backgroundColor: '#fff',
-		boxShadow: '0px 10px 16px 0px rgba(0,0,0,.15)',
+		boxShadow: '0px 4px 8px 0px rgba(0,0,0,.15)',
 		zIndex: 9,
 	},
-}))
+}));
 
 const DropDownMenu = (props) => {
 	return (
@@ -74,32 +74,32 @@ const DropDownMenu = (props) => {
 			}}
 			{...props}
 		/>
-	)
-}
+	);
+};
 
 const Header = () => {
-	const [notiEl, setNotiEl] = useState(null)
-	const [userMenuEl, setUserMenuEl] = useState(null)
-	const [menuMobileShow, setMenuMobileShow] = useState(false)
-	const router = useRouter()
-	console.log(router)
+	const [notiEl, setNotiEl] = useState(null);
+	const [userMenuEl, setUserMenuEl] = useState(null);
+	const [menuMobileShow, setMenuMobileShow] = useState(false);
+	const router = useRouter();
+	console.log(router);
 	const showNotification = (event) => {
-		setNotiEl(event.currentTarget)
-	}
+		setNotiEl(event.currentTarget);
+	};
 	const closeNotification = (event) => {
-		setNotiEl(null)
-	}
+		setNotiEl(null);
+	};
 	const showUserMenu = (event) => {
-		setUserMenuEl(event.currentTarget)
-	}
+		setUserMenuEl(event.currentTarget);
+	};
 	const closeUserMenu = (event) => {
-		setUserMenuEl(null)
-	}
+		setUserMenuEl(null);
+	};
 	const toggleMenuMobile = () => {
-		setMenuMobileShow(!menuMobileShow)
-	}
+		setMenuMobileShow(!menuMobileShow);
+	};
 
-	const classes = useStyles()
+	const classes = useStyles();
 	return (
 		<Box
 			className={classes.headerContainer}
@@ -142,7 +142,7 @@ const Header = () => {
 							<Divider
 								orientation="vertical"
 								className={styles.divider}
-								style={{ marginRight: '1rem !important' }}
+								style={{ marginRight: '1.25rem !important' }}
 							/>
 						</Hidden>
 						<Box
@@ -163,6 +163,7 @@ const Header = () => {
 								>
 									<Link href="/home">
 										<Box
+											onClick={() => setMenuMobileShow(false)}
 											component="a"
 											display="inline-flex"
 											alignItems="center"
@@ -186,6 +187,7 @@ const Header = () => {
 							</Hidden>
 							<Link href="/home">
 								<Box
+									onClick={() => setMenuMobileShow(false)}
 									component="a"
 									display="inline-block"
 									className={`${styles.linkMenu} ${
@@ -199,6 +201,7 @@ const Header = () => {
 							</Link>
 							<Link href="/my-course">
 								<Box
+									onClick={() => setMenuMobileShow(false)}
 									component="a"
 									display="inline-block"
 									className={`${styles.linkMenu} ${
@@ -210,6 +213,7 @@ const Header = () => {
 							</Link>
 							<Link href="/result">
 								<Box
+									onClick={() => setMenuMobileShow(false)}
 									component="a"
 									display="inline-block"
 									className={`${styles.linkMenu} ${
@@ -226,6 +230,7 @@ const Header = () => {
 									className={`${styles.linkMenu} ${
 										router.pathname.includes('/blog') ? 'active-menu' : ''
 									}`}
+									onClick={() => setMenuMobileShow(false)}
 								>
 									<span className={styles.link}>Tin tức</span>
 								</Box>
@@ -291,7 +296,7 @@ const Header = () => {
 							<Box px={2}>
 								<List component="nav" aria-label="account profile">
 									<Link href={`/profile`} as={`/profile`}>
-										<ListItem button>
+										<ListItem button onClick={() => setUserMenuEl(false)}>
 											<ListItemIcon>
 												<AccountCircle />
 											</ListItemIcon>
@@ -312,7 +317,7 @@ const Header = () => {
 				</Box>
 			</Container>
 		</Box>
-	)
-}
+	);
+};
 
-export default Header
+export default Header;

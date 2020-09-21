@@ -11,7 +11,6 @@ import '~/styles/responsive.scss'
 import NProgress from 'nprogress' //nprogress module
 import 'nprogress/nprogress.css'
 import '~/page-components/Result/MyRanking.css'
-
 //Binding events.
 Router.events.on('routeChangeStart', () => NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())
@@ -83,7 +82,7 @@ export default class MyApp extends App {
 		return (
 			<>
 				<Head>
-					<title>Mona Elearning</title>
+					<title>Dolphin Training</title>
 				</Head>
 				<ThemeProvider theme={theme}>
 					<CssBaseline>{getLayout(<Component {...pageProps} />)}</CssBaseline>

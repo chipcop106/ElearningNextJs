@@ -5,7 +5,11 @@ import Box from '@material-ui/core/Box'
 
 const Layout = ({ children }) => {
 	return (
-		<Box display="flex" flexDirection="column" style={{ height: '100vh' }}>
+		<Box
+			display="flex"
+			flexDirection="column"
+			style={{ height: 'var(--app-height)' }}
+		>
 			<Header />
 			<Box flexGrow={1} style={{ overflow: 'auto' }}>
 				{children}

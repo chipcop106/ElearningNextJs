@@ -3,30 +3,30 @@ import React, {
 	useEffect,
 	createContext,
 	useLayoutEffect,
-} from 'react'
-import { useRouter } from 'next/router'
-import { getLayout } from '~/components/Layout'
-import { makeStyles } from '@material-ui/core/styles'
-import { IconButton, Typography, Chip, Box, AppBar } from '@material-ui/core'
+} from 'react';
+import { useRouter } from 'next/router';
+import { getLayout } from '~/components/Layout';
+import { makeStyles } from '@material-ui/core/styles';
+import { IconButton, Typography, Chip, Box, AppBar } from '@material-ui/core';
 import {
 	Menu,
 	LocalLibrary,
 	OndemandVideo,
 	Assignment,
-} from '@material-ui/icons'
-import { colors } from '~/config'
-import SectionGroup from '~/page-components/CourseDetail/SectionCourse'
-import { randomId } from '~/utils'
-import { useWindowSize } from '~/hooks/useWindowSize'
+} from '@material-ui/icons';
+import { colors } from '~/config';
+import SectionGroup from '~/page-components/CourseDetail/SectionCourse';
+import { randomId } from '~/utils';
+import { useWindowSize } from '~/hooks/useWindowSize';
 import {
 	WhiteTab,
 	WhiteTabs,
 	a11yProps,
 	TabPanel,
-} from '~/page-components/CourseDetail/WhiteTabs'
-import Container from '@material-ui/core/Container'
-import Hidden from '@material-ui/core/Hidden'
-import Exercises from '~/page-components/CourseDetail/Exercises'
+} from '~/page-components/CourseDetail/WhiteTabs';
+import Container from '@material-ui/core/Container';
+import Hidden from '@material-ui/core/Hidden';
+import Exercises from '~/page-components/CourseDetail/Exercises';
 const contentDemo = `<h2>What is a CSS Sprite</h2>
 <p>We need to know about an image sprite before we start talking about CSS sprites. An image sprite is a compilation of different image assets that we want to use on our web application.</p>
 <p>These images could fit in any of the below given cases…</p>
@@ -42,101 +42,92 @@ const contentDemo = `<h2>What is a CSS Sprite</h2>
 <iframe src="https://www.youtube.com/embed/sAcj8me7wGI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p>Whenever you open a website in your web browser, all its files eg. HTML, JavaScript, images etc. start to load up.</p>
 <p>More the files, more will be the number of requests made to load the website in the browser. </p>
-<p>More the requests, more will be the load time of the website. Now, this high load time is the enemy of UX and SEO.</p>`
+<p>More the requests, more will be the load time of the website. Now, this high load time is the enemy of UX and SEO.</p>`;
 
 const videoPlaylistsDemo = [
 	{
 		sectionId: randomId(),
-		sectionName: 'Section 1: Install package',
+		sectionName: 'Section 1: Tổng quan hàng nhập',
 		playlists: [
 			{
 				id: randomId(),
-				title:
-					'How to play e-learning web application Referring to window size in React Material-UI makeStyles',
+				title: 'Cơ cấu phòng và dịch vụ của phòng',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
 				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Incoterm',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
 				type: 2, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Vận đơn và các thuật ngữ trong logistics',
 				videoUrl: 'https://www.youtube.com/watch?v=RYcaG64JkqM',
 				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Hướng dẫn lập file trên phàn mềm excel',
 				videoUrl: 'https://www.youtube.com/watch?v=g8NVwN0_mks',
 				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application ',
+				title: 'Hướng dẫn submit MNF',
 				videoUrl: 'https://www.youtube.com/watch?v=aG51brxM1kk',
 				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
-			{
-				id: randomId(),
-				title:
-					'How to play e-learning web application Referring to window size in React Material-UI makeStyles',
-				videoUrl: 'https://www.youtube.com/watch?v=Cp8D1bqIt3A',
-				type: 2, // 1 Bài học + bài tập || 2 Chỉ có bài tập
-				timeLength: 30,
-			},
 		],
 	},
 	{
 		sectionId: randomId(),
-		sectionName: 'Section 2: First App with NexJS',
+		sectionName: 'Section 2: Quy trình làm hàng nhập',
 		playlists: [
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Hướng dẫn quy trình làm document hàng Air + SEA',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
 				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Giới thiệu các loại hình vận chuyển quốc tế',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
 				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Sơ đồ handle hàng và form',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
 				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Hướng dẫn viết mail báo handle hàng cho đại lý',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
 				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Quy trình chi tiết handle hàng Air',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
 				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Quy trình chi tiết handle hàng SEA',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
 				type: 2, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
@@ -145,101 +136,32 @@ const videoPlaylistsDemo = [
 	},
 	{
 		sectionId: randomId(),
-		sectionName: 'Section 3: How to build project with create-new-app ?',
+		sectionName: 'Section 3: Hướng dẫn bổ sung',
 		playlists: [
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
-				timeLength: 30,
-			},
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Các luồng tuyến chính + thời gian vận chuyển',
 				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
 				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Hướng dẫn các viết mail check giá',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
 				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 			{
 				id: randomId(),
-				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
-				timeLength: 30,
-			},
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
+				title: 'Hướng dẫn đặc tính khách hàng trong quá trình handle hàng',
 				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
 				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
-				timeLength: 30,
-			},
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 2, // 1 Bài học + bài tập || 2 Chỉ có bài tập
 				timeLength: 30,
 			},
 		],
 	},
-	{
-		sectionId: randomId(),
-		sectionName: 'Section 4: Complete deploy app on Heroku !',
-		playlists: [
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
-				timeLength: 30,
-			},
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
-				timeLength: 30,
-			},
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
-				timeLength: 30,
-			},
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
-				timeLength: 30,
-			},
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/embed/FDa5r8AvGig',
-				type: 1, // 1 Bài học + bài tập || 2 Chỉ có bài tập
-				timeLength: 30,
-			},
-			{
-				id: randomId(),
-				title: 'How to play e-learning web application',
-				videoUrl: 'https://www.youtube.com/watch?v=FjHGZj2IjBk',
-				type: 2, // 1 Bài học + bài tập || 2 Chỉ có bài tập
-				timeLength: 30,
-			},
-		],
-	},
-]
+];
 
 const initialState = {
 	isLoading: true,
@@ -247,7 +169,7 @@ const initialState = {
 	activeVideo: null,
 	activeTab: 0,
 	hideSidebar: false,
-}
+};
 
 const useStyles = makeStyles((theme) => ({
 	menuButton: {
@@ -270,6 +192,9 @@ const useStyles = makeStyles((theme) => ({
 		width: 400,
 		flexShrink: 0,
 		transition: 'width .3s ease',
+		[theme.breakpoints.down('xs')]: {
+			width: '100%',
+		},
 		'&.closed': {
 			width: 70,
 			[theme.breakpoints.down('xs')]: {
@@ -295,6 +220,10 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: '#fff',
 		boxShadow: 'rgba(0,0,0, .075)',
 		transition: 'width .3s ease',
+		height: 'calc(var(--app-height) - 174px)',
+		[theme.breakpoints.down('xs')]: {
+			width: '100%',
+		},
 		'&.closed': {
 			width: 0,
 		},
@@ -317,7 +246,8 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column',
 	},
 	tabPanel: {
-		height: 'calc(100vh - 222px)',
+		height: 'calc(var(--app-height) - 222px)',
+		minHeight: 'calc(var(--app-height) - 222px)',
 		overflow: 'auto',
 	},
 	contentEditor: {
@@ -336,7 +266,7 @@ const useStyles = makeStyles((theme) => ({
 			zIndex: 1,
 		},
 	},
-}))
+}));
 
 const reducer = (prevState, { type, payload }) => {
 	switch (type) {
@@ -344,36 +274,36 @@ const reducer = (prevState, { type, payload }) => {
 			return {
 				...prevState,
 				videoPlaylists: payload, // arr
-			}
+			};
 		}
 		case 'SET_LOADING': {
 			return {
 				...prevState,
 				isLoading: payload, // bool
-			}
+			};
 		}
 		case 'SET_ACTIVE_VIDEO': {
 			return {
 				...prevState,
 				activeVideo: payload,
-			}
+			};
 		}
 		case 'SET_ACTIVE_TAB': {
 			return {
 				...prevState,
 				activeTab: payload,
-			}
+			};
 		}
 		case 'TOGGLE_SIDEBAR': {
 			return {
 				...prevState,
 				hideSidebar: payload,
-			}
+			};
 		}
 		default:
-			return prevState
+			return prevState;
 	}
-}
+};
 
 const Playlists = ({ videoPlaylists }) => {
 	return (
@@ -389,60 +319,60 @@ const Playlists = ({ videoPlaylists }) => {
 				/>
 			))}
 		</>
-	)
-}
+	);
+};
 
-export const CourseContext = createContext({})
+export const CourseContext = createContext({});
 
 const CourseDetail = () => {
-	const [state, dispatch] = useReducer(reducer, initialState)
-	const router = useRouter()
-	const { courseid } = router.query
-	const classes = useStyles()
-	const { width, height } = useWindowSize()
+	const [state, dispatch] = useReducer(reducer, initialState);
+	const router = useRouter();
+	const { courseid } = router.query;
+	const classes = useStyles();
+	const { width, height } = useWindowSize();
 	const setLoading = (value) => {
-		dispatch({ type: 'SET_LOADNG', payload: value })
-	}
+		dispatch({ type: 'SET_LOADNG', payload: value });
+	};
 
 	const setActiveVideo = (video) => {
-		dispatch({ type: 'SET_ACTIVE_VIDEO', payload: video })
-	}
+		dispatch({ type: 'SET_ACTIVE_VIDEO', payload: video });
+	};
 
 	const setActiveTab = (event, newValue) => {
-		dispatch({ type: 'SET_ACTIVE_TAB', payload: newValue })
-	}
+		dispatch({ type: 'SET_ACTIVE_TAB', payload: newValue });
+	};
 
 	const _toggleSidenav = () => {
 		dispatch({
 			type: 'TOGGLE_SIDEBAR',
 			payload: !state.hideSidebar,
-		})
-	}
+		});
+	};
 
 	const _handleClickPlaylist = (video) => {
-		setActiveVideo(video)
-	}
+		setActiveVideo(video);
+	};
 
 	const responsiveSidebar = () => {
 		if (window.matchMedia('(max-width: 1280px)').matches) {
-			_toggleSidenav(false)
+			_toggleSidenav(false);
 		}
-	}
+	};
 
 	useEffect(() => {
-		dispatch({ type: 'SET_VIDEO_SOURCE', payload: videoPlaylistsDemo })
-		setTimeout(() => setLoading(false), 2000)
-	}, [])
+		dispatch({ type: 'SET_VIDEO_SOURCE', payload: videoPlaylistsDemo });
+		setTimeout(() => setLoading(false), 2000);
+		window.addEventListener('resize', responsiveSidebar);
+		return () => {
+			window.removeEventListener('resize', responsiveSidebar);
+		};
+	}, []);
 
 	useEffect(() => {
 		if (!!!state.videoPlaylists || !!!state.videoPlaylists[0]?.playlists[0])
-			return
-		setActiveVideo(state.videoPlaylists[0].playlists[0])
-	}, [state.videoPlaylists])
-
-	useLayoutEffect(() => {
-		responsiveSidebar()
-	}, [])
+			return;
+		setActiveVideo(state.videoPlaylists[0].playlists[0]);
+	}, [state.videoPlaylists]);
 
 	return (
 		<CourseContext.Provider
@@ -527,7 +457,7 @@ const CourseDetail = () => {
 							noWrap={true}
 							className={classes.courseName}
 						>
-							Learning Next JS With Mona Media
+							Tìm hiểu về bộ phận nhập hàng
 						</Typography>
 					</Box>
 				</Box>
@@ -536,7 +466,6 @@ const CourseDetail = () => {
 						className={`${classes.sidebarWrap} ${
 							!!state.hideSidebar ? 'closed' : ''
 						}`}
-						height={height - 174}
 					>
 						<Playlists videoPlaylists={state?.videoPlaylists ?? []} />
 					</Box>
@@ -570,7 +499,11 @@ const CourseDetail = () => {
 									)}
 
 									<WhiteTab
-										label="Bài tập"
+										label={
+											!!state.activeVideo && state.activeVideo.type === 1
+												? 'Quiz'
+												: 'Bài tập'
+										}
 										icon={<Assignment />}
 										{...a11yProps(1)}
 									/>
@@ -605,9 +538,9 @@ const CourseDetail = () => {
 				</Box>
 			</Container>
 		</CourseContext.Provider>
-	)
-}
+	);
+};
 
-CourseDetail.getLayout = getLayout
+CourseDetail.getLayout = getLayout;
 
-export default CourseDetail
+export default CourseDetail;

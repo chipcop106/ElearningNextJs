@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { Divider, IconButton, Link, Typography } from '@material-ui/core'
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Divider, IconButton, Link, Typography } from '@material-ui/core';
 import {
 	ArrowDropDown,
 	PlayCircleFilled,
 	Description,
 	Bookmark,
-} from '@material-ui/icons'
-import AccordionSummary from '@material-ui/core/AccordionSummary'
-import AccordionDetails from '@material-ui/core/AccordionDetails'
-import Box from '@material-ui/core/Box'
-import { randomId } from '~/utils'
-import Checkbox from '@material-ui/core/Checkbox'
-import Accordion from '@material-ui/core/Accordion'
-import { CourseContext } from '~/pages/my-course/[courseid]'
+} from '@material-ui/icons';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Box from '@material-ui/core/Box';
+import { randomId } from '~/utils';
+import Checkbox from '@material-ui/core/Checkbox';
+import Accordion from '@material-ui/core/Accordion';
+import { CourseContext } from '~/pages/my-course/[courseid]';
 
 const useStyles = makeStyles((theme) => ({
 	secWrap: {
@@ -50,10 +50,10 @@ const useStyles = makeStyles((theme) => ({
 			backgroundColor: 'rgba(0, 108, 255, 0.08)',
 		},
 	},
-}))
+}));
 
 const ListItem = ({ data, onClickLink, onCheckbox }) => {
-	const classes = useStyles()
+	const classes = useStyles();
 	const {
 		id = 0,
 		title = '',
@@ -62,16 +62,16 @@ const ListItem = ({ data, onClickLink, onCheckbox }) => {
 		timeLength = 0,
 		completed = false,
 		score,
-	} = data
-	const [checked, setChecked] = useState(completed)
+	} = data;
+	const [checked, setChecked] = useState(completed);
 
 	const _handleCheckbox = (event) => {
-		setChecked(event.target.checked)
+		setChecked(event.target.checked);
 		//	onCheckbox(event.target.checked)
-	}
+	};
 	const _handleLinkClick = (event) => {
-		onClickLink(data)
-	}
+		onClickLink(data);
+	};
 	return (
 		<CourseContext.Consumer>
 			{(context) => (
@@ -111,7 +111,7 @@ const ListItem = ({ data, onClickLink, onCheckbox }) => {
 										style={{ margin: '0 0.5rem', height: 15 }}
 									/>
 									<Description className={classes.metaIcon} />
-									<Box ml={0.5}>Bài tập</Box>
+									<Box ml={0.5}>Quiz</Box>
 								</>
 							) : (
 								<>
@@ -124,8 +124,8 @@ const ListItem = ({ data, onClickLink, onCheckbox }) => {
 				</Box>
 			)}
 		</CourseContext.Consumer>
-	)
-}
+	);
+};
 
 const RenderListItem = ({ data }) => {
 	return (
@@ -140,11 +140,11 @@ const RenderListItem = ({ data }) => {
 				/>
 			))}
 		</>
-	)
-}
+	);
+};
 
 const SectionGroup = ({ data: { groupName, meta, playlists, score } }) => {
-	const classes = useStyles()
+	const classes = useStyles();
 	return (
 		<Accordion
 			elevation={0}
@@ -175,7 +175,7 @@ const SectionGroup = ({ data: { groupName, meta, playlists, score } }) => {
 				<RenderListItem data={playlists} />
 			</AccordionDetails>
 		</Accordion>
-	)
-}
+	);
+};
 
-export default SectionGroup
+export default SectionGroup;

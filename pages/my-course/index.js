@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { getLayout } from '~/components/Layout'
-import Link from 'next/link'
+import React, { useEffect, useState } from 'react';
+import { getLayout } from '~/components/Layout';
+import Link from 'next/link';
 import {
 	Container,
 	Grid,
@@ -9,62 +9,76 @@ import {
 	ListItem,
 	ListItemIcon,
 	Typography,
-} from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
-import Box from '@material-ui/core/Box'
-import HorizontalCardCourse from '~/page-components/MyCourse/HorizontalCardCourse'
-import { Skeleton, Pagination } from '@material-ui/lab'
-import Paper from '@material-ui/core/Paper'
-import { colors } from '~/config'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import { LibraryBooksRounded } from '@material-ui/icons'
-import { randomId } from '~/utils'
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+import Box from '@material-ui/core/Box';
+import HorizontalCardCourse from '~/page-components/MyCourse/HorizontalCardCourse';
+import { Pagination } from '@material-ui/lab';
+import Paper from '@material-ui/core/Paper';
+import { colors } from '~/config';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { LibraryBooksRounded } from '@material-ui/icons';
+import { randomId } from '~/utils';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import Divider from '@material-ui/core/Divider';
 
-const courseDemo = [
+export const courseDemo = [
 	{
-		courseId: 1,
+		courseId: randomId(),
 		src: null,
-		courseName:
-			'Display a placeholder preview of your content before the data gets loaded',
+		courseName: 'Bộ phận hàng nhập trong công ty',
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 15,
 		totalVideo: 45,
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
-		categoryName: 'Chuyên môn',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo nhân viên mới',
+		categoryId: 1,
 	},
 	{
-		courseId: 2,
+		courseId: randomId(),
 		src: null,
-		courseName:
-			'The component is designed to be used directly in your components',
+		courseName: 'Ứng dụng của Microsoft Office',
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 35,
 		totalVideo: 38,
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
-		categoryName: 'Quản lý cấp trung',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo kỹ năng cơ bản',
+		categoryId: 2,
 	},
 	{
-		courseId: 3,
+		courseId: randomId(),
 		src: null,
-		courseName:
-			'It works well when it comes to typography as its height is set using em units.',
+		courseName: 'Kỹ năng làm MS PowerPoint',
 		time: '20/10/2020 - 25/12/2020',
-		finishedVideo: 25,
-		totalVideo: 56,
+		finishedVideo: 35,
+		totalVideo: 38,
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
-		categoryName: 'Quản lý cấp cao',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo kỹ năng cơ bản',
+		categoryId: 2,
 	},
 	{
-		courseId: 5,
+		courseId: randomId(),
+		src: null,
+		courseName: 'Ứng dụng của Microsoft Office',
+		time: '20/10/2020 - 25/12/2020',
+		finishedVideo: 35,
+		totalVideo: 38,
+		totalExercise: 45,
+		finishedExercise: 15,
+		finished: false,
+		categoryName: 'Đào tạo kỹ năng cơ bản',
+		categoryId: 2,
+	},
+	{
+		courseId: randomId(),
 		src: null,
 		courseName: 'Inferring dimensions Finished Course',
 		time: '20/10/2020 - 25/12/2020',
@@ -73,37 +87,37 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
-		categoryName: 'Kỹ năng mềm',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo nghiệp vụ nâng cao',
+		categoryId: 3,
 	},
 	{
-		courseId: 6,
+		courseId: randomId(),
 		src: null,
-		courseName: 'Inferring dimensions Finished Course',
+		courseName: 'Kỹ năng cần có của trường nhóm (TEAM LEARDER)',
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 33,
 		totalVideo: 78,
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
-		categoryName: 'Hội nhập nhân viên mới',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo quản lý cấp trung',
+		categoryId: 4,
 	},
 
 	{
-		courseId: 4,
+		courseId: randomId(),
 		src: null,
-		courseName: 'Inferring dimensions Finished Course',
+		courseName: 'Kỹ năng đánh giá và quy hoạch nhân sự',
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 37,
 		totalVideo: 37,
 		totalExercise: 45,
 		finishedExercise: 45,
 		finished: true,
-		categoryName: 'Marketing',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo quản lý cấp cao',
+		categoryId: 5,
 	},
-]
+];
 
 const RowItem = ({ item }) => {
 	const classes = makeStyles({
@@ -129,7 +143,7 @@ const RowItem = ({ item }) => {
 			letterSpacing: 1,
 			fontFamily: 'Roboto',
 		},
-	})()
+	})();
 	return (
 		<ListItem className={classes.rowStyle}>
 			<ListItemIcon>
@@ -166,14 +180,14 @@ const RowItem = ({ item }) => {
 			{/*	secondary={`Deadline: ${item.deadline}`}*/}
 			{/*/>*/}
 		</ListItem>
-	)
-}
+	);
+};
 
 const RenderRow = ({ lists }) => {
 	return [...lists].map((item, index) => (
 		<RowItem key={`${index}`} item={item} />
-	))
-}
+	));
+};
 
 const CircularProgressWithLabel = (props) => {
 	return (
@@ -206,7 +220,7 @@ const CircularProgressWithLabel = (props) => {
 							style={{ fontWeight: 600 }}
 						>
 							{`${Math.round(props?.number ?? 0)} / ${Math.round(
-								props?.totalnumber ?? 0
+								props?.totalnumber ?? 0,
 							)}`}
 						</Typography>
 						{!!props.label && (
@@ -218,28 +232,8 @@ const CircularProgressWithLabel = (props) => {
 				)}
 			</Box>
 		</Box>
-	)
-}
-
-const TabPanel = (props) => {
-	const { children, value, index, ...other } = props
-	return (
-		<div
-			role="tabpanel"
-			hidden={value !== index}
-			id={`scrollable-force-tabpanel-${index}`}
-			aria-labelledby={`scrollable-force-tab-${index}`}
-			{...other}
-		>
-			{value === index && <Box p={3}>{children}</Box>}
-		</div>
-	)
-}
-
-const a11yProps = (index) => ({
-	id: `scrollable-force-tab-${index}`,
-	'aria-controls': `scrollable-force-tabpanel-${index}`,
-})
+	);
+};
 
 const useStyles = makeStyles((theme) => ({
 	tabWrap: {
@@ -271,7 +265,26 @@ const useStyles = makeStyles((theme) => ({
 		height: 35,
 		color: colors.primaryLighten,
 	},
-}))
+	formControl: {
+		minWidth: 200,
+		[theme.breakpoints.down('xs')]: {
+			width: '100%',
+		},
+		'& .MuiSelect-select:focus': {
+			backgroundColor: '#fff',
+		},
+	},
+	select: {
+		backgroundColor: '#fff',
+		borderRadius: 4,
+		'&:hover': {
+			backgroundColor: '#fff',
+		},
+		'&:before, &:after': {
+			display: 'none',
+		},
+	},
+}));
 
 const ListCourse = ({ data }) => {
 	return (
@@ -293,168 +306,237 @@ const ListCourse = ({ data }) => {
 				</Box>
 			))}
 		</>
-	)
-}
+	);
+};
+
+const RenderSelectOption = ({ data }) => {
+	return (
+		<>
+			{data.map((item) => (
+				<option key={`${item.value}`} value={item.value}>
+					{item.label}
+				</option>
+			))}
+		</>
+	);
+};
 
 const MyCourse = () => {
-	const classes = useStyles()
-	const [value, setValue] = useState(0)
-	const [courseLists, setCourseLists] = useState(courseDemo)
-	const [isLoading, setIsloading] = useState(true)
-	const handleChange = (event, newValue) => {
-		setValue(newValue)
-	}
+	const classes = useStyles();
+	const [filterOptions, setFilterOptions] = useState([]);
+	const [filterValue, setFilterValue] = useState('');
+	const [courseLists, setCourseLists] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+
+	const handleFilterChange = (event) => {
+		const categoryID = event.target.value;
+		setFilterValue(categoryID);
+	};
+
+	const getListsCourse = async () => {
+		setIsLoading(true);
+		setTimeout(() => {
+			setCourseLists(courseDemo);
+			if (filterOptions.length === 0) {
+				let categories = courseDemo.map((item) => ({
+					label: item.categoryName,
+					value: item.categoryId,
+				}));
+				setFilterOptions([
+					{
+						label: 'Tất cả khóa học',
+						value: '0',
+					},
+					...Object.values(
+						categories.reduce(
+							(acc, cur) => Object.assign(acc, { [cur.value]: cur }),
+							{},
+						),
+					),
+				]);
+			}
+			setIsLoading(false);
+		}, 1000);
+	};
 
 	useEffect(() => {
-		setIsloading(true)
-		const t = setTimeout(() => {
-			setIsloading(false)
-		}, 1500)
-		return () => clearTimeout(t)
-	}, [value])
+		getListsCourse();
+		console.log(filterValue);
+	}, [filterValue]);
 
 	return (
 		<>
-			<Container maxWidth={`xl`}>
-				<h1 className="title-page">Khóa học của tôi</h1>
-				<Grid container spacing={4}>
-					<Grid item xs={12} sm={12} md={12} lg={8}>
-						{isLoading ? (
-							<>
-								<Box mb={2} component={'div'}>
-									<HorizontalCardCourse loading={isLoading} />
-								</Box>
-								<Box mb={2} component={'div'}>
-									<HorizontalCardCourse loading={isLoading} />
-								</Box>
-								<Box mb={2} component={'div'}>
-									<HorizontalCardCourse loading={isLoading} />
-								</Box>
-							</>
-						) : (
-							<>
-								<ListCourse data={courseLists} />
-								<Box display={`flex`} justifyContent={`center`} mt={4}>
-									<Pagination count={10} color="primary" />
-								</Box>
-							</>
-						)}
-					</Grid>
-					<Grid item xs={12} sm={12} md={12} lg={4}>
-						<Box>
-							<Paper className={classes.goalWrap}>
-								<Box p={{ md: 4, xs: 2, sm: 2 }}>
-									<Typography variant={`h6`} align={`center`}>
-										Thành tích của bạn
-									</Typography>
-									<Box align={`center`} mt={2}>
-										<CircularProgressWithLabel
-											number={15}
-											totalnumber={50}
-											value={Math.round((15 * 100) / 50)}
-											size={250}
-											color={`secondary`}
-											thickness={4}
-											label={`Bài tập hoàn thành`}
-											style={{ color: '#fff' }}
-										/>
-									</Box>
-									<Box mt={2}>
-										<Grid container spacing={4}>
-											<Grid item md={6}>
-												<Box display={`flex`} alignItems={`center`}>
-													<CircularProgressWithLabel
-														size={35}
-														value={35}
-														style={{
-															marginRight: '1rem',
-															color: 'rgb(79, 255, 86)',
-														}}
-													/>
-													<Box>
-														<Typography
-															variant={`subtitle1`}
-															className={classes.label}
-														>
-															Nộp đúng hạn
-														</Typography>
-														<Typography
-															variant={`subtitle2`}
-															className={classes.value}
-														>
-															32 bài tập
-														</Typography>
-													</Box>
-												</Box>
-											</Grid>
-											<Grid item md={6}>
-												<Box display={`flex`} alignItems={`center`}>
-													<CircularProgressWithLabel
-														size={35}
-														value={35}
-														style={{
-															marginRight: '1rem',
-															color: 'rgb(255, 182, 194)',
-														}}
-													/>
-													<Box>
-														<Typography
-															variant={`subtitle1`}
-															className={classes.label}
-														>
-															Nộp trễ hạn
-														</Typography>
-														<Typography
-															variant={`subtitle2`}
-															className={classes.value}
-														>
-															32 bài tập
-														</Typography>
-													</Box>
-												</Box>
-											</Grid>
-										</Grid>
-									</Box>
-								</Box>
-							</Paper>
-							<Paper
-								style={{
-									marginTop: '-1rem',
-									borderRadius: '16px 16px 4px 4px',
-									boxShadow: '0px -10px 16px 0px rgba(255,255,255,.25)',
-								}}
+			<Box my={4}>
+				<Container maxWidth={`xl`}>
+					<h1 className="title-page">Khóa học của tôi</h1>
+					<Grid container spacing={4}>
+						<Grid item xs={12} sm={12} md={12} lg={8}>
+							<Box
+								mb={2}
+								pb={2}
+								display={`flex`}
+								alignItems={`center`}
+								flexWrap={`wrap`}
+								justifyContent={`space-between`}
+								style={{ borderBottom: '1px solid #e1e1e1' }}
 							>
-								<Box p={{ md: 4, xs: 2, sm: 2 }}>
-									<Typography variant={`h6`}>Bài tập sắp tới hạn</Typography>
-									<Box
-										style={{
-											paddingTop: 0,
-											flexGrow: 1,
-											maxHeight: '18.5rem',
-											overflow: 'auto',
-											marginTop: '0.5rem',
+								<FormControl variant="filled" className={classes.formControl}>
+									<InputLabel shrink htmlFor="filter-category">
+										Danh mục khóa học
+									</InputLabel>
+									<Select
+										disabled={isLoading}
+										native
+										value={filterValue}
+										onChange={handleFilterChange}
+										className={classes.select}
+										inputProps={{
+											name: 'category',
+											id: 'filter-category',
 										}}
 									>
-										<List>
-											<RenderRow
-												lists={[...courseDemo].map((item) => ({
-													id: item.courseId,
-													courseName: item.courseName,
-													deadline: item.time,
-												}))}
-											/>
-										</List>
+										{<RenderSelectOption data={filterOptions} />}
+									</Select>
+								</FormControl>
+							</Box>
+							<Divider style={{ backgroundColor: '#e1e1e1' }} />
+							{isLoading ? (
+								<>
+									<Box mb={2} component={'div'}>
+										<HorizontalCardCourse loading={isLoading} />
 									</Box>
-								</Box>
-							</Paper>
-						</Box>
+									<Box mb={2} component={'div'}>
+										<HorizontalCardCourse loading={isLoading} />
+									</Box>
+									<Box mb={2} component={'div'}>
+										<HorizontalCardCourse loading={isLoading} />
+									</Box>
+								</>
+							) : (
+								<>
+									<ListCourse data={courseLists} />
+									<Box display={`flex`} justifyContent={`center`} mt={4}>
+										<Pagination count={10} color="primary" />
+									</Box>
+								</>
+							)}
+						</Grid>
+						<Grid item xs={12} sm={12} md={12} lg={4}>
+							<Box>
+								<Paper className={classes.goalWrap}>
+									<Box p={{ md: 4, xs: 2, sm: 2 }}>
+										<Typography variant={`h6`} align={`center`}>
+											Thành tích của bạn
+										</Typography>
+										<Box align={`center`} mt={2}>
+											<CircularProgressWithLabel
+												number={15}
+												totalnumber={50}
+												value={Math.round((15 * 100) / 50)}
+												size={250}
+												color={`secondary`}
+												thickness={4}
+												label={`Bài tập hoàn thành`}
+												style={{ color: '#fff' }}
+											/>
+										</Box>
+										<Box mt={2}>
+											<Grid container spacing={4}>
+												<Grid item md={6}>
+													<Box display={`flex`} alignItems={`center`}>
+														<CircularProgressWithLabel
+															size={35}
+															value={35}
+															style={{
+																marginRight: '1rem',
+																color: 'rgb(79, 255, 86)',
+															}}
+														/>
+														<Box>
+															<Typography
+																variant={`subtitle1`}
+																className={classes.label}
+															>
+																Nộp đúng hạn
+															</Typography>
+															<Typography
+																variant={`subtitle2`}
+																className={classes.value}
+															>
+																32 bài tập
+															</Typography>
+														</Box>
+													</Box>
+												</Grid>
+												<Grid item md={6}>
+													<Box display={`flex`} alignItems={`center`}>
+														<CircularProgressWithLabel
+															size={35}
+															value={35}
+															style={{
+																marginRight: '1rem',
+																color: 'rgb(255, 182, 194)',
+															}}
+														/>
+														<Box>
+															<Typography
+																variant={`subtitle1`}
+																className={classes.label}
+															>
+																Nộp trễ hạn
+															</Typography>
+															<Typography
+																variant={`subtitle2`}
+																className={classes.value}
+															>
+																32 bài tập
+															</Typography>
+														</Box>
+													</Box>
+												</Grid>
+											</Grid>
+										</Box>
+									</Box>
+								</Paper>
+								<Paper
+									style={{
+										marginTop: '-1rem',
+										borderRadius: '16px 16px 4px 4px',
+										boxShadow: '0px -10px 16px 0px rgba(255,255,255,.25)',
+									}}
+								>
+									<Box p={{ md: 4, xs: 2, sm: 2 }}>
+										<Typography variant={`h6`}>Bài tập sắp tới hạn</Typography>
+										<Box
+											style={{
+												paddingTop: 0,
+												flexGrow: 1,
+												maxHeight: '18.5rem',
+												overflow: 'auto',
+												marginTop: '0.5rem',
+											}}
+										>
+											<List>
+												<RenderRow
+													lists={[...courseDemo].map((item) => ({
+														id: item.courseId,
+														courseName: item.courseName,
+														deadline: item.time,
+													}))}
+												/>
+											</List>
+										</Box>
+									</Box>
+								</Paper>
+							</Box>
+						</Grid>
 					</Grid>
-				</Grid>
-			</Container>
+				</Container>
+			</Box>
 		</>
-	)
-}
+	);
+};
 
-MyCourse.getLayout = getLayout
+MyCourse.getLayout = getLayout;
 
-export default MyCourse
+export default MyCourse;

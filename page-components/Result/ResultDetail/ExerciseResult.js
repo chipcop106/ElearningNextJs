@@ -330,13 +330,14 @@ const ExerciseResult = () => {
 								className={classes.meta}
 								display={`flex`}
 								alignItems={`center`}
+								flexWrap={`wrap`}
 							>
-								<Box mr={2}>
+								<Box mr={2} mb={1}>
 									<Typography variant={`body1`}>
 										Số lượng: <strong>15 câu</strong>
 									</Typography>
 								</Box>
-								<Box>
+								<Box mb={1}>
 									<Typography variant={`body1`}>
 										Thời gian làm: <strong>30 phút</strong>
 									</Typography>

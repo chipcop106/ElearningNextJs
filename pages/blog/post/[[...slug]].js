@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 	featuredContainer: {
 		zIndex: 2,
 		position: 'relative',
-		height: 'calc(100vh - 124px)',
+		height: 'calc(var(--app-height) - 124px)',
 	},
 	featuredBlog: {
 		backgroundImage: `url('/static/img/blog-banner.jpg')`,
