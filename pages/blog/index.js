@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { getLayout } from '~/components/Layout'
-import Container from '@material-ui/core/Container'
-import Paper from '@material-ui/core/Paper'
-import Box from '@material-ui/core/Box'
-import { makeStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
-import { ErrorChip } from '~/components/common/Chip'
-import { ChevronRight, ExpandMore } from '@material-ui/icons'
-import Button from '@material-ui/core/Button'
-import Chip from '@material-ui/core/Chip'
-import { BlogCard } from '~/components/common/BlogCard'
-import Grid from '@material-ui/core/Grid'
-import { randomId } from '~/utils'
-import Link from 'next/link'
-import { Pagination } from '@material-ui/lab'
+import React, { useEffect, useState } from 'react';
+import { getLayout } from '~/components/Layout';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
+import { ErrorChip } from '~/components/common/Chip';
+import { ChevronRight, ExpandMore } from '@material-ui/icons';
+import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
+import { BlogCard } from '~/components/common/BlogCard';
+import Grid from '@material-ui/core/Grid';
+import { randomId } from '~/utils';
+import Link from 'next/link';
+import { Pagination } from '@material-ui/lab';
 
 export const blogDemo = [
 	{
@@ -78,7 +78,7 @@ export const blogDemo = [
 		description:
 			"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.",
 	},
-]
+];
 
 const useStyles = makeStyles((theme) => ({
 	featuredBlog: {
@@ -142,7 +142,7 @@ const useStyles = makeStyles((theme) => ({
 	categoryList: {
 		margin: '0 -0.5rem',
 	},
-}))
+}));
 
 const ChipCategory = ({ id, isActive, ...otherProps }) => {
 	const classes = makeStyles((theme) => ({
@@ -153,26 +153,26 @@ const ChipCategory = ({ id, isActive, ...otherProps }) => {
 				boxShadow: '0px 4px 12px 0px rgba(0,0,0,.15)',
 			},
 		},
-	}))()
+	}))();
 	return (
 		<Box m={1} className={isActive ? classes.activeChip : ''}>
 			<Chip {...otherProps} />
 		</Box>
-	)
-}
+	);
+};
 
 const Blog = () => {
-	const classes = useStyles()
-	const [blogs, setBlogs] = useState(null)
-	const [loading, setLoading] = useState(true)
+	const classes = useStyles();
+	const [blogs, setBlogs] = useState(null);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const t = setTimeout(() => {
-			setBlogs(blogDemo)
-			setLoading(false)
-		}, 1500)
-		return () => clearTimeout(t)
-	}, [])
+			setBlogs(blogDemo);
+			setLoading(false);
+		}, 1500);
+		return () => clearTimeout(t);
+	}, []);
 	return (
 		<>
 			<section>
@@ -210,7 +210,7 @@ const Blog = () => {
 								<Link href={`/blog/post/[[...slug]]`} as={`/blog/post/2`}>
 									<Button
 										variant={`contained`}
-										color={`secondary`}
+										color={`primary`}
 										endIcon={<ChevronRight />}
 									>
 										Đọc bài viết
@@ -291,9 +291,9 @@ const Blog = () => {
 				</Paper>
 			</Container>
 		</>
-	)
-}
+	);
+};
 
-Blog.getLayout = getLayout
+Blog.getLayout = getLayout;
 
-export default Blog
+export default Blog;
