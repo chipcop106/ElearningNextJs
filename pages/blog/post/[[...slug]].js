@@ -1,21 +1,21 @@
-import { useRouter } from 'next/router'
-import { getLayout } from '~/components/Layout'
-import React, { useEffect, useState } from 'react'
-import Box from '@material-ui/core/Box'
-import Container from '@material-ui/core/Container'
-import { Avatar, Typography } from '@material-ui/core'
-import Button from '@material-ui/core/Button'
-import { ArrowDownward } from '@material-ui/icons'
-import Paper from '@material-ui/core/Paper'
-import { makeStyles } from '@material-ui/core/styles'
-import { scrollToSmoothly } from '~/utils'
-import Divider from '@material-ui/core/Divider'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
-import { blogDemo } from '~/pages/blog'
-import { BlogCard } from '~/components/common/BlogCard'
+import { useRouter } from 'next/router';
+import { getLayout } from '~/components/Layout';
+import React, { useEffect, useState } from 'react';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import { Avatar, Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import { ArrowDownward } from '@material-ui/icons';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import { scrollToSmoothly } from '~/utils';
+import Divider from '@material-ui/core/Divider';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
+import { blogDemo } from '~/pages/blog';
+import { BlogCard } from '~/components/common/BlogCard';
 
-SwiperCore.use([Navigation, Pagination, A11y])
+SwiperCore.use([Navigation, Pagination, A11y]);
 const useStyles = makeStyles((theme) => ({
 	featuredContainer: {
 		zIndex: 2,
@@ -105,8 +105,8 @@ const useStyles = makeStyles((theme) => ({
 		height: 50,
 		marginRight: '1rem',
 	},
-}))
-let bodyEl
+}));
+let bodyEl;
 
 const RenderSlider = ({ data, isLoading }) => {
 	return (
@@ -141,25 +141,25 @@ const RenderSlider = ({ data, isLoading }) => {
 				</SwiperSlide>
 			))}
 		</Swiper>
-	)
-}
+	);
+};
 
 const Post = () => {
-	const classes = useStyles()
-	const router = useRouter()
-	const [relatedBlogs, setRelatedBlogs] = useState([])
-	const [isLoading, setIsLoading] = useState(true)
+	const classes = useStyles();
+	const router = useRouter();
+	const [relatedBlogs, setRelatedBlogs] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 	const scrollDownSection = (e) => {
-		e.preventDefault()
-		bodyEl = document.querySelector('#__next > div > div:nth-child(2)')
-		if (!bodyEl) return
-		const scrollPost = bodyEl.offsetHeight - 124
-		scrollToSmoothly(bodyEl, scrollPost, 800)
-	}
+		e.preventDefault();
+		bodyEl = document.querySelector('#__next > div > div:nth-child(2)');
+		if (!bodyEl) return;
+		const scrollPost = bodyEl.offsetHeight - 124;
+		scrollToSmoothly(bodyEl, scrollPost, 800);
+	};
 
 	const cleanComponent = () => {
-		bodyEl = null
-	}
+		bodyEl = null;
+	};
 
 	useEffect(() => {
 		const t = setTimeout(() => {
@@ -167,15 +167,15 @@ const Post = () => {
 				blogDemo.map((item) => ({
 					...item,
 					noDescription: true,
-				}))
-			)
-			setIsLoading(false)
-		}, 1500)
+				})),
+			);
+			setIsLoading(false);
+		}, 1500);
 		return () => {
-			cleanComponent()
-			clearTimeout(t)
-		}
-	}, [])
+			cleanComponent();
+			clearTimeout(t);
+		};
+	}, []);
 
 	return (
 		<>
@@ -193,7 +193,7 @@ const Post = () => {
 							<Box mt={{ xs: 4, sm: 4, md: 6, lg: 8 }}>
 								<Button
 									variant={`contained`}
-									color={`secondary`}
+									color={`primary`}
 									endIcon={<ArrowDownward />}
 									size={`large`}
 									onClick={scrollDownSection}
@@ -376,8 +376,8 @@ const Post = () => {
 				</Paper>
 			</Container>
 		</>
-	)
-}
-Post.getLayout = getLayout
+	);
+};
+Post.getLayout = getLayout;
 
-export default Post
+export default Post;
