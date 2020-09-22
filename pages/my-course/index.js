@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { getLayout } from '~/components/Layout';
 import Link from 'next/link';
 import {
@@ -23,7 +23,9 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Divider from '@material-ui/core/Divider';
-
+import { InputAdornment, IconButton } from '@material-ui/core';
+import { Search } from '@material-ui/icons';
+import { MyFilledInput } from '~/components/common/Input';
 export const courseDemo = [
 	{
 		courseId: randomId(),
@@ -267,8 +269,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	formControl: {
 		minWidth: 200,
+		marginRight: '1rem',
 		[theme.breakpoints.down('xs')]: {
 			width: '100%',
+			marginBottom: '1rem',
+			marginRight: 0,
 		},
 		'& .MuiSelect-select:focus': {
 			backgroundColor: '#fff',
@@ -327,7 +332,7 @@ const MyCourse = () => {
 	const [filterValue, setFilterValue] = useState('');
 	const [courseLists, setCourseLists] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-
+	const searchRef = useRef(true);
 	const handleFilterChange = (event) => {
 		const categoryID = event.target.value;
 		setFilterValue(categoryID);
@@ -359,9 +364,13 @@ const MyCourse = () => {
 		}, 1000);
 	};
 
+	const handleSearchCourse = async (e) => {
+		e.preventDefault();
+		console.log(searchRef.current.value);
+	};
+
 	useEffect(() => {
 		getListsCourse();
-		console.log(filterValue);
 	}, [filterValue]);
 
 	return (
@@ -377,7 +386,6 @@ const MyCourse = () => {
 								display={`flex`}
 								alignItems={`center`}
 								flexWrap={`wrap`}
-								justifyContent={`space-between`}
 								style={{ borderBottom: '1px solid #e1e1e1' }}
 							>
 								<FormControl variant="filled" className={classes.formControl}>
@@ -397,6 +405,31 @@ const MyCourse = () => {
 									>
 										{<RenderSelectOption data={filterOptions} />}
 									</Select>
+								</FormControl>
+								<FormControl variant="filled" className={classes.formControl}>
+									<InputLabel shrink htmlFor="search-course">
+										Tìm kiếm khóa học
+									</InputLabel>
+									<MyFilledInput
+										inputRef={searchRef}
+										id="search-course"
+										type={'text'}
+										text={`Search`}
+										value={''}
+										className={classes.select}
+										placeholder={`Nhập tên khóa học`}
+										endAdornment={
+											<InputAdornment position="end">
+												<IconButton
+													aria-label="Tìm kiếm"
+													onClick={handleSearchCourse}
+													edge="end"
+												>
+													<Search />
+												</IconButton>
+											</InputAdornment>
+										}
+									/>
 								</FormControl>
 							</Box>
 							<Divider style={{ backgroundColor: '#e1e1e1' }} />

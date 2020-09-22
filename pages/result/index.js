@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { getLayout } from '~/components/Layout'
-import Link from 'next/link'
+import React, { useEffect, useState } from 'react';
+import { getLayout } from '~/components/Layout';
+import Link from 'next/link';
 import {
 	Container,
 	Grid,
@@ -8,73 +8,57 @@ import {
 	ListItem,
 	ListItemIcon,
 	Typography,
-} from '@material-ui/core'
-import Box from '@material-ui/core/Box'
-import { makeStyles } from '@material-ui/core/styles'
-import AppBar from '@material-ui/core/AppBar'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import HorizontalCardCourse from '~/page-components/MyCourse/HorizontalCardCourse'
-import { Pagination } from '@material-ui/lab'
-import { colors } from '~/config'
-import MyRanking from '~/page-components/Result/MyRanking'
-import { randomId } from '~/utils'
+} from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import HorizontalCardCourse from '~/page-components/MyCourse/HorizontalCardCourse';
+import { Pagination } from '@material-ui/lab';
+import { colors } from '~/config';
+import MyRanking from '~/page-components/Result/MyRanking';
+import { randomId } from '~/utils';
 
 const courseDemo = [
 	{
 		courseId: 1,
 		src: null,
-		courseName:
-			'Display a placeholder preview of your content before the data gets loaded',
+		courseName: 'Bộ phận hàng nhập trong công ty',
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 15,
 		totalVideo: 45,
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
-		categoryName: 'Kỹ năng mềm',
-		categoryId: randomId(),
-	},
-	{
-		courseId: 2,
-		src: null,
-		courseName:
-			'The component is designed to be used directly in your components',
-		time: '20/10/2020 - 25/12/2020',
-		finishedVideo: 35,
-		totalVideo: 38,
-		totalExercise: 45,
-		finishedExercise: 15,
-		finished: false,
-		categoryName: 'Kỹ năng mềm',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo nhân viên mới',
+		categoryId: 1,
 	},
 	{
 		courseId: 3,
 		src: null,
-		courseName:
-			'It works well when it comes to typography as its height is set using em units.',
+		courseName: 'Ứng dụng của Microsoft Office',
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 25,
 		totalVideo: 56,
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
-		categoryName: 'Kỹ năng mềm',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo kỹ năng cơ bản',
+		categoryId: 2,
 	},
 	{
 		courseId: 4,
 		src: null,
-		courseName: 'Inferring dimensions Finished Course',
+		courseName: 'Kỹ năng làm MS PowerPoint',
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 37,
 		totalVideo: 37,
 		totalExercise: 45,
 		finishedExercise: 45,
 		finished: true,
-		categoryName: 'Kỹ năng mềm',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo kỹ năng cơ bản',
+		categoryId: 2,
 	},
 	{
 		courseId: 5,
@@ -86,75 +70,62 @@ const courseDemo = [
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
-		categoryName: 'Kỹ năng mềm',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo nghiệp vụ nâng cao',
+		categoryId: 3,
 	},
 	{
 		courseId: 6,
 		src: null,
-		courseName: 'Inferring dimensions Finished Course',
+		courseName: 'Kỹ năng cần có của trường nhóm (TEAM LEARDER)',
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 33,
 		totalVideo: 78,
 		totalExercise: 45,
 		finishedExercise: 15,
 		finished: false,
-		categoryName: 'Kỹ năng mềm',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo quản lý cấp trung',
+		categoryId: 4,
 	},
 	{
 		courseId: 7,
 		src: null,
-		courseName: 'Inferring dimensions Finished Course',
+		courseName: 'Kỹ năng đánh giá và quy hoạch nhân sự',
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 37,
 		totalVideo: 37,
 		totalExercise: 45,
 		finishedExercise: 45,
 		finished: true,
-		categoryName: 'Kỹ năng mềm',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo quản lý cấp cao',
+		categoryId: 5,
 	},
 	{
 		courseId: 8,
 		src: null,
-		courseName: 'Inferring dimensions Finished Course',
+		courseName: 'Kỹ năng thuyết trình dự án',
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 37,
 		totalVideo: 37,
 		totalExercise: 45,
 		finishedExercise: 45,
 		finished: true,
-		categoryName: 'Kỹ năng mềm',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo nghiệp vụ nâng cao',
+		categoryId: 3,
 	},
 	{
 		courseId: 9,
 		src: null,
-		courseName: 'Inferring dimensions Finished Course',
+		courseName: 'Estimate tiến độ của dự án',
 		time: '20/10/2020 - 25/12/2020',
 		finishedVideo: 37,
 		totalVideo: 37,
 		totalExercise: 45,
 		finishedExercise: 45,
 		finished: true,
-		categoryName: 'Kỹ năng mềm',
-		categoryId: randomId(),
+		categoryName: 'Đào tạo nghiệp vụ nâng cao',
+		categoryId: 3,
 	},
-	{
-		courseId: 10,
-		src: null,
-		courseName: 'Inferring dimensions Finished Course',
-		time: '20/10/2020 - 25/12/2020',
-		finishedVideo: 37,
-		totalVideo: 37,
-		totalExercise: 45,
-		finishedExercise: 45,
-		finished: true,
-		categoryName: 'Kỹ năng mềm',
-		categoryId: randomId(),
-	},
-]
+];
 
 const useStyles = makeStyles((theme) => ({
 	tabWrap: {
@@ -186,10 +157,10 @@ const useStyles = makeStyles((theme) => ({
 		height: 35,
 		color: colors.primaryLighten,
 	},
-}))
+}));
 
 const TabPanel = (props) => {
-	const { children, value, index, ...other } = props
+	const { children, value, index, ...other } = props;
 	return (
 		<div
 			role="tabpanel"
@@ -200,13 +171,13 @@ const TabPanel = (props) => {
 		>
 			{value === index && <Box p={3}>{children}</Box>}
 		</div>
-	)
-}
+	);
+};
 
 const a11yProps = (index) => ({
 	id: `scrollable-force-tab-${index}`,
 	'aria-controls': `scrollable-force-tabpanel-${index}`,
-})
+});
 
 const ListCourse = ({ data, warningDate = false }) => {
 	return (
@@ -229,25 +200,25 @@ const ListCourse = ({ data, warningDate = false }) => {
 				</Box>
 			))}
 		</>
-	)
-}
+	);
+};
 
 const Result = () => {
-	const classes = useStyles()
-	const [value, setValue] = useState(0)
-	const [courseLists, setCourseLists] = useState(courseDemo)
-	const [isLoading, setIsloading] = useState(true)
+	const classes = useStyles();
+	const [value, setValue] = useState(0);
+	const [courseLists, setCourseLists] = useState(courseDemo);
+	const [isLoading, setIsloading] = useState(true);
 	const handleChange = (event, newValue) => {
-		setValue(newValue)
-	}
+		setValue(newValue);
+	};
 
 	useEffect(() => {
-		setIsloading(true)
+		setIsloading(true);
 		const t = setTimeout(() => {
-			setIsloading(false)
-		}, 1500)
-		return () => clearTimeout(t)
-	}, [value])
+			setIsloading(false);
+		}, 1500);
+		return () => clearTimeout(t);
+	}, [value]);
 	return (
 		<Container maxWidth={`xl`}>
 			<h1 className="title-page">Kết quả học tập</h1>
@@ -285,7 +256,7 @@ const Result = () => {
 								<>
 									<ListCourse
 										data={[...courseLists].filter(
-											(item) => item.finished === true
+											(item) => item.finished === true,
 										)}
 									/>
 									<Box display={`flex`} justifyContent={`center`} mt={4}>
@@ -296,7 +267,7 @@ const Result = () => {
 							<TabPanel value={value} index={1} className={classes.tabPanel}>
 								<ListCourse
 									data={[...courseLists].filter(
-										(item) => item.finished !== true
+										(item) => item.finished !== true,
 									)}
 									warningDate={true}
 								/>
@@ -314,7 +285,7 @@ const Result = () => {
 				</Grid>
 			</Grid>
 		</Container>
-	)
-}
-Result.getLayout = getLayout
-export default Result
+	);
+};
+Result.getLayout = getLayout;
+export default Result;

@@ -180,7 +180,7 @@ const useStyles = makeStyles((theme) => ({
 		height: '4px',
 		borderRightTopRadius: 4,
 		borderRightBottomRadius: 4,
-		backgroundColor: colors.secondary,
+		backgroundColor: colors.primary,
 		width: 0,
 		position: 'absolute',
 		bottom: '-2px',
@@ -501,8 +501,8 @@ const CourseDetail = () => {
 									<WhiteTab
 										label={
 											!!state.activeVideo && state.activeVideo.type === 1
-												? 'Quiz'
-												: 'Bài tập'
+												? 'Bài quiz'
+												: 'Bài thi'
 										}
 										icon={<Assignment />}
 										{...a11yProps(1)}

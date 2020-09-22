@@ -1,16 +1,16 @@
-import React from 'react'
-import { Box, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { CourseContext } from '~/pages/my-course/[courseid]'
-import Choice from '~/components/common/TestQuestion/Choice'
-import { randomId } from '~/utils'
-import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider'
-import Chip from '@material-ui/core/Chip'
-import { colors } from '~/config'
-import Link from 'next/link'
-import { green } from '@material-ui/core/colors'
-import { Refresh } from '@material-ui/icons'
+import React from 'react';
+import { Box, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { CourseContext } from '~/pages/my-course/[courseid]';
+import Choice from '~/components/common/TestQuestion/Choice';
+import { randomId } from '~/utils';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import Chip from '@material-ui/core/Chip';
+import { colors } from '~/config';
+import Link from 'next/link';
+import { green } from '@material-ui/core/colors';
+import { Refresh } from '@material-ui/icons';
 const useStyles = makeStyles((theme) => ({
 	score: {
 		backgroundColor: `#FFE05D`,
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 			backgroundColor: green['700'],
 		},
 	},
-}))
+}));
 const questionDemo = [
 	{
 		id: randomId(),
@@ -283,7 +283,7 @@ const questionDemo = [
 		],
 		questionType: 2, // 1 Single, 2 Multiple
 	},
-]
+];
 
 const RenderQuestion = ({ data, multiple }) => {
 	return data.map((item, index) => (
@@ -296,14 +296,14 @@ const RenderQuestion = ({ data, multiple }) => {
 			answers={item.answers}
 			disabled
 		/>
-	))
-}
+	));
+};
 const ExerciseResult = () => {
-	const classes = useStyles()
+	const classes = useStyles();
 	const _handleSubmitExercise = (event) => {
-		event.preventDefault()
-		alert('Submit exercise')
-	}
+		event.preventDefault();
+		alert('Submit exercise');
+	};
 	return (
 		<CourseContext.Consumer>
 			{(context) => (
@@ -343,7 +343,7 @@ const ExerciseResult = () => {
 									</Typography>
 								</Box>
 							</Box>
-							<Box mt={2}>
+							<Box>
 								<Link href={`/my-course/[courseid]`} as={`/my-course/5`}>
 									<Button
 										variant={`contained`}
@@ -375,6 +375,6 @@ const ExerciseResult = () => {
 				</>
 			)}
 		</CourseContext.Consumer>
-	)
-}
-export default ExerciseResult
+	);
+};
+export default ExerciseResult;

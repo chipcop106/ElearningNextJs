@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import Box from '@material-ui/core/Box'
-import IconButton from '@material-ui/core/IconButton'
-import Avatar from '@material-ui/core/Avatar'
-import { Grid } from '@material-ui/core'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import { Save } from '@material-ui/icons'
-import { makeStyles } from '@material-ui/core/styles'
+import React, { useState } from 'react';
+import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
+import { Grid } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { Save } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
 	avatar: {
@@ -32,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
 			},
 		},
 	},
-}))
+}));
 
 const ChangeInformationForm = ({ formData }) => {
-	const classes = useStyles()
-	const [state, setState] = useState(formData)
+	const classes = useStyles();
+	const [state, setState] = useState(formData);
 	return (
 		<form>
 			<Box align={`center`} mb={4}>
@@ -85,6 +85,17 @@ const ChangeInformationForm = ({ formData }) => {
 				</Grid>
 				<Grid item xs={12} sm={12} md={6} lg={6}>
 					<TextField
+						label="Bộ phận"
+						defaultValue="Kinh doanh"
+						className={classes.textField}
+						fullWidth
+						margin="normal"
+						variant="outlined"
+						size="small"
+					/>
+				</Grid>
+				<Grid item xs={12} sm={12} md={6} lg={6}>
+					<TextField
 						label="Chi nhánh"
 						defaultValue="231 Nguyễn Văn Cừ"
 						className={classes.textField}
@@ -116,17 +127,6 @@ const ChangeInformationForm = ({ formData }) => {
 						size="small"
 					/>
 				</Grid>
-				<Grid item xs={12} sm={12} md={6} lg={6}>
-					<TextField
-						label="Địa chỉ"
-						defaultValue="337,227 Lý Thường Kiệt, phường 8 Quận 11"
-						className={classes.textField}
-						fullWidth
-						margin="normal"
-						variant="outlined"
-						size="small"
-					/>
-				</Grid>
 			</Grid>
 			<Box align={`center`} mt={4}>
 				<Button variant={`contained`} startIcon={<Save />} color={`primary`}>
@@ -134,7 +134,7 @@ const ChangeInformationForm = ({ formData }) => {
 				</Button>
 			</Box>
 		</form>
-	)
-}
+	);
+};
 
-export default ChangeInformationForm
+export default ChangeInformationForm;

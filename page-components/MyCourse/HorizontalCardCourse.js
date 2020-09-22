@@ -177,7 +177,7 @@ const HorizontalCardCourse = ({
 					<Box flexGrow={1}>
 						<Typography
 							variant={'subtitle1'}
-							color={`secondary`}
+							color={`primary`}
 							style={{ fontSize: '0.85rem' }}
 						>
 							{category}

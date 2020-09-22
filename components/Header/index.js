@@ -196,7 +196,7 @@ const Header = () => {
 											: ''
 									}`}
 								>
-									<span className={styles.link}>Dashboard</span>
+									<span className={styles.link}>Trang chủ</span>
 								</Box>
 							</Link>
 							<Link href="/my-course">
@@ -246,7 +246,7 @@ const Header = () => {
 							<Badge
 								badgeContent={100}
 								max={99}
-								color="secondary"
+								color="primary"
 								onClick={showNotification}
 								overlap="circle"
 							>

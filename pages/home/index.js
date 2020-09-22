@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { getLayout } from '~/components/Layout'
+import React, { useEffect, useState } from 'react';
+import { getLayout } from '~/components/Layout';
 import {
 	Container,
 	Paper,
@@ -17,27 +17,33 @@ import {
 	ListItemIcon,
 	ListItemText,
 	Link as LinkMU,
-} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import {
 	PhoneIphoneRounded,
 	EmailRounded,
-	VpnKey,
 	PlayCircleOutline,
 	Assignment,
 	AssignmentTurnedIn,
 	Subscriptions,
 	LibraryBooksRounded,
-} from '@material-ui/icons'
-import CircularProgressWithLabel from '~/components/common/CircularProgressWithLabel'
-import { colors } from '~/config'
-import Link from 'next/link'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
-import { blogDemo } from '~/pages/blog'
-import { BlogCard } from '~/components/common/BlogCard'
+	LocationCity,
+} from '@material-ui/icons';
+import CircularProgressWithLabel from '~/components/common/CircularProgressWithLabel';
+import { colors } from '~/config';
+import Link from 'next/link';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, {
+	Navigation,
+	Pagination,
+	A11y,
+	Autoplay,
+	EffectFade,
+} from 'swiper';
+import { blogDemo } from '~/pages/blog';
+import { BlogCard } from '~/components/common/BlogCard';
 
-SwiperCore.use([Navigation, Pagination, A11y])
+SwiperCore.use([Navigation, Pagination, A11y, Autoplay, EffectFade]);
 
 const courseDemo = [
 	{
@@ -70,7 +76,7 @@ const courseDemo = [
 		courseName: "MUI Treasury's customization examples.",
 		deadline: '23/04/2020',
 	},
-]
+];
 
 const useStyles = makeStyles((theme) => ({
 	avatar: {
@@ -128,7 +134,7 @@ const useStyles = makeStyles((theme) => ({
 			boxShadow: '0px 4px 24px 0px rgba(0,0,0,.2)',
 		},
 	},
-}))
+}));
 
 const RowItem = ({ item }) => {
 	const classes = makeStyles({
@@ -154,7 +160,7 @@ const RowItem = ({ item }) => {
 			letterSpacing: 1,
 			fontFamily: 'Roboto',
 		},
-	})()
+	})();
 	return (
 		<ListItem className={classes.rowStyle}>
 			<ListItemIcon>
@@ -191,14 +197,41 @@ const RowItem = ({ item }) => {
 			{/*	secondary={`Deadline: ${item.deadline}`}*/}
 			{/*/>*/}
 		</ListItem>
-	)
-}
+	);
+};
 
 const RenderRow = ({ lists }) => {
 	return [...lists].map((item, index) => (
 		<RowItem key={`${index}`} item={item} />
-	))
-}
+	));
+};
+
+const RenderBanner = ({ data }) => {
+	const classes = useStyles();
+	return (
+		<Swiper
+			spaceBetween={16}
+			slidesPerView={1}
+			pagination={{
+				type: 'bullets',
+			}}
+			effect="coverflow"
+			autoplay={{
+				delay: 3000,
+			}}
+			onSwiper={(swiper) => console.log(swiper)}
+			onSlideChange={() => console.log('slide change')}
+		>
+			{data.map((item) => (
+				<SwiperSlide key={`${item.id}`}>
+					<Box className={classes.bannerWelcome}>
+						<img alt={`banner`} src={`/static/img/banner-welcome.jpg`} />
+					</Box>
+				</SwiperSlide>
+			))}
+		</Swiper>
+	);
+};
 
 const RenderSlider = ({ data, isLoading }) => {
 	return (
@@ -233,25 +266,23 @@ const RenderSlider = ({ data, isLoading }) => {
 				</SwiperSlide>
 			))}
 		</Swiper>
-	)
-}
+	);
+};
 
 const Home = () => {
-	const classes = useStyles()
-	const [isLoading, setIsLoading] = useState(true)
+	const classes = useStyles();
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		let t = setTimeout(() => setIsLoading(false), 2000)
-		return () => clearTimeout(t)
-	}, [])
+		let t = setTimeout(() => setIsLoading(false), 2000);
+		return () => clearTimeout(t);
+	}, []);
 
 	return (
 		<Box py={4}>
 			<Container maxWidth={`xl`}>
-				<Box className={classes.bannerWelcome}>
-					<img alt={`banner`} src={`/static/img/banner-welcome.jpg`} />
-				</Box>
-				<h1 className="title-page">Dashboard</h1>
+				<RenderBanner data={[{ id: 1 }, { id: 2 }, { id: 3 }]} />
+				<h1 className="title-page">Trang chủ</h1>
 				<Paper>
 					<Box p={4}>
 						<Grid container>
@@ -279,7 +310,6 @@ const Home = () => {
 										<Box
 											display={`flex`}
 											alignItems={`center`}
-											mb={2}
 											mt={1}
 											flexWrap={`wrap`}
 										>
@@ -292,15 +322,12 @@ const Home = () => {
 												<Typography>dattocdo@gmail.com</Typography>
 											</Box>
 										</Box>
-										<Button
-											size={`small`}
-											disableElevation
-											variant={`contained`}
-											color="secondary"
-											startIcon={<VpnKey />}
-										>
-											Cập nhật
-										</Button>
+										<Box display={`flex`} alignItems={`center`} mb={1}>
+											<LocationCity className={classes.iconInfo} />
+											<Typography>
+												DOLHCM: 227/336 Lý Thường Kiệt, Phường 15, Quận 11, HCM
+											</Typography>
+										</Box>
 									</Box>
 								</Box>
 							</Grid>
@@ -321,10 +348,10 @@ const Home = () => {
 									</Grid>
 									<Grid xs={6} item>
 										<Box align={`center`}>
-											<Typography>Bài tập chưa hoàn thành</Typography>
+											<Typography>Bài quiz chưa hoàn thành</Typography>
 											<Box mt={2}>
 												<CircularProgressWithLabel
-													color={`secondary`}
+													color={`primary`}
 													thickness={4}
 													size={100}
 													value={35}
@@ -346,7 +373,8 @@ const Home = () => {
 										title="Khóa học đang học"
 										className={classes.cardHeader}
 										titleTypographyProps={{
-											variant: 'h6',
+											variant: 'h5',
+											color: 'primary',
 										}}
 										action={
 											<Link href="/my-course/[courseid]" as={`/my-course/3`}>
@@ -404,7 +432,7 @@ const Home = () => {
 																		variant: 'caption',
 																		color: 'textSecondary',
 																	}}
-																	primary="Bài tập"
+																	primary="Bài quiz"
 																	secondary="Hoàn thành: 5/15"
 																/>
 															</ListItem>
@@ -437,7 +465,7 @@ const Home = () => {
 												<Typography
 													style={{ fontWeight: 700, fontFamily: 'Roboto' }}
 												>
-													Complete NextJS with static file generation
+													Kỹ năng đánh giá và quy hoạch nhân sự
 												</Typography>
 											</Link>
 										</Typography>
@@ -454,10 +482,11 @@ const Home = () => {
 									height={`100%`}
 								>
 									<CardHeader
-										title="Bài tập cần hoàn thành"
+										title="Bài quiz cần hoàn thành"
 										className={classes.cardHeader}
 										titleTypographyProps={{
-											variant: 'h6',
+											variant: 'h5',
+											color: 'primary',
 										}}
 									/>
 									<CardContent
@@ -479,16 +508,18 @@ const Home = () => {
 					</Grid>
 				</Box>
 				<Box mt={4}>
-					<Typography variant={`h6`}>Bài viết mới</Typography>
+					<Typography variant={`h5`} color="primary">
+						Bài viết mới
+					</Typography>
 					<Box mt={2}>
 						<RenderSlider data={blogDemo} isLoading={isLoading} />
 					</Box>
 				</Box>
 			</Container>
 		</Box>
-	)
-}
+	);
+};
 
-Home.getLayout = getLayout
+Home.getLayout = getLayout;
 
-export default Home
+export default Home;

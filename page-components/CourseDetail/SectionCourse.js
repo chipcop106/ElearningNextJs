@@ -111,12 +111,12 @@ const ListItem = ({ data, onClickLink, onCheckbox }) => {
 										style={{ margin: '0 0.5rem', height: 15 }}
 									/>
 									<Description className={classes.metaIcon} />
-									<Box ml={0.5}>Quiz</Box>
+									<Box ml={0.5}>Bài quiz</Box>
 								</>
 							) : (
 								<>
 									<Description className={classes.metaIcon} />
-									<Box ml={0.5}>Bài tập</Box>
+									<Box ml={0.5}>Bài thi</Box>
 								</>
 							)}
 						</Box>
