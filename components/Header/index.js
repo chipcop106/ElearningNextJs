@@ -57,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: '0px 4px 8px 0px rgba(0,0,0,.15)',
 		zIndex: 9,
 	},
+	divider: {
+		marginRight: '1.25rem !important',
+	},
 }));
 
 const DropDownMenu = (props) => {
@@ -141,8 +144,7 @@ const Header = () => {
 						<Hidden mdDown>
 							<Divider
 								orientation="vertical"
-								className={styles.divider}
-								style={{ marginRight: '1.25rem !important' }}
+								className={styles.divider + ' ' + classes.divider}
 							/>
 						</Hidden>
 						<Box

@@ -7,12 +7,20 @@ import React, {
 import { useRouter } from 'next/router';
 import { getLayout } from '~/components/Layout';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, Typography, Chip, Box, AppBar } from '@material-ui/core';
 import {
-	Menu,
+	IconButton,
+	Typography,
+	Chip,
+	Box,
+	AppBar,
+	Tooltip,
+} from '@material-ui/core';
+import {
 	LocalLibrary,
 	OndemandVideo,
 	Assignment,
+	ArrowRightAlt,
+	KeyboardBackspace,
 } from '@material-ui/icons';
 import { colors } from '~/config';
 import SectionGroup from '~/page-components/CourseDetail/SectionCourse';
@@ -382,7 +390,7 @@ const CourseDetail = () => {
 			}}
 		>
 			<Container maxWidth={`xl`} spacing={0} style={{ padding: 0 }}>
-				<Box display={`flex`} style={{ backgroundColor: '#fff' }}>
+				<Box display={`flex`} style={{ backgroundColor: '#fff', height: 50 }}>
 					<Box
 						display={`flex`}
 						justifyContent={`space-between`}
@@ -417,16 +425,24 @@ const CourseDetail = () => {
 								Đã hoàn thành
 							</Typography>
 						</Box>
-						<IconButton
-							edge="start"
-							className={classes.menuButton}
-							color="inherit"
-							aria-label="sidenav"
-							onClick={_toggleSidenav}
-							disableRipple={true}
+						<Tooltip
+							title={state.hideSidebar ? 'Hiện danh sách' : 'Ẩn danh sách'}
 						>
-							<Menu />
-						</IconButton>
+							<IconButton
+								edge="start"
+								className={classes.menuButton}
+								color="inherit"
+								aria-label="sidenav"
+								onClick={_toggleSidenav}
+								disableRipple={true}
+							>
+								{state.hideSidebar ? (
+									<ArrowRightAlt style={{ fontSize: 30 }} />
+								) : (
+									<KeyboardBackspace style={{ fontSize: 30 }} />
+								)}
+							</IconButton>
+						</Tooltip>
 						<Box
 							component={`span`}
 							className={classes.progressBar + ` progressbar`}

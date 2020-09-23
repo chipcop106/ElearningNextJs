@@ -1,5 +1,7 @@
-import React from 'react'
-import { Container, Box, Typography } from '@material-ui/core'
+import React from 'react';
+import { Box, Typography } from '@material-ui/core';
+
+const year = new Date().getFullYear();
 
 const Footer = () => {
 	return (
@@ -17,15 +19,15 @@ const Footer = () => {
 					justifyContent={`space-between`}
 				>
 					<Typography variant={`caption`} style={{ color: '#b4b4b4' }}>
-						Developer by Mona Media
+						Dolphin Elearning - Copyright © {year}
 					</Typography>
 					<Typography variant={`caption`} style={{ color: '#b4b4b4' }}>
-						Copyright @ 2020
+						Design and developer by Mona Media
 					</Typography>
 				</Box>
 			</Box>
 		</>
-	)
-}
+	);
+};
 
-export default Footer
+export default Footer;
